@@ -20,7 +20,7 @@
 
 								<div class="banner_content">
 
-									<h1 class="banner_content_title wow fadeInUp">Modern & Creative Writers we have <span class="custom_color">something</span> for you.</h1>
+									<h1 class="banner_content_title wow fadeInUp">Modern1232 & Creative Writers we have <span class="custom_color">something</span> for you.</h1>
 
 									<div class="top-gap-half-padding"></div>
 
