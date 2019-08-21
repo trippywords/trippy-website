@@ -1,0 +1,1 @@
+ALTER TABLE `user_following` ADD `followed_at` DATETIME NULL DEFAULT NULL AFTER `is_request`;

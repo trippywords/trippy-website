@@ -1,0 +1,269 @@
+.profile_page .profile_page_main_section .profile_main_section.no_any_content {
+
+	background-color: #fff !important;
+
+}
+
+
+
+.error {
+    color: red !important;
+    margin-top: 15px;
+}
+
+
+
+.success {
+
+	color:green;
+
+	display: none;
+
+	margin-top: 15px;
+
+}
+
+
+
+/* Toast S */
+
+#snackbar, #error_message, 
+
+#msguncheck, #msgchecked, 
+
+#msguncheck_one, #msgchecked_one,
+
+#msguncheck_two, #msgchecked_two,
+
+#msguncheck_three, #msgchecked_three,
+
+#erroldpasss, #succoldpass,
+
+#bookmarkremmsg, #bookmarkmsg,
+
+#updateusernm,
+
+#updatefastnm,
+
+#updatelastnm,
+
+#updateemail_toats,
+
+#passwordMismatch,
+
+#updateEmail,
+
+#updateEmailVerify,
+
+#disconnect_fb,
+
+#disconnect_tw,
+
+#userNotFind,
+
+#bookmark_remove,
+
+#connection_remove,
+
+#succ_blocked,
+
+#succ_unblocked,
+
+#succ_reported,
+
+#already_reported,
+
+#sameuseremail,
+
+#sameuserpassword,
+
+#blockedMess_toats,
+
+#following_remove,#follower_remove, #unblock_user,#updatepassword ,#comment_success,
+#news_success, #news_email_enter, #news_resuccess ,#existuser ,#search_toast ,#image_value_toast ,#samefirstname,
+#samelastname , #sameusername{
+
+    visibility: hidden;
+
+    min-width: 250px;
+
+    margin-left: -125px;
+
+    background-color: #333;
+
+    color: #fff;
+
+    text-align: center;
+
+    border-radius: 2px;
+
+    padding: 16px;
+
+    position: fixed;
+
+    z-index: 9;
+
+    left: 50%;
+
+    bottom: 45px;
+
+    font-size: 17px;
+
+}
+
+
+
+#snackbar.show, #error_message.show,
+
+#msguncheck.show, #msgchecked.show,
+
+#msguncheck_one.show, #msgchecked_one.show,
+
+#msguncheck_two.show, #msgchecked_two.show,
+
+#msguncheck_three.show, #msgchecked_three.show,
+
+#erroldpasss.show, #succoldpass.show,
+
+#bookmarkremmsg.show, #bookmarkmsg.show,
+
+#updateusernm.show,
+
+#updatefastnm.show,
+
+#updatelastnm.show,
+
+#updateemail_toats.show,
+
+#passwordMismatch.show,
+
+#updateEmail.show,
+
+#updateEmailVerify.show,
+
+#userNotFind.show,
+
+#disconnect_fb.show,
+
+#disconnect_tw.show,
+
+#bookmark_remove.show,
+
+#connection_remove.show,
+
+#succ_blocked.show,
+
+#succ_unblocked.show,
+
+#succ_reported.show,
+
+#already_reported.show,
+
+#sameuseremail.show,
+
+#sameuserpassword.show,
+
+#blockedMess_toats.show,
+
+#following_remove.show,#follower_remove.show, #unblock_user.show,#updatepassword.show,#comment_success.show,
+#news_success.show , #news_email_enter.show, #news_resuccess.show , #existuser.show ,#search_toast.show,
+#image_value_toast.show  , #samefirstname.show ,#samelastname.show,#sameusername.show{
+
+    visibility: visible;
+
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+}
+
+
+
+@-webkit-keyframes fadein {
+
+    from {bottom: 0; opacity: 0;} 
+
+    to {bottom: 30px; opacity: 1;}
+
+}
+
+
+
+@keyframes fadein {
+
+    from {bottom: 0; opacity: 0;}
+
+    to {bottom: 30px; opacity: 1;}
+
+}
+
+
+
+@-webkit-keyframes fadeout {
+
+    from {bottom: 30px; opacity: 1;} 
+
+    to {bottom: 0; opacity: 0;}
+
+}
+
+
+
+@keyframes fadeout {
+
+    from {bottom: 30px; opacity: 1;}
+
+    to {bottom: 0; opacity: 0;}
+
+}
+
+/* Toast E */
+
+
+/* Modal S */ 
+
+    .modal .modal-dialog.modal-dialog-centered form {
+        width: 100%;
+    }
+
+/* Modal E */ 
+
+
+
+/* Load More E */
+
+    .blog_button {
+        text-align: center;
+    }
+
+/* Load More S */
+
+
+
+/* Comment Section S */
+
+    .categories-list-main.comment-section.comment-new .categories-list  {
+        display: block !important;
+    } 
+
+    .categories-list-main.comment-section.comment-new .categories-list .categories {
+        margin: 5px 0px;
+    }
+
+    .categories-list-main.comment-section.comment-new .categories-list span {
+        color: #58bd47
+    }
+
+/* Comment Section E */
+
+a[disabled="disabled"] {
+    opacity: .4;
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.block_page .block_author_main .block_author_section p {
+    white-space: normal;
+    word-break: break-all;
+}
+

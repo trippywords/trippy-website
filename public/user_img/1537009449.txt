@@ -1,0 +1,41 @@
+1) Email verification - 0.5
+2) Availability filter - 1 hour - Done
+3) Post new ad, Repost Ad, Extend Ad - 1 day - Extend Ad with category regions price,
+4) Featured Pricing by region - 1 hour
+5) Extend Ad Pricing - 1 hour - Done
+6) Repost Ad Pricing- - 1 hour - Done
+8) Photos not uploading when taken from mobile - done
+9) Ad Info underneath ad for grid view - Designer point
+10) On post ad form the option asking members “if they would like their ad posted on home page”
+    doesn’t work. If this is too much work to fix then just remove the option completely and just let
+    all ads post to home page. We’ll add this in future. - where to show ads on home page if user want to show on home page (Show only 10)
+11) Crop images instead of resize - need discussion
+12) Ad profile page – image viewer - 2 hour - Partially done
+13) Delete button for image upload in Ad Post Form and Edit Ad Form - 2 hours
+14) Parameters that aren’t complete yet for Ad Post Form and Edit Ad Form - Done
+15) Filter cache – filters selected by user must stay selected if user leaves page and comes back.
+    Until cache is cleared. - 4 hours
+17) Search function by region (Post List Page search bar) - 3 hours (17 & 18 combine)
+18) Search function by Country and Province (Search icon on top of every page)
+19) Disclaimer pop up – will appear anytime user clears cache and revisits website. On every page 
+    not just home page. - Done
+20) Minor design changes (just color of some text and icons) - Designer point
+
+
+
+New Timeline on 13-08-2018
+----------------------------------------------------------------------------------
+1) Category price and Regions price rework - 1 Day - Done
+2) Post new ad, Repost Ad, Extend Ad - 1 day 
+3) Delete button for image upload in Ad Post Form and Edit Ad Form - 3 hours (Chirag Bhai)
+4) Search function by region (Post List Page search bar) - 3 hours (4 & 5 combine)
+5) Search function by Country and Province (Search icon on top of every page) - Done
+6) Filter cache – filters selected by user must stay selected if user leaves page and comes back.
+   Until cache is cleared. - 4 hours - Partially Done
+
+Designing points : 
+----------------------------------------------------
+1) Remove image icon on post ad form image preview, (http://prntscr.com/ktxvbp)
+2) serach ad modal
+3) Ad profile page image modal design correction (http://prntscr.com/ktxu64)
+4) Ad Info underneath ad for grid view
