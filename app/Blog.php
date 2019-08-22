@@ -51,4 +51,19 @@ class Blog extends Authenticatable
             from `blogs` where `id` = $blog_id");
         return $blog;
     }
+
+     public static function getFeaturedBlog()
+    {
+        $featured_blog=DB::select("SELECT `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `imageSrc`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`blog_genre` as `blogUrl`,`u`.`name` as `authorInfo` 
+            from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u` 
+            where `a`.`id`=`b`.`parent_genre_id` 
+            and `a`.`parent_genre_id`=0 
+            and `c`.`blog_genre`=`b`.`id` 
+            and `u`.`id`=`c`.`created_by` 
+            and `c`.`is_featured`=1 
+            ORDER BY `b`.`name`");
+
+        return $featured_blog;
+
+    }
 }
