@@ -984,13 +984,15 @@ class HomeController extends Controller {
         	->groupBy('comments.blog_id','blogs.id','blogs.blog_title','blogs.blog_image','blogs.created_at','blogs.blog_heading')
         	->get();
 
-        $featured_b = Blog::getFeaturedBlog();
+        $getFeaturedBlog = Blog::getFeaturedBlog();
 
-        $main = array('featuredBlog'=>array($featured_b));
+        //$main = array('featuredBlog'=>array($featured_b));
+
+        $featuredBlog = json_encode(['featuredBlog' => $getFeaturedBlog],JSON_PRETTY_PRINT);
             
 
-		return view('feed',compact('recommeded_blogs','genre_blog','parentGenre','childGenre','nextChild','nextChildCount','displayblogs','featured','trending','latests'))	
-		->with('data',json_encode($main));
+		return view('feed',compact('recommeded_blogs','genre_blog','parentGenre','childGenre','nextChild','nextChildCount','displayblogs','featured','trending','latests','featuredBlog'));	
+		//->with('data',json_encode($main));
 		//return redirect('/dashboard');
 		//return view('feed');
 	}
