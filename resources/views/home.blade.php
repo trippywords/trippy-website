@@ -58,7 +58,7 @@
 
 										@if(!Auth::user())
 
-											<a href="javascript:;" title="Login" class="btn btn-default loginPopup" data-toggle="modal" data-target="#login_modal" style="cursor: pointer;">Login for user</a>
+											<a href="javascript:;" title="Login" class="btn btn-default loginPopup" data-toggle="modal" data-target="#login_modal" style="cursor: pointer;">Login</a>
 
 											<a href="javascript:;" title="Sign Up" class="btn btn-default signup" data-toggle="modal" data-target="#signup_modal" style="cursor: pointer;">Sign Up</a>
 
