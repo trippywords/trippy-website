@@ -47,7 +47,7 @@
             <!-- –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
             <?php 
-             print_r($data);
+             print_r($featuredBlog);
 
             ?>
             <div class="main_content container">
