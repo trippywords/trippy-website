@@ -54,7 +54,7 @@ class Blog extends Authenticatable
 
      public static function getFeaturedBlog()
     {
-        $featured_blog=DB::select("SELECT `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `imageSrc`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`blog_genre` as `blogUrl`,`u`.`name` as `authorInfo` 
+        $featured_blog=DB::select("SELECT `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`blog_genre` as `blogId`,`u`.`name` as `authorInfo` 
             from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u` 
             where `a`.`id`=`b`.`parent_genre_id` 
             and `a`.`parent_genre_id`=0 
