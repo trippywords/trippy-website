@@ -87,17 +87,17 @@
 			</div>
 
 		</div>
-
-
-		<?php 
-		//echo "<pre>";
-		//print_r($blogs);
-		
-
-		?>
 		
 
 	</section>
+
+	<?php
+	/*echo "<pre>";
+	print_r($featuredBlogs);
+	echo "<pre>"; 
+	print_r($featuredBlogsDetails);
+*/
+	?>
 
 	<section>
 	<div class="main_content container">
@@ -106,27 +106,27 @@
 				<div class="block_posts block_4">
 					<!-- block_inner -->
 					<div class="block_inner row">
-					@foreach($blogs as $blog)
+					
 
 						<div class="big_post col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<br><br>
 							<div class="block_img_post">
-								<img src="public/blog_img/{{$blog->blog_image}}" alt="">
+								<img src="" alt="">
 							</div><br>
 							<div class="inner_big_post">
-							 <a href="#" class="btn btn-primary">{{ $blog->blog_title }}</a> 
+							 <!-- <a href="#" class="btn btn-primary"></a>  -->
 								<br/>
-								<div class="title_post"><a href="#"><h4>{{ $blog->blog_title }}</h4></a>
+								<div class="title_post"><a href="#"><h4></h4></a>
 								</div>
 								<div class="big_post_content">
-									<p>{{ $blog->blog_heading }}</p>
+									<p></p>
 								</div>
-								<div class="post_date"><em><a href="#"><?php echo date("F j, Y",strtotime($blog->updated_at));  ?>
+								<div class="post_date"><em><a href="#">
 								</a></em>
 								</div>
 							</div>
 						</div>
-						@endforeach
+						
 						
 					</div>
 					<!-- // block_inner -->
