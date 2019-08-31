@@ -313,7 +313,7 @@ class GenreController extends Controller
 
     {
 
-       	genre::where('id',$id)->update(['is_deleted'=>'1']);
+       	genre::where('id',$id)->update(['is_deleted'=>'Y']);
 
         return redirect()->route('admin-genre.index')
 
@@ -344,7 +344,7 @@ class GenreController extends Controller
 
 
 
-		  $genres = DB::table('genres')->where('is_deleted','=','0')
+		  $genres = DB::table('genres')->where('is_deleted','=','N')
 
 		      ->select('id', 'name', 'parent_genre_id', 'genre_image','is_deleted', 'is_published', 'created_at','updated_at')
 
