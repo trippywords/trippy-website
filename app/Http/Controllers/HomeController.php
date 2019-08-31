@@ -1020,39 +1020,26 @@ class HomeController extends Controller {
 		$parentGenreResult=Blog::getParentGenre();
 
 		foreach ($parentGenreResult as $row) {
-			//for getting child genre for featured blogs details
-			//dd($row->parentGenreId);	
+			//for getting child genre for featured blogs details	
 			$childGenreResult=Blog::getChildGenre($row->parentGenreId);
-			//dd($childGenreResult);
-			$row->childGenre=$childGenreResult;
+			
+			$row->childGenres=$childGenreResult;
 			$blogResult=array();
 
 			foreach ($childGenreResult as $blogs) {
-				//for getting multiple blogs per child genre for featured blog details
-				//print_r($blogs->childgenreid);
-				
+				//for getting multiple blogs per child genre for featured blog details		
 				$blogResult=Blog::getChildBlogs($blogs->childgenreid);
 				
-				foreach ($blogResult as $value) {
-				
-				if(!empty($value))
-				{
-					
-					$blogs->blogs=$blogResult;
-					//print_r($value);
-				}
-			 }
+				$blogs->blogs=$blogResult;		
 
-		}
+			}
 			$finalsResult[]=$row;
-	}
+		}
 		
 		//JSON for featuredBlogs
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
-		//dd($featuredBlogsDetails);
-
 		
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}

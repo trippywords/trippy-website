@@ -95,8 +95,8 @@
 	/*echo "<pre>";
 	print_r($featuredBlogs);
 	echo "<pre>"; 
-	print_r($featuredBlogsDetails);
-*/
+	print_r($featuredBlogsDetails);*/
+
 	?>
 
 	<section>
