@@ -45,6 +45,11 @@
                 <!--End Mian slider -->
             </div>
             <!-- –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+            <?php 
+             print_r($featuredBlog);
+
+            ?>
             <div class="main_content container">
                 <!-- main_content -->
                 <!-- block_posts block_4 -->

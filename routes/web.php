@@ -49,7 +49,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@Home')->name('home');
 
-Route::get('/feed','HomeController@feed');
+//Route::get('/feed','HomeController@feed');
+
 //Route::get('/feed', 'HomeController@feed')->name('thankyou');
 Route::get('/feed/{id}/showSingleBlog','HomeController@showSingleBlog')->name('feed.showSingleBlog');
 

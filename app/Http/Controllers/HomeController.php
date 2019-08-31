@@ -915,11 +915,7 @@ class HomeController extends Controller {
 
 		}
 
-		
-
 	}
-
-	
 
 	public function thankyou(){
 
@@ -928,6 +924,7 @@ class HomeController extends Controller {
 	}
 
 	public function feed(){
+
 		$recommeded_blogs = DB::table('blogs')
               ->join('users','blogs.created_by','=','users.id')
               ->join('genres','blogs.blog_genre','=','genres.id')
@@ -984,11 +981,20 @@ class HomeController extends Controller {
         	->groupBy('comments.blog_id','blogs.id','blogs.blog_title','blogs.blog_image','blogs.created_at','blogs.blog_heading')
         	->get();
 
+        $getFeaturedBlog = Blog::getFeaturedBlog();
 
-		return view('feed',compact('recommeded_blogs','genre_blog','parentGenre','childGenre','nextChild','nextChildCount','displayblogs','featured','trending','latests'));
-		//return redirect('/dashboard');
-		//return view('feed');
+        $parentGenre1 = Blog::getParentGenre();
+        $childGenre1= Blog::getChildGenre();
+
+
+
+        $featuredBlogs = json_encode(['featuredBlogs' => $getFeaturedBlog],JSON_PRETTY_PRINT);
+            
+        //$FeaturedBlogDetail=json_encode(['FeaturedBlogDetail'=>$getFeaturedBlogDetail],JSON_PRETTY_PRINT);
+		return view('feed',compact('recommeded_blogs','genre_blog','parentGenre','childGenre','nextChild','nextChildCount','displayblogs','featured','trending','latests','featuredBlogs'));	
+		
 	}
+
 
 	public function showSingleBlog($id)
 	{
@@ -1006,21 +1012,37 @@ class HomeController extends Controller {
 	}
 
 	public function Home(){
-		$blogs = DB::table('blogs')
-              ->join('users','blogs.created_by','=','users.id')
-              ->join('genres','blogs.blog_genre','=','genres.id')
-              //->where('blogs.is_delete',"=","0")
-              ->where('blogs.is_recommended',"=",1)
-              ->select('blogs.id','blogs.blog_title','blogs.blog_heading','blogs.blog_image','blogs.updated_at','genres.name as genre','users.name as user')                
-              ->limit(3)
-              ->orderBy('blogs.created_at', 'desc')    
-              ->get();
-		return view('home',compact('blogs'));
-		//return view('home');
 
+		//For getting featured blogs with one blog as per timestamp 
+		$getFeaturedBlog = Blog::getFeaturedBlog();
+
+		//For getting parent genre for featured blog details
+		$parentGenreResult=Blog::getParentGenre();
+
+		foreach ($parentGenreResult as $row) {
+			//for getting child genre for featured blogs details	
+			$childGenreResult=Blog::getChildGenre($row->parentGenreId);
+			
+			$row->childGenres=$childGenreResult;
+			$blogResult=array();
+
+			foreach ($childGenreResult as $blogs) {
+				//for getting multiple blogs per child genre for featured blog details		
+				$blogResult=Blog::getChildBlogs($blogs->childgenreid);
+				
+				$blogs->blogs=$blogResult;		
+
+			}
+			$finalsResult[]=$row;
+		}
+		
+		//JSON for featuredBlogs
+		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
+		//JSON for FeaturedBlogDetails
+		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
+		
+		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
-
-	
 
 }
 
