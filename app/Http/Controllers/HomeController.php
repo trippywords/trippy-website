@@ -1041,6 +1041,7 @@ class HomeController extends Controller {
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
 		
+		
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
 

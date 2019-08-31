@@ -46,7 +46,7 @@ class DashboardController extends Controller
    {
 
         $user_count=User::where('is_delete','=','0')->count();       //where('is_delete','=','0')->              
-        $genre = Genre::where('is_deleted','0')->count();
+        $genre = Genre::where('is_deleted','N')->count();
         $blogs_count = Blog::where('is_delete','0')->count();
         $publish_blog_count=Blog::where('blog_status','=','1')->where('is_delete','0')->count();
         $draft_blog_count=Blog::where('blog_status','=','2')->where('is_delete','0')->count();
