@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="row center-newsletter">
                 <div class="col-lg-7 col-sm-6">
-                    <div class="subscribe-content">Subscribe to our News letter</div>
+                    <div class="subscribe-content">Subscribe to our Newsletter</div>
                 </div>
                 <div class="col-lg-5 col-sm-6">
                 	<div id="news_success">Newsletter subscribed</div>
@@ -53,11 +53,8 @@
 				</a>
 			</div>
 			<div class="copyright-main">
-				<div class="follow_section">
-					<a href="http://cosmonautgroup.com" target="_blank" rel='nofollow' style="color:#fff">&nbsp;Powered by Cosmonaut</a>
-				</div>
 				<div class="copyright_section">
-					<div class="copyright" style="text-transform:capitalize">Copyright &copy; 2018 All Rights Reserved. &nbsp;&nbsp;&nbsp;
+					<div class="copyright" style="text-transform:capitalize">Copyright &copy; 2019 All Rights Reserved. &nbsp;&nbsp;&nbsp;
 					</div>
 				</div>
 			</div>
