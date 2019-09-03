@@ -125,23 +125,7 @@
                   <div class="modal-body">
                     <div class="form_modal">
                       <div class="row">
-                        <div class="col-md-6 col-sm-5 form_details_grid">
-                          <div class="form_details">
-                            <h2 class="login_form_details_title">Login Form</h2>
-                            <ul>
-                              <li>
-                                Ut mattis mattis bibendum
-                              </li>
-                              <li>
-                                Nullam rutrum sagittis interdum
-                              </li>
-                              <li>
-                                Nam cursus eros sed elit
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-7 form_section_grid">
+                        <div class="col-md-12 col-sm-12 form_section_grid">
                           <div class="form_section">
                             <div class="form_breadcrumbs">
                               <ul>
@@ -234,28 +218,12 @@
                   <div class="modal-body">
                     <div class="form_modal">
                       <div class="row">
-                        <div class="col-md-6 col-sm-5 form_details_grid">
-                          <div class="form_details">
-                            <h2 class="login_form_details_title">SignUp Form</h2>
-                            <ul>
-                              <li>
-                                Ut mattis mattis bibendum
-                              </li>
-                              <li>
-                                Nullam rutrum sagittis interdum
-                              </li>
-                              <li>
-                                Nam cursus eros sed elit
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-7 form_section_grid">
+                        <div class="col-md-12 col-sm-12 form_section_grid">
                           <div class="form_section">
                             <div class="form_breadcrumbs">
                               <ul>
                                 <li id="show_login" style="cursor: pointer;">Login</li>
-                                <li class="font-secondary">/</li>
+                                <li>/</li>
                                 <li class="font-secondary" style="cursor: pointer;">SignUp</li>
                               </ul>
                             </div>
@@ -364,30 +332,14 @@
                   <div class="modal-body">
                     <div class="form_modal">
                       <div class="row">
-                        <div class="col-md-6 col-sm-5 form_details_grid">
-                          <div class="form_details">
-                            <h2 class="login_form_details_title">Forgot Password</h2>
-                            <!--<ul>
-                              <li>
-                                Ut mattis mattis bibendum
-                              </li>
-                              <li>
-                                Nullam rutrum sagittis interdum
-                              </li>
-                              <li>
-                                Nam cursus eros sed elit
-                              </li>
-                            </ul>-->
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-7 form_section_grid">
+                        <div class="col-md-12 col-sm-12 form_section_grid">
                           <div class="form_section">                                        
                             <form method="POST" id="forgetpassForm" action="{{ URL('/forgetpass') }}">
                               @csrf
                               <div class="login_signup_form">
                                 <div class="form-group">
                                   <div class="input-group">
-                                    <input id="forgetpassemail" type="email" class="form-control login_signup_input" name="forgetpassemail" value="" >
+                                    <input id="forgetpassemail" type="email" class="form-control login_signup_input" name="forgetpassemail" value="" placeholder="Email">
                                     <div class="input-group-btn">
                                       <div>
                                         <i class="icon-contact"></i>
@@ -429,23 +381,7 @@
                   <div class="modal-body">
                     <div class="form_modal">
                       <div class="row">
-                        <div class="col-md-6 col-sm-5 form_details_grid">
-                          <div class="form_details">
-                            <h2 class="login_form_details_title">Reset Password</h2>
-                            <!--<ul>
-                              <li>
-                                Ut mattis mattis bibendum
-                              </li>
-                              <li>
-                                Nullam rutrum sagittis interdum
-                              </li>
-                              <li>
-                                Nam cursus eros sed elit
-                              </li>
-                            </ul>-->
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-sm-7 form_section_grid">
+                        <div class="col-md-12 col-sm-12 form_section_grid">
                           <div class="form_section">                                        
                             <form method="POST" id="resetpassForm" name="resetpassForm" action="{{ URL('/updatepass') }}">
                               @csrf

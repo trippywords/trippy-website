@@ -1648,46 +1648,17 @@
 		margin-right: 25px;
 
 		transition: 0.8s;
-
+		border-radius: 2px;
 	}
 
 
 
 	.banner_section .banner_content .banner_section_buttons .btn:hover {
-
 		transition: 0.8s;
-
-		color: #373737;
-
-		background: #fff;
-
-	}
-
-
-
-	.banner_section .banner_content .banner_section_buttons .btn.signup {
-
-		background: #fff;
-
-		color: #373737;
-
-		transition: 0.8s;
-
-	}
-
-
-
-	.banner_section .banner_content .banner_section_buttons .btn.signup:hover {
-
-		transition: 0.8s;
-
-		background: transparent;
-
+		background: #32bef9;
+		border: 1px solid #32bef9;
 		color: #fff;
-
 	}
-
-
 
 	@media (max-width: 991px) {
 
@@ -2177,17 +2148,9 @@
 
 
 	@media (min-width: 767px) {
-
-
-
 		.login_signup_modal.modal .modal-dialog {
-
-			max-width: 712px;
-
+			max-width: 400px;
 		}
-
-
-
 	}
 
 
@@ -2370,19 +2333,13 @@
 
 
 	.about_trippywords_section .about_trippywords .about_trippywords_tab_section .tabcontent {
-
-		background: #f5f6f8;
-
+		background: #32bef9;
 		color: #5e5e5e;
-
+		width: 74.5%;
 		padding: 15px;
-
 		margin-top: 0px;
-
-		-webkit-animation: fadeEffect 1s;
-
-	    animation: fadeEffect 1s;
-
+		-webkit-animation: fadeEffect 1.5s;
+	    animation: fadeEffect 1.5s;
 	}
 
 
@@ -2412,7 +2369,7 @@
 	.about_trippywords_section .about_trippywords .about_trippywords_tab_section .tabcontent .desc {
 
 		font-size: 15px;
-
+		color: #fff;
 		line-height: 175%;
 
 	}
@@ -6690,15 +6647,14 @@
 
 	.subscribe-mail {
 		background: #808080;
-		padding: 20px;
-		margin-top:10px; 
+		padding: 20px; 
 	}
 	.subscribe-content {
 		color: #fff;
 	    font-size: 18px;
 	    font-weight: 400;
-	    /*text-transform: uppercase;*/
-	    line-height: 120%;
+		line-height: 120%;
+		margin-top: 6px;
 	}
 	.center-newsletter {
 		align-items: center;
@@ -7535,7 +7491,7 @@
 
 .subscribe-mail .center-newsletter .input-group .input-group-btn .sub_btn {
 	letter-spacing: 1.5px;	
-	padding: 12px 20px;
+	padding: 8px 20px;
 }
 
 /*

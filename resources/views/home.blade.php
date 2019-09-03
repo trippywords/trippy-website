@@ -24,7 +24,9 @@
 
 									<div class="top-gap-half-padding"></div>
 
-									<?php if(!Auth::user()): ?>
+									<?php
+if (!Auth::user()):
+?>
 
 									@if (\Session::has('facebooksignupmsg'))
 
@@ -66,7 +68,9 @@
 
 									</div>
 
-									<?php endif; ?>
+									<?php
+endif;
+?>
 
 								</div>
 
@@ -92,467 +96,12 @@
 	</section>
 
 	<?php
-	/*echo "<pre>";
-	print_r($featuredBlogs);
-	echo "<pre>"; 
-	print_r($featuredBlogsDetails);*/
+/*echo "<pre>";
+print_r($featuredBlogs);
+echo "<pre>"; 
+print_r($featuredBlogsDetails);*/
 
-	?>
-
-	<section>
-	<div class="main_content container">
-				<!-- main_content -->
-				<!-- block_posts block_4 -->
-				<div class="block_posts block_4">
-					<!-- block_inner -->
-					<div class="block_inner row">
-					
-
-						<div class="big_post col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<br><br>
-							<div class="block_img_post">
-								<img src="" alt="">
-							</div><br>
-							<div class="inner_big_post">
-							 <!-- <a href="#" class="btn btn-primary"></a>  -->
-								<br/>
-								<div class="title_post"><a href="#"><h4></h4></a>
-								</div>
-								<div class="big_post_content">
-									<p></p>
-								</div>
-								<div class="post_date"><em><a href="#">
-								</a></em>
-								</div>
-							</div>
-						</div>
-						
-						
-					</div>
-					<!-- // block_inner -->
-						</div>
-						</section>
-
-		<section>
-
-
-			<div class="container">
-
-				<div class="posts_sidebar clearfix">
-					<!--Start Posts Areaa -->
-					<div class="posts_areaa col-md-7">
-						<!-- posts_areaa -->
-						<div class="row">
-							<div class="block_posts block_1">
-								<!-- block_posts block_1 -->
-								<div class="featured_title">
-									<!-- featured_title -->
-									<div class="col-md-3 pd0">
-										<h4>Business</h4>
-									</div>
-									<div class="col-md-9">
-										<ul class="nav navbar-nav navbar-right">
-											<li role="presentation"><a href="#">Enterpenuarship</a>
-											</li>
-											<li role="presentation"><a href="#">Startup</a>
-											</li>
-											<li role="presentation"><a href="#">Marketing</a>
-											</li>
-											<li role="presentation"><a href="#">Leadership</a>
-											</li>
-											<li role="presentation" class="dropdown">	<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-										  More <span class="caret"></span>
-										</a>
-												<ul class="dropdown-menu">
-													<li role="presentation"><a href="#">Enterpenuarship</a>
-													</li>
-													<li role="presentation"><a href="#">Startup</a>
-													</li>
-													<li role="presentation"><a href="#">Marketing</a>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<!-- // featured_title -->
-								<div class="block_inner row">
-									<!-- block_inner -->
-									<div class="big_post col-lg-6 col-md-6 col-sm-6 col-xs-6">
-										<!-- big_post -->
-										<div class="block_img_post">
-											<!-- block_img_post -->
-											<img src="public/blog_img/1525844648.jpg" alt="Use A Passage Of Lorem Ipsum">
-										</div>
-										<!-- // block_img_post -->
-										<div class="inner_big_post">
-											<!-- inner_big_post -->
-											<div class="title_post">
-												<!-- title_post -->	<a href="#"><h4>Use A Passage Of Lorem Ipsum</h4></a>
-											</div>
-											<!-- // title_post -->
-											<div class="big_post_content">
-												<!-- big_post_content -->
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-											</div>
-											<!-- // big_post_content --> <a href="#" class="btn btn-primary">See More</a> 
-										</div>
-										<!-- // inner_big_post -->
-									</div>
-									<!-- // big_post -->
-									<div class="small_list_post col-lg-6 col-md-6 col-sm-6 col-xs-6">
-										<!-- small_list_post -->
-										<ul>
-											<li class="small_post clearfix">
-												<!-- small_post -->
-												<div class="img_small_post">
-													<!-- img_small_post -->
-													<img src="public/blog_img/1525844648.jpg" alt="Consectetur adipisicing elit">
-												</div>
-												<!-- // img_small_post -->
-												<div class="small_post_content">
-													<!-- small_post_content -->
-													<div class="title_small_post">
-														<!-- title_small_post -->	<a href="#"><h5> velit esse cillum dolore eu fugiat nulla pariatur</h5></a>
-													</div>
-													<!-- // title_small_post -->
-													<div class="post_date"><em><a href="#">July 01, 2014</a></em>
-													</div>
-												</div>
-												<!-- // small_post_content -->
-											</li>
-											<!-- // small_post -->
-											<li class="small_post clearfix">
-												<!-- small_post -->
-												<div class="img_small_post">
-													<!-- img_small_post -->
-													<img src="public/blog_img/1525844648.jpg" alt="Consectetur adipisicing elit">
-												</div>
-												<!-- // img_small_post -->
-												<div class="small_post_content">
-													<!-- small_post_content -->
-													<div class="title_small_post">
-														<!-- title_small_post -->	<a href="#"><h5>Elit Sed Do Eiusmod Tempor Incididunt</h5></a>
-													</div>
-													<!-- // title_small_post -->
-													<div class="post_date"><em><a href="#">July 01, 2014</a></em>
-													</div>
-												</div>
-												<!-- // small_post_content -->
-											</li>
-											<!-- // small_post -->
-											<li class="small_post clearfix">
-												<!-- small_post -->
-												<div class="img_small_post">
-													<!-- img_small_post -->
-													<img src="public/blog_img/1525844648.jpg" alt="Consectetur adipisicing elit">
-												</div>
-												<!-- // img_small_post -->
-												<div class="small_post_content">
-													<!-- small_post_content -->
-													<div class="title_small_post">
-														<!-- title_small_post -->	<a href="#"><h5>incididunt ut dolore magna</h5></a>
-													</div>
-													<!-- // title_small_post -->
-													<div class="post_date"><em><a href="#">July 01, 2014</a></em>
-													</div>
-												</div>
-												<!-- // small_post_content -->
-											</li>
-											<!-- // small_post -->
-											<li class="small_post clearfix">
-												<!-- small_post -->
-												<div class="img_small_post">
-													<!-- img_small_post -->
-													<img src="public/blog_img/1525844648.jpg" alt="Consectetur adipisicing elit">
-												</div>
-												<!-- // img_small_post -->
-												<div class="small_post_content">
-													<!-- small_post_content -->
-													<div class="title_small_post">
-														<!-- title_small_post -->	<a href="#"><h5>Consectetur Adipisicing Elit, Sed Do Eiusmod</h5></a>
-													</div>
-													<!-- // title_small_post -->
-													<div class="post_date"><em><a href="#">July 01, 2014</a></em>
-													</div>
-												</div>
-												<!-- // small_post_content -->
-											</li>
-											<!-- // small_post -->
-										</ul>
-									</div>
-									<!-- // small_list_post -->
-								</div>
-								<!-- // block_inner -->
-							</div>
-							<!-- // block_posts block_1 -->
-						</div>
-					</div>
-
-
-		
-		
-			<div class="sidebar col-md-5">
-						<!--Start Sidebar -->
-						<div class="row">
-							<div class="inner_sidebar">
-								<!--Start Inner Sidebar -->
-								<div class="widget widget_recent_post">
-									<!-- Start widget recent post -->
-									<!--<h4 class="widget_title">Recent Post</h4>-->
-									<!-- Nav tabs -->
-									<ul class="nav nav-tabs" role="tablist">
-										<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Latest</a>
-										</li>
-										<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular</a>
-										</li>
-										<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Features</a>
-										</li>
-										<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Trending</a>
-										</li>
-									</ul>
-									<!-- Tab panes -->
-									<div class="tab-content">
-										<div role="tabpanel" class="tab-pane active" id="home">
-											<ul class="recent_post">
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div role="tabpanel" class="tab-pane fade" id="profile">
-											<ul class="recent_post">
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div role="tabpanel" class="tab-pane fade" id="messages">
-											<ul class="recent_post">
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-										<div role="tabpanel" class="tab-pane fade" id="settings">
-											<ul class="recent_post">
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<figure class="widget_post_thumbnail">
-														<a href="#">
-															<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-														</a>
-													</figure>
-													<div class="widget_post_info">
-														<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-														<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-															<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- End widget recent post -->
-							</div>
-							<!--End Inner Sidebar -->
-						</div>
-					</div>
-					<!--End Sidebar -->
-					</div>
-				
-				<!-- Posts And Sidebar -->
-
-		</section>
-
-
-				
+?>
 
 		<div class="section-gap-half-padding about_trippywords_section">
 
@@ -566,40 +115,39 @@
 
 							<h2 class="title">About TrippyWords</h2>
 
-							<p class="details">
-
-								We strongly believe that '<span class="font-bold">Content is the King</span>'. We realised that there is a need for a <span class="font-bold">customised</span> and <span class="font-bold">structured</span> platform where people can <span class="font-bold">promote</span> their quality content.
-
-							</p>
-
 							<div class="about_trippywords_tab_section">
 
 								<div class="tab">
+									<div class="tablinks active" onclick="openCity(event, 'who_are_we')" id="defaultOpen">Who Are We?</div>
+									<div class="tablinks" onclick="openCity(event, 'what_we_do')">What we do?</div>
+									<div class="tablinks" onclick="openCity(event, 'how_it_works')">How It Works?</div>
+								</div>
 
-									<div class="tablinks active" onclick="openCity(event, 'what_we_do')" id="defaultOpen">What we do?</div>
-
-									<div class="tablinks" onclick="openCity(event, 'how_its_works')">How Its Works?</div>
-
+								<div id="who_are_we" class="tabcontent">
+									<p class="desc">
+										We are Trippy Guys trying to get high on creativity.
+										We're passionate about marketing and are here to help the modern and creative content writers.
+										We strongly believe that 'Content is the King'.
+										We realised that there is a need for a customised and structured platform where people can promote their quality content.
+										This idea gave us the kick and we are serious about it.
+									</p>
 								</div>
 
 								<div id="what_we_do" class="tabcontent">
-
 									<p class="desc">
-
-										We strongly believe in shared economy and are on the track of building potential business channel for quality content writers through our platform.We help the content writers in finding good opportunities. We also promote your work through different marketing channels and provide the required exposure to get new projects and develop business for you.
-
+									We strongly believe in shared economy and are on the track of building a potential business channel for quality content 
+									writers through our platform. We help the content writers in finding good opportunities.
+									We also promote your work through different marketing channels and provide the required exposure to get new projects and 
+									develop business for you.
 									</p>
-
 								</div>
 
-								<div id="how_its_works" class="tabcontent" style="display: none;">
-
+								<div id="how_it_works" class="tabcontent" style="display: none;">
 									<p class="desc">
-
-										@We strongly believe in shared economy and are on the track of building potential business channel for quality content writers through our platform.We help the content writers in finding good opportunities. We also promote your work through different marketing channels and provide the required exposure to get new projects and develop business for you.
-
+										A content writer signs up with Trippy Words and posts minimum 1 blog (minimum 600 words) of any genre they like every month.
+										This content would be checked for originality and plagiarism and once approved will feature on the respective genre.
+										These blogs will be circulated and promoted on all social media and the credits will belong to the content creator.
 									</p> 
-
 								</div>
 
 							</div>
@@ -660,5 +208,3 @@ setTimeout(function(){
 }, 5000 ); // 5 secs
 </script>
 @endsection
-
-	
