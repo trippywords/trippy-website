@@ -96,14 +96,59 @@ endif;
 	</section>
 
 	<?php
-/*echo "<pre>";
-print_r($featuredBlogs);
-echo "<pre>"; 
-print_r($featuredBlogsDetails);*/
 
-?>
+$featuredBlogsRow = json_decode($featuredBlogs, TRUE);
+$featuredRow = $featuredBlogsRow['featuredBlogs'];
+// foreach($featuredRow as $blog) {
+// 	echo $blog['parentGenre'];
+// }
 
-		<div class="section-gap-half-padding about_trippywords_section">
+// echo "<pre>";
+//print_r($featuredRow);
+// echo "<pre>"; 
+//print_r($featuredBlogsDetails);
+?> 
+
+	<!-- Featured Blogs Top Row -->
+	<div class="container section-gap-half-padding">
+		<div class="featured-blogs row">
+			@foreach ($featuredRow as $blog)
+				<div class="col-md-4">
+					<div>{{ $blog['parentGenre'] }}</div>
+					<img src="public/blog_img/{{ $blog['blogImg'] }}" alt="">
+					<div>{{ $blog['childGenre'] }}</div>
+					<div>{{ $blog['title'] }}</div>
+					<div>{{ $blog['description'] }}</div>
+				</div>
+			@endforeach
+		</div>  
+	</div>
+
+	<div class="container section-gap-half-padding">
+	<div class="featured-blogs row">
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+			@foreach ($featuredRow as $blog)
+                <div class="item">
+					<div>
+						<div>{{ $blog['parentGenre'] }}</div>
+						<img src="public/blog_img/{{ $blog['blogImg'] }}" alt="">
+						<div>{{ $blog['childGenre'] }}</div>
+						<div>{{ $blog['title'] }}</div>
+						<div>{{ $blog['description'] }}</div>
+					</div>
+				</div>
+			@endforeach
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+	</div>
+</div>
+
+
+	<!-- About Us -->
+	<div class="section-gap-half-padding about_trippywords_section">
 
 			<div class="container">
 
