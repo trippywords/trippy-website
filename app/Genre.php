@@ -39,6 +39,7 @@ class Genre extends Model
 
     public static function getGenres($user_id=null){
 
+        
     	if (isset($user_id) && intval($user_id) > 0) {
     		$user = DB::select("SELECT DISTINCT `genres`.*,`user_preferences`.`preference_id` FROM `genres`
 inner join `user_preferences` on `user_preferences`.`preference_id` = `genres`.`id`

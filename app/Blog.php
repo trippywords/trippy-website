@@ -58,8 +58,10 @@ class Blog extends Authenticatable
     }
 
     //Function for getting parent genre for featured blogs
-    public static function getParentGenre()
+    public static function getParentGenre($user=null)
     {
+
+       // dd($user);
         $parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre from genres a,genres b,blogs c where a.id=b.parent_genre_id and a.parent_genre_id=0 and c.blog_genre=b.id and c.is_featured=1");
         return $parent_genre;
     }
