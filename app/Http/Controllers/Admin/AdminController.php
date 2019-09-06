@@ -139,7 +139,7 @@ class AdminController extends Controller
 
          Auth::guard('web')->logout();         
 
-         return redirect('/home');
+         return redirect('/');
 
     }
 

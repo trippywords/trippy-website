@@ -1015,26 +1015,22 @@ class HomeController extends Controller {
 	}
 
 	public function Home(Request $request){
-		//$user=null;
 
 		if(isset(Auth()->user()->id) && intval(Auth()->user()->id) > 0)
 		{
-			$user=Auth()->user()->id;
+			$user_id=Auth()->user()->id;
 
 		}
 		else{
-			$user=null;
+			$user_id=null;
 
 		}
 
-		//print_r($user);
-		
-
 		//For getting featured blogs with one blog as per timestamp 
-		$getFeaturedBlog = Blog::getFeaturedBlog();
+		$getFeaturedBlog = Blog::getFeaturedBlog($user_id);
 
 		//For getting parent genre for featured blog details
-		$parentGenreResult=Blog::getParentGenre($user);
+		$parentGenreResult=Blog::getParentGenre($user_id);
 
 		foreach ($parentGenreResult as $row) {
 			//for getting child genre for featured blogs details	
@@ -1057,7 +1053,8 @@ class HomeController extends Controller {
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
-		
+		/*echo "<pre>";
+		print_r($featuredBlogsDetails);*/
 		
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
