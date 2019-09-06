@@ -62,7 +62,7 @@ class BlogController extends Controller
 
     {
 
-        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','0')->where('parent_genre_id','!=','0')->orderBy('name')->get()->toArray();
+        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get()->toArray();
        // dd($data);        
 
         return view('admin.blog.create',$data);
@@ -210,7 +210,9 @@ class BlogController extends Controller
 
     {
 
-        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=',0)->orderBy('name')->get()->toArray();
+       
+        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','N')->orderBy('name')->get()->toArray();
+        
 
         $data['blog'] = Blog::where("blog_slug","=",$slug)->first(); 
 
