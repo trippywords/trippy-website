@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 use Validator;
 
 use Redirect;
@@ -29,6 +30,8 @@ use App\Userpreferance;
 use App\Blog;
 
 use App\Genre;
+use session;
+
 
 class HomeController extends Controller {
 
@@ -1011,13 +1014,23 @@ class HomeController extends Controller {
 		print_r($multi_blog);
 	}
 
-	public function Home(){
+	public function Home(Request $request){
+
+		if(isset(Auth()->user()->id) && intval(Auth()->user()->id) > 0)
+		{
+			$user_id=Auth()->user()->id;
+
+		}
+		else{
+			$user_id=null;
+
+		}
 
 		//For getting featured blogs with one blog as per timestamp 
-		$getFeaturedBlog = Blog::getFeaturedBlog();
+		$getFeaturedBlog = Blog::getFeaturedBlog($user_id);
 
 		//For getting parent genre for featured blog details
-		$parentGenreResult=Blog::getParentGenre();
+		$parentGenreResult=Blog::getParentGenre($user_id);
 
 		foreach ($parentGenreResult as $row) {
 			//for getting child genre for featured blogs details	
@@ -1040,7 +1053,8 @@ class HomeController extends Controller {
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
-		
+		/*echo "<pre>";
+		print_r($featuredBlogsDetails);*/
 		
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
