@@ -48,9 +48,9 @@ class Blog extends Authenticatable
                 ,`c`.`blog_genre` as `blogId`, `u`.`name` as `authorInfo` , c.is_featured
                 from `genres` as `a`,`genres` as `b`,
                 `blogs` as `c`,`users` as `u` , (SELECT distinct  g.parent_genre_id, max(h.id) as blogid
-                from `blogs` as `h`, GENRES AS G
+                from `blogs` as `h`, genres as g
                 where is_featured=1 
-                AND H.blog_genre = g.id
+                AND h.blog_genre = g.id
                 group by parent_genre_id) d 
                 where `a`.`id` in 
                 (select `gn`.`parent_genre_id` from genres gn, user_preferences up 
@@ -62,8 +62,7 @@ class Blog extends Authenticatable
                 and `c`.`is_featured`=1 
                 and `d`.`blogid` = `c`.`id` 
                 ORDER BY `b`.`name`");
-                
-            
+                            
             return $featured_blog;
         }
         else
@@ -71,9 +70,9 @@ class Blog extends Authenticatable
                 $featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
                 from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u` ,
                 (SELECT distinct  g.parent_genre_id, max(h.id) as blogid
-                from `blogs` as `h`, GENRES AS G
+                from `blogs` as `h`, genres as g
                 where is_featured=1 
-                AND H.blog_genre = g.id
+                and  h.blog_genre = g.id
                 group by parent_genre_id) d
                 where `a`.`id`=`b`.`parent_genre_id` 
                 and `a`.`parent_genre_id`=0 
