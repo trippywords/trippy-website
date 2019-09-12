@@ -1,8 +1,8 @@
 .MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
 .MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
-.MultiCarousel .MultiCarousel-inner .item { float: left;}
+.MultiCarousel .MultiCarousel-inner .item { float: left; cursor: pointer;}
 .MultiCarousel .MultiCarousel-inner .item > div { 
-    margin:10px; color:#666; height: 470px; padding: 10px; height: 60vh; overflow-y: hidden;
+    margin:10px; color:#666; padding: 10px; height: 488px; overflow-y: hidden;
 }
 .MultiCarousel .MultiCarousel-inner .item > div:hover {
     box-shadow: 0 2px 9px 0 rgba(0,0,0,.12);
@@ -62,4 +62,8 @@
     margin-top: 1rem;
     font-size: 15px;
     line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }

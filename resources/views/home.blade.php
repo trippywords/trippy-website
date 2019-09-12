@@ -105,16 +105,22 @@ endif;
 	}
 
 	// Working with featuredBlogsDetails JSON response
-	// print_r($featuredBlogsDetails);
+	$featuredDetails = [];
+	$featuredBlogsDetailsRow = json_decode($featuredBlogsDetails, TRUE);
+	if(!empty($featuredBlogsDetailsRow)) {
+		$featuredDetails = $featuredBlogsDetailsRow['featuredBlogsDetails'];
+	}
+	//print_r($featuredDetails);
 ?> 
 
 	<!-- Featured Blogs Top Row -->
 	@if (count($featuredRow) >= 3)
 		<div class="container section-gap-half-padding">
-			<div class="featured-blogs row">
+			<div class="row">
 				<div class="MultiCarousel" data-items="1,3,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
 					<div class="MultiCarousel-inner">
 						@foreach ($featuredRow as $blog)
+						<a href="{{ url('blog/'.$blog['blogId']) }}" target="_blank">
 							<div class="item">
 								<div>
 									<div class="blog-parent-genre">{{ $blog['parentGenre'] }}</div>
@@ -124,6 +130,7 @@ endif;
 									<div class="blog-desc">{{ $blog['description'] }}</div>
 								</div>
 							</div>
+						</a>
 						@endforeach
 					</div>
 					@if (count($featuredRow) > 3)
@@ -138,7 +145,23 @@ endif;
 	
 
 	<!-- Featured Blog Details Row -->
-
+	@if (count($featuredDetails) > 0)
+		<div class="container section-gap-half-padding">
+			<div class="row">
+				@foreach ($featuredDetails as $blogDetail)
+					@if (!empty($blogDetail['childGenres']))
+						@foreach ($blogDetail['childGenres'] as $childBlogs)
+							@if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9)
+								@foreach ($childBlogs['blogs'] as $blog)
+									TEST ME
+								@endforeach
+							@endif
+						@endforeach
+					@endif
+				@endforeach
+			</div>
+		</div>
+	@endif
 
 	<!-- About Us -->
 	<div class="section-gap-half-padding about_trippywords_section">
