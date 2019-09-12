@@ -98,58 +98,59 @@ endif;
 <?php
 
 	// Working with featuredBlogs JSON response
+	$featuredRow = [];
 	$featuredBlogsRow = json_decode($featuredBlogs, TRUE);
-	$featuredRow = $featuredBlogsRow['featuredBlogs'];
+	if (!empty($featuredBlogsRow)) {
+		$featuredRow = $featuredBlogsRow['featuredBlogs'];
+	}
 
-	//print_r($featuredRow);
-	// echo "<pre>"; 
-	//print_r($featuredBlogsDetails);
+	// Working with featuredBlogsDetails JSON response
+	// print_r($featuredBlogsDetails);
 ?> 
 
 	<!-- Featured Blogs Top Row -->
-	<div class="container section-gap-half-padding">
-		<div class="featured-blogs row">
-			<div class="MultiCarousel" data-items="1,3,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
-				<div class="MultiCarousel-inner">
-					@foreach ($featuredRow as $blog)
-						<div class="item">
-							<div>
-								<div>{{ $blog['parentGenre'] }}</div>
-								<img src="public/blog_img/{{ $blog['blogImg'] }}" alt="">
-								<div>{{ $blog['childGenre'] }}</div>
-								<div>{{ $blog['title'] }}</div>
-								<div>{{ $blog['description'] }}</div>
+	@if (count($featuredRow) >= 3)
+		<div class="container section-gap-half-padding">
+			<div class="featured-blogs row">
+				<div class="MultiCarousel" data-items="1,3,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
+					<div class="MultiCarousel-inner">
+						@foreach ($featuredRow as $blog)
+							<div class="item">
+								<div>
+									<div class="blog-parent-genre">{{ $blog['parentGenre'] }}</div>
+									<img src="public/blog_img/{{ $blog['blogImg'] }}" class="blog-img">
+									<div class="blog-child-genre">{{ $blog['childGenre'] }}</div>
+									<div class="blog-title">{{ $blog['title'] }}</div>
+									<div class="blog-desc">{{ $blog['description'] }}</div>
+								</div>
 							</div>
-						</div>
-					@endforeach
+						@endforeach
+					</div>
+					@if (count($featuredRow) > 3)
+						<button class="btn btn-primary leftLst"><</button>
+						<button class="btn btn-primary rightLst">></button>
+					@endif
 				</div>
-				<button class="btn btn-primary leftLst"><</button>
-				<button class="btn btn-primary rightLst">></button>
 			</div>
 		</div>
-	</div>
+	@endif
+
+	<!-- Featured Blog Details Row -->
+
 
 	<!-- About Us -->
 	<div class="section-gap-half-padding about_trippywords_section">
-
 			<div class="container">
-
 				<div class="row">
-
 					<div class="col-md-6">
-
 						<div class="about_trippywords">
-
 							<h2 class="title">About TrippyWords</h2>
-
 							<div class="about_trippywords_tab_section">
-
 								<div class="tab">
 									<div class="tablinks active" onclick="openCity(event, 'who_are_we')" id="defaultOpen">Who Are We?</div>
 									<div class="tablinks" onclick="openCity(event, 'what_we_do')">What we do?</div>
 									<div class="tablinks" onclick="openCity(event, 'how_it_works')">How It Works?</div>
 								</div>
-
 								<div id="who_are_we" class="tabcontent">
 									<p class="desc">
 										We are Trippy Guys trying to get high on creativity.
@@ -159,7 +160,6 @@ endif;
 										This idea gave us the kick and we are serious about it.
 									</p>
 								</div>
-
 								<div id="what_we_do" class="tabcontent">
 									<p class="desc">
 									We strongly believe in shared economy and are on the track of building a potential business channel for quality content 
@@ -168,7 +168,6 @@ endif;
 									develop business for you.
 									</p>
 								</div>
-
 								<div id="how_it_works" class="tabcontent" style="display: none;">
 									<p class="desc">
 										A content writer signs up with Trippy Words and posts minimum 1 blog (minimum 600 words) of any genre they like every month.
@@ -176,31 +175,17 @@ endif;
 										These blogs will be circulated and promoted on all social media and the credits will belong to the content creator.
 									</p> 
 								</div>
-
 							</div>
-
 						</div>
-
 					</div>
-
 					<div class="col-md-6">
-
 						<div class="about_trippywords_image">
-
 							<img src="{{ asset('/') }}public/assets/image/about-img.png" alt="About TrippyWords">
-
 						</div>
-
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
-
-	
-
 @endsection
 
 @section('js')
