@@ -1,0 +1,65 @@
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
+.MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+.MultiCarousel .MultiCarousel-inner .item { float: left;}
+.MultiCarousel .MultiCarousel-inner .item > div { 
+    margin:10px; color:#666; height: 470px; padding: 10px; height: 60vh; overflow-y: hidden;
+}
+.MultiCarousel .MultiCarousel-inner .item > div:hover {
+    box-shadow: 0 2px 9px 0 rgba(0,0,0,.12);
+}
+
+.MultiCarousel .leftLst, .MultiCarousel .rightLst {
+    position:absolute; top:calc(50% - 20px);
+    border-color: transparent; outline: none; padding: 10px 20px;
+}
+.MultiCarousel .leftLst { left:0; }
+.MultiCarousel .rightLst { right:0; }
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: cursor; background:#ccc; }
+
+.MultiCarousel .MultiCarousel-inner .item > div .blog-parent-genre {
+    margin-bottom: 1.2rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    font-size: 20px !important;
+}
+.MultiCarousel .MultiCarousel-inner .item > div .blog-parent-genre::after {
+    content: "";
+    display: block;
+    width: 15%;
+    padding-top: 8px;
+    border-bottom: 2px solid #59b44b;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div .blog-img {
+    height: 240px;
+    width: 100%;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div .blog-child-genre {
+    color: #fff;
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #32bef9;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div .blog-title {
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div .blog-desc {
+    margin-top: 1rem;
+    font-size: 15px;
+    line-height: 1.5;
+}
