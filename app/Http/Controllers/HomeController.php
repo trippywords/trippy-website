@@ -926,79 +926,6 @@ class HomeController extends Controller {
 
 	}
 
-	public function feed(){
-
-		$recommeded_blogs = DB::table('blogs')
-              ->join('users','blogs.created_by','=','users.id')
-              ->join('genres','blogs.blog_genre','=','genres.id')
-              //->where('blogs.is_delete',"=","0")
-              ->where('blogs.is_recommended',"=",1)
-              ->select('blogs.id','blogs.blog_title','blogs.blog_heading','blogs.blog_description','blogs.blog_image','blogs.updated_at','genres.name as genre','users.name as user')                      
-              ->orderBy('blogs.created_at', 'desc') 
-              ->limit(3)   
-              ->get();
-             
-		$parentGenre = Genre::getParentGenre();
-		$parent=$parentGenre[0]->id;
-		$childGenre = Genre::getChildGenre($parent);
-
-		$nextChild = Genre::getNextChild($parent);
-		$nextChildCount=count($nextChild);
-
-		$genre_blog=Blog::getGenreBlog(6);
-		
-        $displayblogs= DB::table('genres as g1')
-             ->join('genres as g2','g1.id','=','g2.parent_genre_id')
-             ->select('g1.name','g1.id as parent','g2.id','g2.name as child')
-             ->limit(5)
-             //->distinct()
-             //->where('blogs.blog_genre','=','50')
-             ->get();
-
-        $featured = DB::table('blogs')
-        	->leftJoin('comments','comments.blog_id','=','blogs.id')
-        	->select(DB::raw("count(comments.id) as count"),'blogs.blog_title','blogs.id','blogs.blog_heading','blogs.blog_image','blogs.created_at')
-        	//->orderBy('created_at','desc')
-        	->limit(4)
-        	->where('is_featured','=',1)
-        	->groupBy('comments.blog_id','blogs.id','blogs.blog_title','blogs.blog_image','blogs.created_at','blogs.blog_heading')
-        	->get();
-
-        $trending = DB::table('blogs')
-        	->leftJoin('comments','comments.blog_id','=','blogs.id')
-        	->select(DB::raw("count(comments.id) as count"),'blogs.blog_title','blogs.id','blogs.blog_heading','blogs.blog_image','blogs.created_at')
-        	
-        	//->orderBy('created_at','desc')
-        	->limit(4)
-        	->where('is_tranding','=',1)
-        	->groupBy('comments.blog_id','blogs.id','blogs.blog_title','blogs.blog_image','blogs.created_at','blogs.blog_heading')
-        	->get();
-
-        $latests = DB::table('blogs')
-        	->leftJoin('comments','comments.blog_id','=','blogs.id')
-        	->select(DB::raw("count(comments.id) as count"),'blogs.blog_title','blogs.id','blogs.blog_heading','blogs.blog_image','blogs.created_at')
-        	
-        	//->orderBy('created_at','desc')
-        	->limit(4)
-        	
-        	->groupBy('comments.blog_id','blogs.id','blogs.blog_title','blogs.blog_image','blogs.created_at','blogs.blog_heading')
-        	->get();
-
-        $getFeaturedBlog = Blog::getFeaturedBlog();
-
-        $parentGenre1 = Blog::getParentGenre();
-        $childGenre1= Blog::getChildGenre();
-
-
-
-        $featuredBlogs = json_encode(['featuredBlogs' => $getFeaturedBlog],JSON_PRETTY_PRINT);
-            
-        //$FeaturedBlogDetail=json_encode(['FeaturedBlogDetail'=>$getFeaturedBlogDetail],JSON_PRETTY_PRINT);
-		return view('feed',compact('recommeded_blogs','genre_blog','parentGenre','childGenre','nextChild','nextChildCount','displayblogs','featured','trending','latests','featuredBlogs'));	
-		
-	}
-
-
 	public function showSingleBlog($id)
 	{
 		// print_r($id);
@@ -1048,6 +975,16 @@ class HomeController extends Controller {
 			}
 			$finalsResult[]=$row;
 		}
+
+		$blog = DB::table('blogs')
+              
+              //->where('blogs.is_delete',"=","0")
+              ->where('is_recommended',"=",1)
+              ->select('id','blog_slug')                      
+               
+              ->limit(3)   
+              ->get(); 
+        $blogs=json_encode($blog);
 		
 		//JSON for featuredBlogs
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
@@ -1056,7 +993,7 @@ class HomeController extends Controller {
 		/*echo "<pre>";
 		print_r($featuredBlogsDetails);*/
 		
-		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
+		return view('home',compact('featuredBlogs','featuredBlogsDetails','blogs'));
 	}
 
 }
