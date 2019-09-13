@@ -147,276 +147,34 @@ endif;
 	<!-- Featured Blog Details Row -->
 	@if (count($featuredDetails) > 0)
 		<div class="container section-gap-half-padding">
-			<div class="row">
-				@foreach ($featuredDetails as $blogDetail)
-					@if (!empty($blogDetail['childGenres']))
-						@foreach ($blogDetail['childGenres'] as $childBlogs)
-							@if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9)
-								@foreach ($childBlogs['blogs'] as $blog)
-									TEST ME
-								@endforeach
-							@endif
-						@endforeach
-					@endif
-				@endforeach
-			</div>
+			@foreach ($featuredDetails as $blogDetail)
+				@if (!empty($blogDetail['childGenres']))
+				<div class="blog-details-parent">
+					{{ $blogDetail['parentGenre'] }}
+					@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
+						@if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9)
+							<ul class="nav nav-tabs blog-details-child-genre" role="tablist">
+								<li role="presentation" class="{{ $genrekey == 0 ? 'active' : '' }}">
+									<a href="{{ '#'.kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}"
+									aria-controls="{{ kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}"
+									role="tab" data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div role="tabpanel" class="{{ $genrekey == 0 ? 'tab-pane active' : 'tab-pane fade' }}"
+									id="{{ kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}">
+									@foreach ($childBlogs['blogs'] as $blogkey => $blog)
+										<div>blog detail - {{ $blogkey }}</div>
+									@endforeach
+								</div>
+							</div>
+						@endif
+					@endforeach
+				</div>
+				@endif
+			@endforeach
 		</div>
 	@endif
-
-	<!-- Dummy -->
-
-<!--Start Sidebar -->
-<div class="row">
-	<div class="inner_sidebar">
-		<!--Start Inner Sidebar -->
-			<div class="widget widget_recent_post">
-
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Latest</a>
-					</li>
-					<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular</a>
-					</li>
-					<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Features</a>
-					</li>
-					<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Trending</a>
-					</li>
-				</ul>
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="home">
-						<ul class="recent_post">
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="profile">
-						<ul class="recent_post">
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="messages">
-						<ul class="recent_post">
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="settings">
-						<ul class="recent_post">
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/4.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/3.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/1.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-							<li>
-								<figure class="widget_post_thumbnail">
-									<a href="#">
-										<img src="img/news/world/2.jpg" alt="Appropriately simplify quality imperatives">
-									</a>
-								</figure>
-								<div class="widget_post_info">
-									<h5><a href="#">Appropriately simplify quality imperatives</a></h5>
-									<div class="post_meta">	<span><a href="#"><i class="fa fa-comments-o"></i> 0 comments</a></span>
-										<span class="date_meta"><a href="#"><i class="fa fa-calendar"></i> Mar 10, 2015</a></span>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		<!-- End widget recent post -->
-		</div>
-	<!--End Inner Sidebar -->
-	</div>
-</div>
-<!-- End dummy section -->
-
 
 	<!-- About Us -->
 	<div class="section-gap-half-padding about_trippywords_section">
