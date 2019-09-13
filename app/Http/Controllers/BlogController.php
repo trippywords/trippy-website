@@ -32,13 +32,13 @@ class BlogController extends Controller
     {
       $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
       $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
-      $genrearr= Genre::select('id','name')->where('is_deleted','=','0')->orderBy('name')->get();
+      $genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
       //die($genrearr);
       if ($request->ajax()) {
           $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
           return response()->json(['html' => $view]);
       }
-      $genrearr= Genre::select('id','name')->where('is_deleted','=','0')->orderBy('name')->get();
+      $genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
       return view('blog.create',compact('genrearr','publish_blogs','publish_total'));
     }
 
