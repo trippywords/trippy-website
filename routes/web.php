@@ -49,17 +49,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@Home')->name('home');
 
-//Route::get('/feed','HomeController@feed');
-
-//Route::get('/feed', 'HomeController@feed')->name('thankyou');
-Route::get('/feed/{id}/showSingleBlog','HomeController@showSingleBlog')->name('feed.showSingleBlog');
-
-Route::get('/feed/{id}/showMultiBlog','HomeController@showMultiBlog')->name('feed.showMultiBlog');
-
-//Route::get('/adminpanel/blog/{slug}/show', 'Admin\BlogController@show')->name('admin.blog.show');
-
-
-
 //logout for user
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

@@ -135,6 +135,8 @@ endif;
 		</div>
 	@endif
 
+	
+
 	<!-- Featured Blog Details Row -->
 
 
