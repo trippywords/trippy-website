@@ -601,20 +601,6 @@ ul#post-slid-post {
 	    background-color: #eee !important;
 }
 
-.widget .widget_title {
-    color: #263241
-}
-
-.widget_title:after {
-    content: '';
-    width: 50px;
-    height: 3px;
-    background-color: #3073ad;
-    margin-top: 5px;
-    display: block
-}
-
-
 .nav-tabs {
     border-bottom: none!important
 }

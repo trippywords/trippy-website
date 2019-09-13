@@ -209,6 +209,32 @@ class BlogController extends Controller
           return view('blog.user_blog',compact('blog_details','user_genere_details','topblogdata','comments','auther','url','users'));    
         }
     }
+
+    public function userBlogDetailById($id)
+    {
+        if (Auth::user()) {
+          session(['is_first_login'=>0]);
+        }
+        $blog_details=Blog::where('is_delete','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
+
+        if($blog_details==null)
+        {
+            return Redirect::back();
+        }else{
+         /* $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->where('user_id','=',$blog_details->created_by)->where('is_delete','=','0')->get();*/
+          $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->get();
+
+          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_delete','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
+
+          $comments = Comments::select('comments.*','users.first_name','users.last_name')->join('users','users.id','comments.user_id')->where('comments.blog_id','=',$blog_details->id)->where('comments.is_delete','=','0')->orderBy('comments.id','desc')->get();
+
+          $auther = User::where('id','=',$blog_details->created_by)->first();
+          $users = getUsers();
+          $url = url('blog/'.$id);
+          return view('blog.user_blog',compact('blog_details','user_genere_details','topblogdata','comments','auther','url','users'));    
+        }
+    }
+
     public function saveBlogcomment(Request $request)
     {
       $this->validate($request, [
