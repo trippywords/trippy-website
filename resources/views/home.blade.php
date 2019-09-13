@@ -95,23 +95,14 @@ endif;
 
 	</section>
 
-<?php
-
-	// Working with featuredBlogs JSON response
-	$featuredRow = [];
-	$featuredBlogsRow = json_decode($featuredBlogs, TRUE);
-	if (!empty($featuredBlogsRow)) {
-		$featuredRow = $featuredBlogsRow['featuredBlogs'];
-	}
-
-	// Working with featuredBlogsDetails JSON response
-	$featuredDetails = [];
-	$featuredBlogsDetailsRow = json_decode($featuredBlogsDetails, TRUE);
-	if(!empty($featuredBlogsDetailsRow)) {
-		$featuredDetails = $featuredBlogsDetailsRow['featuredBlogsDetails'];
-	}
-	//print_r($featuredDetails);
-?> 
+	<?php
+		// Working with featuredBlogs JSON response
+		$featuredRow = [];
+		$featuredBlogsRow = json_decode($featuredBlogs, TRUE);
+		if (!empty($featuredBlogsRow)) {
+			$featuredRow = $featuredBlogsRow['featuredBlogs'];
+		}
+	?> 
 
 	<!-- Featured Blogs Top Row -->
 	@if (count($featuredRow) >= 3)
@@ -122,12 +113,12 @@ endif;
 						@foreach ($featuredRow as $blog)
 						<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
 							<div class="item">
-								<div>
-									<div class="blog-parent-genre">{{ $blog['parentGenre'] }}</div>
-									<img src="public/blog_img/{{ $blog['blogImg'] }}" class="blog-img">
-									<div class="blog-child-genre">{{ $blog['childGenre'] }}</div>
-									<div class="blog-title">{{ $blog['title'] }}</div>
-									<div class="blog-desc">{{ $blog['description'] }}</div>
+								<div class="feed-blog-container">
+									<div class="feed-blog-parent-genre">{{ $blog['parentGenre'] }}</div>
+									<img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+									<div class="feed-blog-child-genre">{{ $blog['childGenre'] }}</div>
+									<div class="feed-blog-title">{{ $blog['title'] }}</div>
+									<div class="feed-blog-desc">{{ $blog['description'] }}</div>
 								</div>
 							</div>
 						</a>
@@ -142,7 +133,14 @@ endif;
 		</div>
 	@endif
 
-	
+	<?php
+		// Working with featuredBlogsDetails JSON response
+		$featuredDetails = [];
+		$featuredBlogsDetailsRow = json_decode($featuredBlogsDetails, TRUE);
+		if(!empty($featuredBlogsDetailsRow)) {
+			$featuredDetails = $featuredBlogsDetailsRow['featuredBlogsDetails'];
+		}
+	?> 
 
 	<!-- Featured Blog Details Row -->
 	@if (count($featuredDetails) > 0)
@@ -150,7 +148,7 @@ endif;
 			@foreach ($featuredDetails as $blogDetail)
 				@if (!empty($blogDetail['childGenres']))
 				<div class="blog-details-parent">
-					{{ $blogDetail['parentGenre'] }}
+					<div class="feed-blog-parent-genre">{{ $blogDetail['parentGenre'] }}</div>
 					@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
 						@if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9)
 							<ul class="nav nav-tabs blog-details-child-genre" role="tablist">
@@ -160,12 +158,47 @@ endif;
 									role="tab" data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
 								</li>
 							</ul>
-							<div class="tab-content">
-								<div role="tabpanel" class="{{ $genrekey == 0 ? 'tab-pane active' : 'tab-pane fade' }}"
+							<div>
+								<div role="tabpanel" class="{{ $genrekey == 0 ? 'row tab-pane active' : 'row tab-pane fade' }}"
 									id="{{ kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}">
 									@foreach ($childBlogs['blogs'] as $blogkey => $blog)
-										<div>blog detail - {{ $blogkey }}</div>
+										<!-- <div>blog detail - {{ $blogkey }} - {{ $blog['title'] }}</div> -->
+										@if ($blogkey == 0)
+											<div class="col-md-4">
+												<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
+													<div class="feed-blog-container feed-blog-detail-container">
+														<img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+														<div class="feed-blog-title">{{ $blog['title'] }}</div>
+														<div class="feed-blog-author">
+															Posted by {{ $blog['authorInfo'] }} | {{ date('F d, Y', strtotime($blog['createdAt'])) }}
+														</div>
+														<div class="feed-blog-desc">{{ $blog['description'] }}</div>
+														<div class="feed-blog-child-genre">READ MORE</div>
+													</div>
+												</a>
+											</div>
+											<div class="col-md-8 feed-mini-margin">
+												<div class="row">
+										@else
+												<div class="col-md-6">
+													<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
+														<div class="row feed-blog-mini-container">
+															<img class="feed-blog-mini-img col-md-4" src="public/blog_img/{{ $blog['blogImg'] }}">
+															<div class="col-md-8">
+																<div class="feed-blog-title">{{ $blog['title'] }}</div>
+																<div class="feed-blog-author"> Posted by {{ $blog['authorInfo'] }} </div>
+																<div class="feed-blog-time">
+																	<img src="public/assets/image/timer-icon.png" class="feed-timer-icon" />
+																	{{ date('F d, Y', strtotime($blog['createdAt'])) }}
+																</div>
+															</div>
+														</div>
+													</a>
+												</div>
+										@endif	
 									@endforeach
+										</div>
+									</div>
 								</div>
 							</div>
 						@endif
