@@ -2263,7 +2263,7 @@
 
 	.about_trippywords_section .about_trippywords .about_trippywords_tab_section {
 
-		margin-top: 45px;
+		margin: 45px 0;
 
 	}
 
@@ -2336,7 +2336,7 @@
 	.about_trippywords_section .about_trippywords .about_trippywords_tab_section .tabcontent {
 		background: #32bef9;
 		color: #5e5e5e;
-		width: 74.5%;
+		width: 100%;
 		padding: 15px;
 		margin-top: 0px;
 		-webkit-animation: fadeEffect 1.5s;

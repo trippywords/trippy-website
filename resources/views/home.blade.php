@@ -118,7 +118,7 @@ endif;
 									<img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}">
 									<div class="feed-blog-child-genre">{{ $blog['childGenre'] }}</div>
 									<div class="feed-blog-title">{{ $blog['title'] }}</div>
-									<div class="feed-blog-desc">{{ $blog['description'] }}</div>
+									<div class="feed-blog-desc">{!! $blog['description'] !!}</div>
 								</div>
 							</div>
 						</a>
@@ -151,15 +151,13 @@ endif;
 					<div class="feed-blog-parent-genre">{{ $blogDetail['parentGenre'] }}</div>
 					<ul class="nav nav-pills blog-details-child-genre">
 						@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
-						<!-- @if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9) -->
 							<li class="{{ $genrekey == 0 ? 'active' : '' }}">
 								<a href="{{ '#'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
 								data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
 							</li>
-						<!-- @endif -->
 						@endforeach
 					</ul>
-				<div class="tab-content ">
+				<div class="tab-content">
 					@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
 						<div id="{{ kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
 							class="{{ $genrekey == 0 ? 'row tab-pane active' : 'row tab-pane' }}">
@@ -173,7 +171,7 @@ endif;
 														<div class="feed-blog-author">
 															Posted by {{ $blog['authorInfo'] }} | {{ date('F d, Y', strtotime($blog['createdAt'])) }}
 														</div>
-														<div class="feed-blog-desc">{{ $blog['description'] }}</div>
+														<div class="feed-blog-desc">{!! $blog['description'] !!}</div>
 														<div class="feed-blog-child-genre">READ MORE</div>
 													</div>
 												</a>
@@ -183,11 +181,11 @@ endif;
 										@else
 												<div class="col-md-6">
 													<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
-														<div class="row feed-blog-mini-container">
-															<img class="feed-blog-mini-img col-md-4" src="public/blog_img/{{ $blog['blogImg'] }}">
-															<div class="col-md-8">
+														<div class="feed-blog-mini-container">
+															<img class="feed-blog-mini-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+															<div class="feed-blog-mini-detail">
 																<div class="feed-blog-title">{{ $blog['title'] }}</div>
-																<div class="feed-blog-author"> Posted by {{ $blog['authorInfo'] }} </div>
+																<div class="feed-blog-author">Posted by {{ $blog['authorInfo'] }}</div>
 																<div class="feed-blog-time">
 																	<img src="public/assets/image/timer-icon.png" class="feed-timer-icon" />
 																	{{ date('F d, Y', strtotime($blog['createdAt'])) }}
@@ -203,9 +201,9 @@ endif;
 								</div>
 								@endforeach
 					</div>
-					@endif
-				@endforeach
-			</div>
+				@endif
+			@endforeach
+				</div>
 		</div>
 	@endif
 
