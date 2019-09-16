@@ -105,8 +105,7 @@ endif;
 	}
 
 	// Working with featuredBlogsDetails JSON response
-	//dd($featuredBlogs);
-	//dd($featuredBlogsDetails);
+	// print_r($featuredBlogsDetails);
 ?> 
 
 	<!-- Featured Blogs Top Row -->
@@ -119,14 +118,13 @@ endif;
 							<div class="item">
 								<div>
 									<div class="blog-parent-genre">{{ $blog['parentGenre'] }}</div>
-									 <img src="public/blog_img/{{ $blog['blogImg'] }}" class="blog-img"> 
+									<img src="public/blog_img/{{ $blog['blogImg'] }}" class="blog-img">
 									<div class="blog-child-genre">{{ $blog['childGenre'] }}</div>
 									<div class="blog-title">{{ $blog['title'] }}</div>
-									<div class="blog-desc">{!! $blog['description'] !!}</div>
+									<div class="blog-desc">{{ $blog['description'] }}</div>
 								</div>
 							</div>
 						@endforeach
-
 					</div>
 					@if (count($featuredRow) > 3)
 						<button class="btn btn-primary leftLst"><</button>
