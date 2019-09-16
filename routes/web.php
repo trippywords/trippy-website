@@ -147,7 +147,7 @@ Route::get('profile/{username}','ProfileController@userProfile')->name('userprof
 //Route::get('blog/{slug}', 'BlogController@blogDetailpage');
 
 Route::get('blog/{slug}', 'BlogController@userBlogDetailpage')->name('userblog');
-
+Route::get('blogs/{id}', 'BlogController@userBlogDetailById')->name('userblog');
 Route::get('blogi', 'BlogController@index');
 
 Route::get('/preference-list', 'ProfileController@accountdetails')->name('preference-list');
