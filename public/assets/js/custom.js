@@ -447,7 +447,6 @@ $(document).ready(function () {
         });
     }
 
-
     //this function used to move the items
     function ResCarousel(e, el, s) {
         var leftBtn = ('.leftLst');

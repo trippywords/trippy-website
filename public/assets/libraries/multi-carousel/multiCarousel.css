@@ -1,4 +1,4 @@
-.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; width: 100%; position: relative; }
 .MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
 .MultiCarousel .MultiCarousel-inner .item { float: left; }
 .MultiCarousel .leftLst, .MultiCarousel .rightLst {
@@ -31,12 +31,16 @@
     padding: 0 10px; margin-top: 1rem; font-weight: 600; font-size: 16px; overflow: hidden;
     line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
 }
-.feed-blog-desc {
-    padding: 0 10px; margin-top: 1rem; 
-}
+.feed-blog-desc { padding: 0 10px; margin-top: 1rem; }
 .feed-blog-desc, .feed-blog-desc p {
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 16px; line-height: 1.5; overflow: hidden;
 }
 .feed-blog-author, .feed-blog-time { padding: 0 10px; margin-top: 1rem; font-size: 15px; }
 .feed-blog-time { margin-top: 8px; }
 .feed-timer-icon { height: 12px; width: 12px; margin-right: 6px; }
+.feed-blog-details-parent { margin-top: 18px; }
+.feed-blog-details-child-genres { padding: 10px 10px 0; margin-bottom: 1.2rem; display: flex; justify-content: flex-end; }
+.nav-pills > li >a { color: #666; font-weight: normal; background-color: transparent; font-size: 16px; }
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    color: #666; font-weight: 600; background-color: transparent; cursor: default;
+}

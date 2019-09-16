@@ -108,7 +108,7 @@ endif;
 	@if (count($featuredRow) >= 3)
 		<div class="container">
 			<div class="row">
-				<div class="MultiCarousel" data-items="1,3,3,3" data-slide="1" id="MultiCarousel"  data-interval="1000">
+				<div class="MultiCarousel" data-items="1,3,3,3" data-slide="1" id="MultiCarousel">
 					<div class="MultiCarousel-inner">
 						@foreach ($featuredRow as $blog)
 						<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
@@ -147,17 +147,19 @@ endif;
 		<div class="container">
 			@foreach ($featuredDetails as $blogDetail)
 				@if (!empty($blogDetail['childGenres']))
-				<div class="blog-details-parent">
-					<div class="feed-blog-parent-genre">{{ $blogDetail['parentGenre'] }}</div>
-					<ul class="nav nav-pills blog-details-child-genre">
-						@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
-							<li class="{{ $genrekey == 0 ? 'active' : '' }}">
-								<a href="{{ '#'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
-								data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
-							</li>
-						@endforeach
-					</ul>
-				<div class="tab-content">
+				<div class="feed-blog-details-parent">
+					<div class="row">
+						<div class="feed-blog-parent-genre col-md-6">{{ $blogDetail['parentGenre'] }}</div>
+						<ul class="nav nav-pills feed-blog-details-child-genres col-md-6">
+							@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
+								<li class="{{ $genrekey == 0 ? 'active' : '' }}">
+									<a href="{{ '#'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
+									data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
+								</li>
+							@endforeach
+						</ul>
+					</div>
+					<div class="tab-content">
 					@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
 						<div id="{{ kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
 							class="{{ $genrekey == 0 ? 'row tab-pane active' : 'row tab-pane' }}">
@@ -197,10 +199,10 @@ endif;
 										@endif	
 									@endforeach
 								</div>
-								</div>
-								</div>
-								@endforeach
-					</div>
+							</div>
+						</div>
+							@endforeach
+						</div>
 				@endif
 			@endforeach
 				</div>
