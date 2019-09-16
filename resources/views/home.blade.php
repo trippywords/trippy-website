@@ -153,7 +153,7 @@ endif;
 						@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
 						<!-- @if (!empty($childBlogs['blogs']) and count($childBlogs['blogs']) == 9) -->
 							<li role="presentation" class="{{ $genrekey == 0 ? 'active' : '' }}">
-								<a href="{{ '#'.kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}"
+								<a href="{{ '#'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
 								aria-controls="{{ kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}"
 								role="tab" data-toggle="tab">{{ $childBlogs['childgenre'] }}</a>
 							</li>
@@ -161,7 +161,7 @@ endif;
 						@endforeach
 					</ul>
 				@foreach ($blogDetail['childGenres'] as $genrekey => $childBlogs)
-					<div role="tabpanel" id="{{ kebab_case($blogDetail['parentGenre']).'-'.kebab_case($childBlogs['childgenre']) }}"
+					<div role="tabpanel" id="{{ kebab_case(preg_replace('/[^a-zA-Z]/', '', $blogDetail['parentGenre'])).'-'.kebab_case(preg_replace('/[^a-zA-Z]/', '', $childBlogs['childgenre'])) }}"
 						class="{{ $genrekey == 0 ? 'row tab-pane active' : 'row tab-pane fade' }}">
 								@foreach ($childBlogs['blogs'] as $blogkey => $blog)
 									@if ($blogkey == 0)
