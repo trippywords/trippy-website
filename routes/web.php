@@ -239,8 +239,14 @@ Route::group(['middleware' => 'web'], function () {
                 'destroy' => 'admin-genre.destroy'
             ]
         ]);
-
         Route::get('/adminpanel/genre/{id}/destroy', 'Admin\GenreController@destroy')->name('admin-genre.destroy');
+
+
+
+        //Admin parent genre management
+        Route::get('/adminpanel/parent-genre/getdata', 'Admin\ParentGenreController@getAjaxData')->name('admin-parent-genre.getdata');
+
+        route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre.index');
 
 
         //Admin User Management

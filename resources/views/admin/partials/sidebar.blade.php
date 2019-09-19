@@ -32,7 +32,7 @@
 						</a>
 						<ul>
 						<li>
-						<a class="nav-link " href="{{ route('admin-genre.index') }}">
+						<a class="nav-link " href="{{ route('admin-parent-genre.index') }}">
 							Parent Genre</a>
 						
 						</li>
