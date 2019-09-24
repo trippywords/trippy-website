@@ -7,7 +7,7 @@
                 <h2>Edit Genre</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin-parent-genre.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('admin-parent-genre') }}"> Back</a>
             </div>
         </div>
     </div>

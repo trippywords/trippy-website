@@ -246,7 +246,7 @@ Route::group(['middleware' => 'web'], function () {
         //Admin parent genre management
         Route::get('/adminpanel/parent-genre/getdata', 'Admin\ParentGenreController@getAjaxData')->name('admin-parent-genre.getdata');
 
-        route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre.index');
+        route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre');
 
         Route::get('/adminpanel/parent-genre/{id}/show', 'Admin\ParentGenreController@show')->name('admin-parent-genre.show');
 
@@ -261,6 +261,11 @@ Route::group(['middleware' => 'web'], function () {
            Route::get('/adminpanel/parent-genre/{id}/edit', 'Admin\ParentGenreController@edit')->name('admin-parent-genre.edit');
 
            Route::post('/adminpanel/parent-genre/{id}/update', 'Admin\ParentGenreController@update')->name('admin-parent-genre.update');
+
+
+           //Route::get('/adminpanel/parent-genre/getdata', 'Admin\ParentGenreController@getAjaxData')->name('admin-child-genre.getdata');
+
+           //route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-child-genre');
 
 
 

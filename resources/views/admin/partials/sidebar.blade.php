@@ -32,12 +32,12 @@
 						</a>
 						<ul>
 						<li>
-						<a class="nav-link " href="{{ route('admin-parent-genre.index') }}">
+						<a class="nav-link " href="{{ route('admin-parent-genre') }}">
 							Parent Genre</a>
 						
 						</li>
 						<li>
-							<a class="nav-link " href="{{ route('admin.blog') }}">
+							<a class="nav-link " href="{{ route('admin-parent-genre') }}">
 							Child Genre</a></li>
 						</ul>
 					</li>
