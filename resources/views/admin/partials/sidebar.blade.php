@@ -17,11 +17,32 @@
 					 
 
 					<li class="nav-title">Blogs</li>
+
+					
+ 					<li class="nav-item">
+							<a class="nav-link " href="{{ route('admin-genre.index') }}">
+								<i class="mdi mdi-atom"></i> Genre old
+							</a>
+					</li>
+
+
 					<li class="nav-item">
-						<a class="nav-link " href="{{ route('admin-genre.index') }}">
+						<a class="nav-link " >
 							<i class="mdi mdi-atom"></i> Genre  
 						</a>
+						<ul>
+						<li>
+						<a class="nav-link " href="{{ route('admin-parent-genre.index') }}">
+							Parent Genre</a>
+						
+						</li>
+						<li>
+							<a class="nav-link " href="{{ route('admin.blog') }}">
+							Child Genre</a></li>
+						</ul>
 					</li>
+
+
 					<li class="nav-item">
 							<a class="nav-link " href="{{ route('admin.blog') }}">
 								<i class="mdi mdi-atom"></i> Blog  

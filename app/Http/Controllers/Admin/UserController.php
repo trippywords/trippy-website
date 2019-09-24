@@ -75,7 +75,8 @@ class UserController extends Controller
 
     public function store(Request $request)
 
-    {        
+    {      
+
 
         $this->validate($request, [
 
@@ -348,8 +349,6 @@ class UserController extends Controller
 
         $userRole = $user->roles->pluck('name','name')->all();
 
-
-
        // $user->description = nl2br($user->description);
 
         return view('admin.users.edit',compact('user','roles','userRole'));
@@ -392,13 +391,7 @@ class UserController extends Controller
 
         ]);
 
-
-
-
-
         $input = $request->all();
-
-        
 
             if ($file = $request->hasFile('profile_image')) {
 
