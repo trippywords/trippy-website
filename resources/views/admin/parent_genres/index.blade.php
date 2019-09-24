@@ -12,7 +12,7 @@
 			<!-- @can('genre-create') -->
 			
 			<!-- @endcan -->
-			<a class="btn btn-success" href="{{ route('admin-genre.create') }}"> Create New Parent Genre</a>
+			<a class="btn btn-success" href="{{ route('admin-parent-genre.create') }}"> Create New Parent Genre</a>
 		</div>
 	<br/>
 	<br/>

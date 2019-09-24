@@ -248,6 +248,23 @@ Route::group(['middleware' => 'web'], function () {
 
         route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre.index');
 
+        Route::get('/adminpanel/parent-genre/{id}/show', 'Admin\ParentGenreController@show')->name('admin-parent-genre.show');
+
+         Route::get('/adminpanel/parent-genre/{id}/destroy', 'Admin\ParentGenreController@destroy')->name('admin-parent-genre.destroy');
+
+          Route::get('/adminpanel/parent-genre/create', 'Admin\ParentGenreController@create')->name('admin-parent-genre.create');
+
+          Route::post('/adminpanel/parent-genre', 'Admin\ParentGenreController@store')->name('admin-parent-genre.store');
+
+           Route::get('/adminpanel/parent-genre/edit', 'Admin\ParentGenreController@edit')->name('admin-parent-genre.edit');
+
+           Route::get('/adminpanel/parent-genre/{id}/edit', 'Admin\ParentGenreController@edit')->name('admin-parent-genre.edit');
+
+           Route::post('/adminpanel/parent-genre/{id}/update', 'Admin\ParentGenreController@update')->name('admin-parent-genre.update');
+
+
+
+
 
         //Admin User Management
         Route::get('/adminpanel/users', 'Admin\UserController@index')->name('admin.users');

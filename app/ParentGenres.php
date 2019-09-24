@@ -10,16 +10,17 @@ class ParentGenres extends Model
     //
 
 
-    public static function 	
+    public static function getParentGenres()
     {
     	 $ParentGenres = DB::table('parent_genres')->where('is_deleted','=',0)
 
-		      ->select('id', 'name', 'is_published','is_published', 'created_at')
+		      ->select('id', 'parent_name', 'is_published', 'created_at')
 
               ->orderBy('id', 'desc')         
 
 		      ->get();
-		      dd($ParentGenres);
+
+
 		  return $ParentGenres;
     }
 }

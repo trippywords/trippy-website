@@ -75,7 +75,8 @@ class UserController extends Controller
 
     public function store(Request $request)
 
-    {        
+    {      
+
 
         $this->validate($request, [
 
@@ -348,7 +349,7 @@ class UserController extends Controller
 
         $userRole = $user->roles->pluck('name','name')->all();
 
-
+        dd($user);
 
        // $user->description = nl2br($user->description);
 
