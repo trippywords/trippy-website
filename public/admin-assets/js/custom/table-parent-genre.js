@@ -51,7 +51,7 @@ $(function () {
                     var n = d.getDate();
                     var m = d.getMonth()+1;
                     var y = d.getFullYear();
-                    return 'Trippywords_Blog - ' + n + '-' + m + '-' + y;
+                    return 'Trippywords_Parent_Genre - ' + n + '-' + m + '-' + y;
                 },
                 title: null
             },
