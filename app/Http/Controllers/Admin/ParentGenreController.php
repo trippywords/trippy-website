@@ -18,9 +18,9 @@ class ParentGenreController extends Controller
 
     {
 
-        $genres = Genre::latest()->paginate(5);
+        //$genres = ParentGenres::latest()->paginate(5);
 
-        return view('admin.parent_genres.index',compact('genres'));
+        return view('admin.parent_genres.index');
 
     }
 
@@ -37,7 +37,7 @@ class ParentGenreController extends Controller
 
        	ParentGenres::where('id',$id)->update(['is_deleted'=>'1']);
 
-        return redirect()->route('admin-parent-genre.index')
+        return redirect()->route('admin-parent-genre')
 
                         ->with('success','Parent Genre deleted successfully');
 
@@ -90,7 +90,7 @@ class ParentGenreController extends Controller
 
 
 
-        return redirect()->route('admin-parent-genre.index')
+        return redirect()->route('admin-parent-genre')
 
                         ->with('success','Genre created successfully.');
 
@@ -99,7 +99,7 @@ class ParentGenreController extends Controller
      public function edit($id)
     {
     	$ParentGenre = ParentGenres::find($id);
-    	
+        
         return view('admin.parent_genres.edit',compact('ParentGenre'));
     }
 
@@ -135,7 +135,7 @@ class ParentGenreController extends Controller
 
         $ParentGenre->save();
 
-        return redirect()->route('admin-parent-genre.index')
+        return redirect()->route('admin-parent-genre')
 
                         ->with('success','parent Genre updated successfully');
 

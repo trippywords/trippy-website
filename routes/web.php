@@ -246,7 +246,7 @@ Route::group(['middleware' => 'web'], function () {
         //Admin parent genre management
         Route::get('/adminpanel/parent-genre/getdata', 'Admin\ParentGenreController@getAjaxData')->name('admin-parent-genre.getdata');
 
-        route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre.index');
+        route::get('/adminpanel/parent-genre','Admin\ParentGenreController@index')->name('admin-parent-genre');
 
         Route::get('/adminpanel/parent-genre/{id}/show', 'Admin\ParentGenreController@show')->name('admin-parent-genre.show');
 
@@ -256,11 +256,32 @@ Route::group(['middleware' => 'web'], function () {
 
           Route::post('/adminpanel/parent-genre', 'Admin\ParentGenreController@store')->name('admin-parent-genre.store');
 
-           Route::get('/adminpanel/parent-genre/edit', 'Admin\ParentGenreController@edit')->name('admin-parent-genre.edit');
-
            Route::get('/adminpanel/parent-genre/{id}/edit', 'Admin\ParentGenreController@edit')->name('admin-parent-genre.edit');
 
            Route::post('/adminpanel/parent-genre/{id}/update', 'Admin\ParentGenreController@update')->name('admin-parent-genre.update');
+
+
+        //Admin child genre management
+
+           Route::get('/adminpanel/child-genre/create', 'Admin\ChildGenreController@create')->name('admin-child-genre.create');
+
+           Route::post('/adminpanel/child-genre', 'Admin\ChildGenreController@store')->name('admin-child-genre.store');
+
+           route::get('/adminpanel/child-genre','Admin\ChildGenreController@index')->name('admin-child-genre');
+
+           Route::get('/adminpanel/child-genre/getdata', 'Admin\ChildGenreController@getAjaxData')->name('admin-child-genre.getdata');
+
+           Route::get('/adminpanel/child-genre/{id}/show', 'Admin\ChildGenreController@show')->name('admin-child-genre.show');
+
+           Route::get('/adminpanel/child-genre/{id}/destroy', 'Admin\ChildGenreController@destroy')->name('admin-child-genre.destroy');
+
+           Route::get('/adminpanel/child-genre/{id}/edit', 'Admin\ChildGenreController@edit')->name('admin-child-genre.edit');
+
+           Route::post('/adminpanel/child-genre/{id}/update', 'Admin\ChildGenreController@update')->name('admin-child-genre.update');
+
+
+
+           
 
 
 

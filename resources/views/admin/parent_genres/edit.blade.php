@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Genre</h2>
+                <h2>Edit Parent Genre</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin-parent-genre.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('admin-parent-genre') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -46,8 +46,13 @@
                     <strong>Is Published:</strong>
                     <select class="form-control" required="required" name="selPublished">
                         <option value="">Select Status</option>
-                        <option value="1">Published</option>
-                        <option value="0">Unpublished</option>
+                        <?php if($ParentGenre->is_published == '1'){ ?>
+                            <option value="1" selected="selected">Published</option>
+                            <option value="0">Unpublished</option>
+                        <?php }else{ ?>
+                            <option value="1">Published</option>
+                            <option value="0" selected="selected">Unpublished</option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
