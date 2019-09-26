@@ -4,9 +4,9 @@
 @section('content')
 	
 <div class="animated fadeIn">
-	<h3>Genre</h3>
+	<h3>Parent Genre</h3>
 	<small>
-		<a href="">Manage Genres</a>
+		<a href="">Manage Parent Genres</a>
 	</small>
 		<div class="pull-right">
 			<!-- @can('genre-create') -->
@@ -29,7 +29,7 @@
 					<table id="table-parent-genre" class="display table table-hover table-striped" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th>id</th>
+								<th>#</th>
 								<th>Name</th>
 								
 								<th>Created</th>

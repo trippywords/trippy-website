@@ -37,7 +37,7 @@
 						
 						</li>
 						<li>
-							<a class="nav-link " href="{{ route('admin-parent-genre') }}">
+							<a class="nav-link " href="{{ route('admin-child-genre') }}">
 							Child Genre</a></li>
 						</ul>
 					</li>

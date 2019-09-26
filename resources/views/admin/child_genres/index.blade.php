@@ -4,15 +4,15 @@
 @section('content')
 	
 <div class="animated fadeIn">
-	<h3>Parent Genre</h3>
+	<h3>Child Genre</h3>
 	<small>
-		<a href="">Manage Genres</a>
+		<a href="">Manage Child Genres</a>
 	</small>
 		<div class="pull-right">
 			<!-- @can('genre-create') -->
 			
 			<!-- @endcan -->
-			<a class="btn btn-success" href="{{ route('admin-genre.create') }}"> Create New Genre</a>
+			<a class="btn btn-success" href="{{ route('admin-child-genre.create') }}"> Create New Child Genre</a>
 		</div>
 	<br/>
 	<br/>
@@ -26,16 +26,16 @@
 												<p>{{ $message }}</p>
 								</div>
 				@endif
-					<table id="table-genre" class="display table table-hover table-striped" cellspacing="0" width="100%">
+					<table id="table-child-genre" class="display table table-hover table-striped" cellspacing="0" width="100%">
 						<thead>
 							<tr>
 								<th>#</th>
 								<th>Img</th>
-								<th>Name</th>
+								 <th>Name</th>
 								<th>Parent Genre</th>
 								<th>Published</th>
-								<th>Crated</th>
-								<th>Updated</th>
+								<th>Created</th>
+								
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -46,8 +46,8 @@
 								<th>Name</th>
 								<th>Parent Genre</th>
 								<th>Published</th>
-								<th>created_at</th>
-								<th>updated_at</th>
+								 <th>Created</th>
+								
 								<th>Actions</th>
 							</tr>
 						</tfoot>
@@ -74,7 +74,7 @@
 
 	<script src="{{ url('/public/admin-assets/libs/tables-datatables/dist/datatables.min.js') }}"></script>
 	<!-- datatable examples -->
-	<script src="{{ url('/public/admin-assets/js/custom/table-genre.js') }}"></script>
+	<script src="{{ url('/public/admin-assets/js/custom/table-child-genre.js') }}"></script>
 
 @endsection
 
