@@ -494,7 +494,8 @@
 
 	.header-main-secondary .align-items-center .header-menubar-section .header-search .form-control{
         border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+				width: 212px;
     }
 
     .header-main-secondary .align-items-center .header-menubar-section .header-search .input-group .input-group-append .btn-search{
@@ -502,7 +503,7 @@
         padding: 10px;
         font-size: 16px;
         border-style:none;
-        padding: 11px;
+        padding: 9px;
         color: #ffffff;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
@@ -511,7 +512,8 @@
         outline: none;
     }
     .header-main-secondary .align-items-center .header-menubar-section .header-search .search{
-        border-radius: 5px;
+				border-radius: 5px;
+				width: 250px;
     }
     .header-main-secondary .align-items-center .header-menubar-section .header-search .input-group .input-group-append .btn{
         padding: 10px 10px;
@@ -3928,8 +3930,7 @@
 
 	.profile_page .profile_page_main_section .profile_main_section .media .media-left img {
 
-		width: 130px;
-		height: 130px;
+		width: 300rem;
 
 	}
 
