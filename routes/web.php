@@ -325,6 +325,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/adminpanel/blog/update_recommended', 'Admin\BlogController@update_recommended')->name('admin.blog.update_recommended');
 
 
+        Route::get('/adminpanel/blog/ajax','Admin\BlogController@ajaxChild');
+
+
 
         //Admin RecommendedBlog Management
         Route::get('/adminpanel/recommended-blog', 'Admin\RecommendedBlogController@index')->name('admin.recommended-blog');

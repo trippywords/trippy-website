@@ -78,15 +78,32 @@
 
             <strong>Select Genres:</strong>
 
-            <select name='blog_genre' class='form-control'>
+            <select name='blog_genre' id='blog_genre' class='form-control'>
                 <option>Select Genres</option>
                 @foreach($genres as $genre)
-                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                <option value="{{$genre->id}}">{{$genre->parent_name}}</option>
                 @endforeach
            </select>
         </div>
 
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+
+        <div class="form-group">
+
+            <strong>Select Child Genres:</strong>
+
+            <select name='blog_child_genre' id='blog_child_genre' class='form-control'>
+                <option>Select Genres</option>
+               
+                <option value=""></option>
+                
+           </select> 
+        </div>
+
+    </div>
+
+
     <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
@@ -98,6 +115,7 @@
         </div>
 
     </div>
+    
     
     <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -169,7 +187,49 @@
 {!! Form::close() !!}
 @endsection
 
-<script>    
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+<script>  
+
+ $(document).ready(function(){
+      
+            $('select[name="blog_genre"]').on('change',function(){
+                var id=$(this).val();
+                
+                if(id)
+                {
+                    //console.log(id);
+                    $.ajax({
+                        //url: ADMIN_URL+'/adminpanel/blog/ajax'+id,
+                        type:'GET',
+                        dataType:'json',
+
+                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        
+                        
+                        success:function(res)
+                        {
+                              console.log("SUCCESS: ");
+                            
+                                                     
+                        },
+                        error: function (e) {
+                    
+                    console.log("ERROR: ", e);
+                }
+
+                    });
+                }
+                else{
+                    $('select[name="blog_child_genre"]').empty();
+                }
+            });
+        });  
+    </script>
+    <script >
     $("#error_keyword").hide();
     $("#blog_keywords").blur(function(){
             var a = $("#blog_keywords").val();
@@ -186,4 +246,5 @@
             }
             
     });
- </script>   
+ </script>
+ 

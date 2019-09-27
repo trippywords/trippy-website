@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 use App\Blog;
 
+use App\ChildGenres;
+
 use App\User;
 
 use Spatie\Permission\Models\Role;
@@ -19,6 +21,8 @@ use Hash;
 use Illuminate\Support\Facades\Auth;
 
 use URL;
+
+
 
 class BlogController extends Controller
 
@@ -61,11 +65,17 @@ class BlogController extends Controller
     public function create()
 
     {
-
-        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get()->toArray();
-       // dd($data);        
-
+        $data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+        
         return view('admin.blog.create',$data);
+
+    }
+
+    public function ajaxChild(Request $request)
+    {
+        $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
+
+        return json_encode($child);
 
     }
 
