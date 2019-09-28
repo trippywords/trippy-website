@@ -95,8 +95,6 @@
 
             <select name='blog_child_genre' id='blog_child_genre' class='form-control'>
                 <option>Select Genres</option>
-               
-                <option value=""></option>
                 
            </select> 
         </div>
@@ -208,13 +206,15 @@
                         dataType:'json',
 
                         url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
-                        
-                        
-                        success:function(res)
+                         
+                        success:function(data)
                         {
-                              console.log("SUCCESS: ");
+                            console.log(data);
+                            $('select[name="blog_child_genre"]').empty();
+                            $.each(data,function(key,value){
+                            $('select[name="blog_child_genre"]').append('<option value="'+key+'">'+value+'</option>');
                             
-                                                     
+                               });                   
                         },
                         error: function (e) {
                     
