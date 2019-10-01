@@ -25,8 +25,8 @@
 									<div class="top-gap-half-padding"></div>
 
 									<?php
-if (!Auth::user()):
-?>
+								if (!Auth::user()):
+										?>
 
 									@if (\Session::has('facebooksignupmsg'))
 
@@ -91,7 +91,6 @@ endif;
 			</div>
 
 		</div>
-		
 
 	</section>
 

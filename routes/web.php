@@ -45,7 +45,7 @@ Auth::routes();
 
 
 //Home Controller view
-//  Route::get('/index', 'HomeController@Home');
+ //Route::get('/index', 'HomeController@Home');
 
 Route::get('/', 'HomeController@Home')->name('home');
 
@@ -312,13 +312,13 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::post('/adminpanel/blog', 'Admin\BlogController@store')->name('admin.blog.store'); // for post user data
 
-        Route::get('/adminpanel/blog/{slug}/edit', 'Admin\BlogController@edit')->name('admin.blog.edit');
+        Route::get('/adminpanel/blog/{id}/edit', 'Admin\BlogController@edit')->name('admin.blog.edit');
 
-        Route::post('/adminpanel/blog/{slug}/update', 'Admin\BlogController@update')->name('admin.blog.update');
+        Route::post('/adminpanel/blog/{id}/update', 'Admin\BlogController@update')->name('admin.blog.update');
 
-        Route::get('/adminpanel/blog/{slug}/destroy', 'Admin\BlogController@destroy')->name('admin.blog.destroy');
+        Route::get('/adminpanel/blog/{id}/destroy', 'Admin\BlogController@destroy')->name('admin.blog.destroy');
 
-        Route::get('/adminpanel/blog/{slug}/show', 'Admin\BlogController@show')->name('admin.blog.show');
+        Route::get('/adminpanel/blog/{id}/show', 'Admin\BlogController@show')->name('admin.blog.show');
 
         Route::get('/adminpanel/blog/getdata', 'Admin\BlogController@getAjaxData')->name('admin.blog.getdata');
 

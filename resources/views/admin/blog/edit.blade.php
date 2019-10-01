@@ -74,7 +74,36 @@
         </div>
 
     </div> -->
+
     <div class="col-xs-12 col-sm-12 col-md-12">
+
+        <div class="form-group">
+
+            <strong>Select Genres:</strong>
+
+            <select name='blog_genre' id='blog_genre' class='form-control'>
+                <option>Select Genres</option>
+                @foreach($genres as $genre)
+                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                @endforeach
+           </select>
+        </div>
+
+    </div>
+     <div class="col-xs-12 col-sm-12 col-md-12">
+
+        <div class="form-group">
+
+            <strong>Select Child Genres:</strong>
+
+            <select name='blog_child_genre' id='blog_child_genre' class='form-control'>
+                <option>Select Genres</option>
+                
+           </select> 
+        </div>
+
+    </div>
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
 
@@ -88,7 +117,7 @@
            </select>
         </div>
 
-    </div>
+    </div> -->
    <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">

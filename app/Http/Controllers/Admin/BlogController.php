@@ -97,7 +97,8 @@ class BlogController extends Controller
 
     public function store(Request $request)
 
-    {        
+    {   
+    //dd($request->all()) ;    
 
         $this->validate($request, 
 
@@ -113,15 +114,54 @@ class BlogController extends Controller
 
         ]);
 
-        
+        $blog = new Blog();
+
+        if ($file = $request->hasFile('blog_image')) {
+
+                $file            = $request->file('blog_image');
+
+                $customimagename  = time() . '.' . $file->getClientOriginalExtension();
+
+                $destinationPath = public_path('blog_img/');
+
+                $file->move($destinationPath, $customimagename);
+
+                $blog_image = $customimagename;                
+
+            }
+            $blog->created_by=Auth::user()->id;
+
+            $blog->blog_title=$request->get('blog_title');
+
+            $blog->parent_genre_id=$request->get('parent_genre_id');
+
+            $blog->blog_genre=$request->get('blog_genre');
+
+            $blog->blog_image=$blog_image;
+
+            $blog->blog_description=$request->get('blog_description');
+
+            $blog->blog_meta_description=$request->get('blog_meta_description');
+
+            $blog->blog_keywords=$request->get('blog_keywords');
+
+            $blog->blog_status=$request->get('blog_status');
+
+            $blog->is_trending=(isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
+
+            $blog->is_featured=(isset($request->is_featured) && $request->is_featured==1)?1:0;
+
+            $blog->is_recommended=FALSE;
+
+             $blog->save();
 
 
 
-        $input = $request->all();  
+       /* $input = $request->all(); */ 
 
          /*Upload,rename image*/
 
-            if ($file = $request->hasFile('blog_image')) {
+/*            if ($file = $request->hasFile('blog_image')) {
 
                 $file            = $request->file('blog_image');
 
@@ -133,9 +173,9 @@ class BlogController extends Controller
 
                 $input['blog_image'] = $customimagename;                
 
-            }
+            }*/
 
-        $input['created_by']=Auth::user()->id;   
+        /*$input['created_by']=Auth::user()->id;   
 
         $blog_slug= str_slug($request->blog_title, '-');
         $check_duplicate = Blog::where("blog_slug",$blog_slug)->first();
@@ -148,16 +188,14 @@ class BlogController extends Controller
         $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
         $input['is_tranding'] = (isset($request->is_tranding) && $request->is_tranding==1)?TRUE:FALSE;
         $input['is_recommended'] =FALSE;
-        $user = Blog::create($input);
+        $input['parent_genre_id']=$request->blog_genre;
+        $user = Blog::create($input);*/
 
         //$user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.blog')->with('success','Blog created successfully');
 
     }
-
-
-
 
 
     /**
@@ -172,13 +210,22 @@ class BlogController extends Controller
 
      */
 
-    public function show($slug)
+    public function show($id)
 
     {
+        /*$blogs=DB::table('blogs as b')
+        ->join('users as u','b.created_by','=','u.id')
+        ->where('b.id','=',$id)
+        ->where('b.is_deleted',"=","0")
+        ->select('b.id','b.blog_title as blog_title','b.blog_description','b.blog_meta_description','b.blog_keywords','b.blog_image','b.created_by','b.is_trending','b.is_featured','u.first_name as first_name','u.last_name as last_name')
+        ->get();*/
+        $blogs=Blog::showBlogDetail($id);
 
-        $blog = Blog::where("blog_slug","=",$slug)->first();  
+       // $fafa="chaitrali";
+        //$blog= collect($blogs); 
+        //dd($blog);
 
-        
+        /*$blog = Blog::where("id","=",$id)->first();  
 
         if($blog->created_by!=0)
 
@@ -192,12 +239,9 @@ class BlogController extends Controller
 
             $creator_name='';
 
-        }
+        }*/
 
-                
-
-        return view('admin.blog.show',compact('blog','creator_name'));
-
+        return view('admin.blog.show',compact('blogs'));//->with('blog');
     }
 
 
@@ -216,7 +260,7 @@ class BlogController extends Controller
 
      */
 
-    public function edit($slug)
+    public function edit($id)
 
     {
 
@@ -224,7 +268,7 @@ class BlogController extends Controller
         $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','N')->orderBy('name')->get()->toArray();
         
 
-        $data['blog'] = Blog::where("blog_slug","=",$slug)->first(); 
+        $data['blog'] = Blog::where("id","=",$id)->first(); 
 
         /*echo "<pre>";
 
@@ -356,13 +400,10 @@ exit();*/
 
      */
 
-    public function destroy($slug)
+    public function destroy($id)
 
     {
-
-        
-
-        Blog::where('blog_slug',$slug)->update(['is_delete'=>'1']);
+        Blog::where('id',$id)->update(['is_deleted'=>'1']);
 
         return redirect()->route('admin.blog')
 
@@ -374,31 +415,17 @@ exit();*/
 
     public function getAjaxData(Request $request){
 
-        
+              $blogs=Blog::getDataTableBlogs();
 
-    	//$this->user = Auth()->user();
-
-    	//$userid = Auth()->user()->id;
-
-		DB::enableQueryLog();
-
-		  $blogs = DB::table('blogs')->join('users','created_by','=','users.id')->where('blogs.is_delete',"=","0")->where('blogs.is_recommended',"=",0)
-
-		      ->select('blogs.id','blog_title','blog_genre','blog_image', 'blogs.created_at','created_by','blog_slug','blog_status','is_tranding','is_featured')                      
-
-                      ->orderBy('blogs.created_at', 'desc')    
-
-		      ->get();
-
-		  $laQuery = DB::getQueryLog();
+		 // $laQuery = DB::getQueryLog();
 
 		  
 
-                  foreach($blogs as $blog) {
+                  /*foreach($blogs as $blog) {
 
                       DB::table('blogs')->where('id','=',$blog->id)->update(['blog_slug'=>str_slug($blog->blog_title)]);
 
-                  }                  
+                  }   */               
 
 		  $blogs= collect($blogs);                           
 
@@ -406,11 +433,11 @@ exit();*/
 
          ->addColumn('action', function($blog) {                  
 
-         	$show_btn = '<a class="btn btn-info" href="'.route('admin.blog.show',$blog->blog_slug).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+         	$show_btn = '<a class="btn btn-info" href="'.route('admin.blog.show',$blog->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
 
-        	$edit_btn = '<a class="btn btn-primary" href="'.route('admin.blog.edit',$blog->blog_slug).'"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+        	$edit_btn = '<a class="btn btn-primary" href="'.route('admin.blog.edit',$blog->id).'"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
 
-         	$del_btn = '<a onclick=\'return confirm("Delete this record?")\' class="btn btn btn-danger" href="'.route('admin.blog.destroy',$blog->blog_slug).'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+         	$del_btn = '<a onclick=\'return confirm("Delete this record?")\' class="btn btn btn-danger" href="'.route('admin.blog.destroy',$blog->id).'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
 
          	return $show_btn.$edit_btn.$del_btn;
 
@@ -435,26 +462,37 @@ exit();*/
          })
 
          ->addColumn('blog_title', function($blog) {                  
-            return '<a href="'.url('blog/'.$blog->blog_slug.'').'" target="_blank">'.$blog->blog_title.'</a>';
+            return '<a href="'.url('blog/'.$blog->id.'').'" target="_blank">'.$blog->blog_title.'</a>';
 
          })
          //->addColumn('blog_heading', function($blog) { return $blog->blog_heading; })
 
-         ->addColumn('blog_genre', function($blog) { return getParentGenreInfo($blog->blog_genre); })
+         ->addColumn('blog_genre', function($blog) { return $blog->child;})//getParentGenreInfo($blog->blog_genre); })
 
          ->addColumn('created_at', function($blog) { return date('d-m-Y',strtotime($blog->created_at)); })
 
-         ->addColumn('created_by', function($blog) { return User::find($blog->created_by)->first_name.' '.User::find($blog->created_by)->last_name; })
+         ->addColumn('created_by', function($blog) { 
+            return $blog->first_name.' '.$blog->last_name;  })
 
-         ->addColumn('blog_status', function($blog) { return getBlogstatus($blog->blog_status); })
+         ->addColumn('blog_status', function($blog) 
+         { 
+            if($blog->blog_status==1)
+            {
+                return "Publish";
+            } else{
+                return "Draft";
+            }
+        })
          
          ->addColumn('is_featured', function($blog) { return (isset($blog->is_featured) && ($blog->is_featured))?'Yes':'No'; })
          
-         ->addColumn('is_tranding', function($blog) { return (isset($blog->is_tranding) && ($blog->is_tranding))?'Yes':'No'; })
+         ->addColumn('is_trending', function($blog) { return (isset($blog->is_trending) && ($blog->is_trending))?'Yes':'No'; })
+
          ->addColumn('is_recommended', function($blog) { 
             return ' <input type="checkbox" data-id="'.$blog->id.'" id="is_recommended" name="is_recommended"  value="1" > ';
             })
-         ->rawColumns(['action','id','blog_image','blog_title','blog_genre','created_at','created_by','is_tranding','is_featured','is_recommended'])
+
+         ->rawColumns(['action','id','blog_image','blog_title','blog_genre','created_at','created_by','is_trending','is_featured','is_recommended'])
 
          ->filter(function ($query) use ($request) {
 

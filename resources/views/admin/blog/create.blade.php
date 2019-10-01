@@ -78,7 +78,7 @@
 
             <strong>Select Genres:</strong>
 
-            <select name='blog_genre' id='blog_genre' class='form-control'>
+            <select name='parent_genre_id' id='parent_genre_id' class='form-control'>
                 <option>Select Genres</option>
                 @foreach($genres as $genre)
                 <option value="{{$genre->id}}">{{$genre->parent_name}}</option>
@@ -93,7 +93,7 @@
 
             <strong>Select Child Genres:</strong>
 
-            <select name='blog_child_genre' id='blog_child_genre' class='form-control'>
+            <select name='blog_genre' id='blog_genre' class='form-control'>
                 <option>Select Genres</option>
                 
            </select> 
@@ -169,8 +169,8 @@
      <div class="col-xs-12 col-sm-12 col-md-12">
 
          <div class="form-group">
-             <strong>Tranding:</strong>
-             <input type="checkbox" name="is_tranding" id="is_tranding" value="1">
+             <strong>Trending:</strong>
+             <input type="checkbox" name="is_trending" id="is_trending" value="1">
          </div>
      </div>
      
@@ -194,7 +194,7 @@
 
  $(document).ready(function(){
       
-            $('select[name="blog_genre"]').on('change',function(){
+            $('select[name="parent_genre_id"]').on('change',function(){
                 var id=$(this).val();
                 
                 if(id)
@@ -210,9 +210,9 @@
                         success:function(data)
                         {
                             console.log(data);
-                            $('select[name="blog_child_genre"]').empty();
+                            $('select[name="blog_genre"]').empty();
                             $.each(data,function(key,value){
-                            $('select[name="blog_child_genre"]').append('<option value="'+key+'">'+value+'</option>');
+                            $('select[name="blog_genre"]').append('<option value="'+key+'">'+value+'</option>');
                             
                                });                   
                         },
@@ -224,7 +224,7 @@
                     });
                 }
                 else{
-                    $('select[name="blog_child_genre"]').empty();
+                    $('select[name="blog_genre"]').empty();
                 }
             });
         });  
