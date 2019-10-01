@@ -90,16 +90,22 @@ return [
 
 //    ],
 
+
+    /*'facebook' => [
+    'client_id' => '509498833176019',
+    'client_secret' => '3c1c524e103e916d9089e4b2169dad33',
+    'redirect' => 'https://www.trippywords.com/auth/facebook/callback/',
+    ],*/
    'facebook' => [
     'client_id' => '2164258997149726',
     'client_secret' => 'e892c253ec575446c1314d41db4bb35d',
     'redirect' => 'https://www.trippywords.com/auth/facebook/callback/',
     ],
-    
+    /*
     'twitter' => [
     'client_id' => 'JNJ2vCFqPq7TwiQfDvlrJ3jWF',
     'client_secret' => '4Z5OWAUaOlDTqhkII5YdoQjwQPCuAkgkG2gWTDf5XWeMRCw3Xw',
     'redirect' => 'http://www.trippywords.com/twittercallback/',
-    ],
+    ],*/
 ];
 

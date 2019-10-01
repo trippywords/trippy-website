@@ -206,6 +206,11 @@ class ProfileController extends Controller {
      */
     public function handleProviderCallback(Request $request,$provider)
     {
+    	if (!$request->has('code') || $request->has('denied'))
+    	 {
+   			return redirect('/');
+   		}
+
         $user = Socialite::with($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
 
