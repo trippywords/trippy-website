@@ -178,6 +178,7 @@ class HomeController extends Controller {
 					}else{
 
 						Auth::login($user);
+						
 						return redirect('/dashboard');
 
 					}
@@ -523,13 +524,6 @@ class HomeController extends Controller {
             $contactus->is_deleted= '0'; 
 
             $contactus->save();
-
-                    
-
-        
-
-			
-
 
 
 		$messsages = array(

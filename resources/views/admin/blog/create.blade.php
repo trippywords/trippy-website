@@ -185,12 +185,13 @@
 {!! Form::close() !!}
 @endsection
 
-<script
+<!-- <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-
-<script>  
+  crossorigin="anonymous"></script> -->
+  <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>
+<script src="{{ asset('public/admin-assets/js/custom/admin-multilevel-dropdown.js') }}"></script>
+<!-- <script>  
 
  $(document).ready(function(){
       
@@ -228,7 +229,7 @@
                 }
             });
         });  
-    </script>
+    </script> -->
     <script >
     $("#error_keyword").hide();
     $("#blog_keywords").blur(function(){

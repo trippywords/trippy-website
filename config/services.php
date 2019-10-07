@@ -101,11 +101,11 @@ return [
     'client_secret' => 'e892c253ec575446c1314d41db4bb35d',
     'redirect' => 'https://www.trippywords.com/auth/facebook/callback/',
     ],
-    /*
+   
     'twitter' => [
     'client_id' => 'JNJ2vCFqPq7TwiQfDvlrJ3jWF',
     'client_secret' => '4Z5OWAUaOlDTqhkII5YdoQjwQPCuAkgkG2gWTDf5XWeMRCw3Xw',
     'redirect' => 'http://www.trippywords.com/twittercallback/',
-    ],*/
+    ],
 ];
 

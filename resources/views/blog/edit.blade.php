@@ -35,7 +35,7 @@
                             <div class="profile_page_main_section margin-bottom-30">
                                 <div class="profile_main_title_section title_secondary_section">
                                     <h2 class="title">
-                                        Edit 
+                                        Edit  
                                     </h2>
 
                                     <a href="{{ route('draft') }}" class="edit_icon" title="edit">

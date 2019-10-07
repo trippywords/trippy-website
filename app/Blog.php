@@ -56,16 +56,31 @@ class Blog extends Authenticatable
 
 
     public static function getBlogs($user_id=null,$offset=0, $whereArr = array(),$orderBy='DESC',$limit=4){
-        $user = DB::table('blogs');
+
+       /* $user = DB::table('blogs');
         $user->join('users','blogs.created_by','=','users.id');
         $user->where('blogs.created_by',"=",$user_id);
         $user->where('blogs.is_deleted',"=",'0');
         $user->where('users.is_verified','=',1);
         $user->where('users.is_delete','=','0');
-        if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
-            $user->where('blogs.blog_status',"=",$whereArr['blog_status']);
+        
+        if (isset($whereArr['blogs.blog_status']) && intval($whereArr['blogs.blog_status']) > 0) {
+            $user->where('blogs.blog_status',"=",$whereArr['blogs.blog_status']);
         }
         $user->orderBy('blogs.id', $orderBy);
+        $user->offset($offset)->limit($limit);
+        return $user->get();*/
+        $user = DB::table('blogs as b');
+        $user->join('users as u','b.created_by','=','u.id');
+        $user->where('b.created_by',"=",$user_id);
+        $user->where('b.is_deleted',"=",'0');
+        $user->where('u.is_verified','=',1);
+        $user->where('u.is_delete','=','0');
+        $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','b.blog_genre','b.is_deleted','b.created_at');
+        if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
+            $user->where('blog_status',"=",$whereArr['blog_status']);
+        }
+        $user->orderBy('b.id', $orderBy);
         $user->offset($offset)->limit($limit);
         return $user->get();
     }

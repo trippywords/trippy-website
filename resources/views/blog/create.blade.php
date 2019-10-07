@@ -71,7 +71,33 @@
                                                 <div class="error">{{ $errors->first('txtBlogHeading') }}</div>
                                             @endif
                                         </div> -->
+
                                         <div class="form-group">
+
+            <strong>Select Genres:</strong>
+
+            <select name='parent_genre_id' id='parent_genre_id' class='form-control'>
+                <option>Select Genres</option>
+                @foreach($genres as $genre)
+                <option value="{{$genre->id}}">{{$genre->parent_name}}</option>
+                @endforeach
+           </select>
+        </div>
+
+        <div class="form-group">
+
+            <strong>Select Child Genres:</strong>
+
+            <select name='blog_genre' id='blog_genre' class='form-control'>
+                <option>Select Genres</option>
+                
+           </select> 
+           @if ($errors->has('blog_genre'))
+            <div class="error">{{ $errors->first('blog_genre') }}</div>
+        @endif
+        </div>
+
+                                       {{-- <div class="form-group">
                                             <strong>Genre</strong>
                                                 <select name="smtp_security" class="form-control">
                                                     <option value="">Select Genre</option>
@@ -84,7 +110,7 @@
                                                 @if ($errors->has('smtp_security'))
                                                     <div class="error">{{ $errors->first('smtp_security') }}</div>
                                                 @endif
-                                        </div>
+                                        </div>--}}
                                         <div class="form-group">
                                             <strong>Blog Picture:</strong>
                                                 {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
@@ -157,10 +183,10 @@
                         <div class="profile_main_section no-padding" id="published_blogs">
                             @if(count($publish_blogs) > 0)
                             @foreach ($publish_blogs as $blog)
-                            <div class="media" data-val="<?php echo $blog->id; ?>">
+                            <div class="media" data-val="<?php echo $blog->blogid; ?>">
                                 <div class="media-left">
                                     <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
-                                        <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset("/public/blog_img/".$blog->blog_image) }}" class="media-object"></a>
+                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset("/public/blog_img/".$blog->blog_image) }}" class="media-object"></a>
                                     <?php } else { ?>
                                         <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
                                     <?php } ?>
@@ -179,10 +205,10 @@
                                     <div class="media-sub-content"><strong>Genre: </strong>  {{$genre_name}}</div>
                                 </div>
                                 <div class="media-edit" style="display: none;">
-                                    <a href="{{ url('blog-edit/'.$blog->blog_slug) }}" class="edit" title="Edit">
+                                    <a href="{{ url('blog-edit/'.$blog->blogid) }}" class="edit" title="Edit">
                                         <i class="fa fa-pencil-square"></i>
                                     </a>
-                                    <a onclick="delete_blog({{ $blog->id }})" class="trash" title="Delete">
+                                    <a onclick="delete_blog({{ $blog->blogid }})" class="trash" title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
@@ -199,7 +225,7 @@
                         </div>
                         <div class="load_more_blog">
                             <div class="ajax-load text-center" style="display:none" id="ajax-load-blogs">
-                                <p><img src="http://demo.itsolutionstuff.com/plugin/loader.gif">Loading More post</p>
+                                <p> <img src="http://demo.itsolutionstuff.com/plugin/loader.gif"> Loading More post</p>
                             </div>
                             @if(isset($publish_total) && intval($publish_total) > 0)
                                 <div class="blog_button">
@@ -217,14 +243,48 @@
             </div>
         </div>
     </section>
-<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
-<script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+ <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+ <?php 
+
+
+ ?> 
 <script type="text/javascript">
+   
+   $(document).ready(function(){
 
-    $(document).ready(function(){
+    $('select[name="parent_genre_id"]').on('change',function(){
+             var id=$(this).val();
+             
+             console.log(id);
+             if(id)
+                {
+                    $.ajax({
+                        type:'GET',
+                        dataType:'json',
+                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        success:function(data)
+                        {
+                            console.log(data);
+                            $('select[name="blog_genre"]').empty();
+                            $.each(data,function(key,value){
+                            $('select[name="blog_genre"]').append('<option value="'+key+'">'+value+'</option>');
+                        });
+                        },
+                        error: function (e) {
+                    
+                    console.log("ERROR: ", e);
+                }
+                    });
+                }
 
+         });
+
+
+        
+     
         $("#txtBlogMetaDescription").keyup(function(){
             var txtBlogMetaDescription = $.trim($('#txtBlogMetaDescription').val());
             if (txtBlogMetaDescription!=undefined && txtBlogMetaDescription!='') {
@@ -476,5 +536,6 @@ $(function(){
         videoUploadMethod: 'POST'
       });
     });
+
   </script>
 @endsection

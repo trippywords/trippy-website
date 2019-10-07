@@ -4,7 +4,7 @@
             <td class="checkbox_td draft_td">
                 <label class="checkbox-inline ad-checkbox-inline delete_btn" style="display: none;">
                     <div class="ad-checkbox">
-                        <input type="checkbox" class="chk" value="{{$blog->id}}">
+                        <input type="checkbox" class="chk" value="{{$blog->blogid}}">
                         <span></span>
                     </div>
                 </label>
@@ -20,10 +20,10 @@
                 {{date('M d', strtotime($blog->created_at))}}
             </td>
             <td class="delete_btn" style="display:none;">
-                <a href="{{ url('draft-edit/'.$blog->blog_slug) }}" class="edit" title="Edit">
+                <a href="{{ url('draft-edit/'.$blog->blogid) }}" class="edit" title="Edit">
                         <i class="fa fa-pencil-square"></i>
                 </a>
-                <a onclick="delete_draft('{{ $blog->id }}')" class="trash" title="Delete"> 
+                <a onclick="delete_draft('{{ $blog->blogid }}')" class="trash" title="Delete"> 
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

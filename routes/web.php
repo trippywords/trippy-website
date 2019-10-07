@@ -143,10 +143,13 @@ Route::post('disconnect-tw', 'ProfileController@disconnectTW')->name('disconnect
 Route::get('login/twitter','ProfileController@twitterLogin')->name('twitterlogin');
 
 Route::get('profile/{username}','ProfileController@userProfile')->name('userprofile');
-
-//Route::get('blog/{slug}', 'BlogController@blogDetailpage');
+//old blog detail page(opens with slug)
+Route::get('blog/{slug}', 'BlogController@blogDetailpage');
 
 Route::get('blog/{slug}', 'BlogController@userBlogDetailpage')->name('userblog');
+
+
+//new blog detail page (opens with id)
 Route::get('blogs/{id}', 'BlogController@userBlogDetailById')->name('userblog');
 Route::get('blogi', 'BlogController@index');
 
@@ -325,7 +328,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/adminpanel/blog/update_recommended', 'Admin\BlogController@update_recommended')->name('admin.blog.update_recommended');
 
 
-        Route::get('/adminpanel/blog/ajax','Admin\BlogController@ajaxChild');
+        Route::get('/adminpanel/blog/ajax','Admin/BlogController@ajaxChild');
+
+        Route::get('/adminpanel/blog/ajax', 'BlogController@ajaxChild');
+
+        //Route::get('/ajax','BlogController@ajaxChild');
 
 
 
