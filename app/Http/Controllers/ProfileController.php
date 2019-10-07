@@ -206,6 +206,11 @@ class ProfileController extends Controller {
      */
     public function handleProviderCallback(Request $request,$provider)
     {
+    	if (!$request->has('code') || $request->has('denied'))
+    	 {
+   			return redirect('/');
+   		}
+
         $user = Socialite::with($provider)->user();
         $authUser = $this->findOrCreateUser($user, $provider);
 
@@ -340,6 +345,8 @@ class ProfileController extends Controller {
     }
 
 	public function edit(Request $request) {
+		$page = $request->page+4;
+
 		$publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
 		$publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
 
@@ -350,19 +357,24 @@ class ProfileController extends Controller {
 			return response()->json(['html' => $view]);
 
 		}
-		return view('profile.edit', compact('publish_blogs','publish_total'));
+		return view('profile.edit', compact('publish_blogs','publish_total','page'));
 	}
 
 
 	public function getBlogs(Request $request) {
+
+		
 		$page = $request->page+4;
+
 		if(isset($request->draft) && $request->draft == 1){
 			$draft_blogs = Blog::getBlogs(Auth::user()->id,$request->page,array('blog_status'=>2));
+
 			$draft_total = count(Blog::getBlogs(Auth::user()->id,$page,array('blog_status'=>2)));
           	return view('blog.view_draft_blog', compact('draft_blogs','draft_total','page'));
         } else {
         	$publish_blogs = Blog::getBlogs(Auth::user()->id,$request->page,array('blog_status'=>1));
 			$publish_total = count(Blog::getBlogs(Auth::user()->id,$page,array('blog_status'=>1)));
+
           	return view('blog.view_published_blog', compact('publish_blogs','publish_total','page'));
         }
 	}

@@ -43,7 +43,7 @@
                                         <td class="checkbox_td draft_td">
                                             <label class="checkbox-inline ad-checkbox-inline delete_btn" style="display: none;">
                                                 <div class="ad-checkbox">
-                                                    <input type="checkbox" class="chk" value="{{$blog->id}}">
+                                                    <input type="checkbox" class="chk" value="{{$blog->blogid}}">
                                                     <span></span>
                                                 </div>
                                             </label>
@@ -60,10 +60,10 @@
                                             {{date('M d', strtotime($blog->created_at))}}
                                         </td>
                                         <td class="delete_btn" style="display:none;">
-                                            <a href="{{ url('draft-edit/'.$blog->blog_slug) }}" class="edit" title="Edit">
+                                            <a href="{{ url('draft-edit/'.$blog->blogid) }}" class="edit" title="Edit">
                                                     <i class="fa fa-pencil-square"></i>
                                             </a>
-                                            <a onclick="delete_draft('{{ $blog->id }}')" class="trash" title="Delete"> 
+                                            <a onclick="delete_draft('{{ $blog->blogid }}')" class="trash" title="Delete"> 
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -106,12 +106,12 @@
                             <div class="profile_main_section no-padding" id="published_blogs">
                                 @if(count($publish_blogs) > 0)
                                 @foreach ($publish_blogs as $blog)
-                            <div class="media" data-val="<?php echo $blog->id; ?>">
+                            <div class="media" data-val="<?php echo $blog->blogid; ?>">
                                 <div class="media-left">
                                     <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
-                                        <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset("/public/blog_img/".$blog->blog_image) }}" class="media-object"></a>
+                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset("/public/blog_img/".$blog->blog_image) }}" class="media-object"></a>
                                     <?php } else { ?>
-                                        <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
+                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
                                     <?php } ?>
                                 </div>
                                 <?php
@@ -136,11 +136,11 @@
                                 </div>
                                 <div class="media-edit" style="display: none;">
 
-                                    <a href="{{ url('blog-edit/'.$blog->blog_slug) }}" class="edit" title="Edit">
+                                    <a href="{{ url('blog-edit/'.$blog->blogid) }}" class="edit" title="Edit">
                                    
                                         <i class="fa fa-pencil-square"></i>
                                     </a>
-                                    <a onclick="delete_blog({{ $blog->id }})" class="trash" title="Delete">
+                                    <a onclick="delete_blog({{ $blog->blogid }})" class="trash" title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>

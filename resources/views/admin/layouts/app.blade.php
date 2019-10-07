@@ -190,7 +190,10 @@
 
    <!-- jquery-loading -->
 
+
    <script src="{{ url('/public/admin-assets/libs/jquery-loading/dist/jquery.loading.min.js') }}"></script>
+
+   
 
 
 

@@ -23,17 +23,64 @@ class Blog extends Authenticatable
     ];
 
 
+    public static function getDataTableBlogs()
+    {
+
+        $blogs = DB::table('blogs as b')
+          ->join('users as u','b.created_by','=','u.id')
+          ->join('child_genres as c','b.blog_genre','=','c.id')
+          ->where('b.is_deleted',"=","0")->where('b.is_recommended',"=",0)
+          ->select('b.id','b.blog_title','b.blog_genre','b.blog_image', 'b.created_at','b.created_by','b.blog_slug','b.blog_status','b.is_trending','b.is_featured','c.child_genre_name as child','u.first_name as first_name','u.last_name as last_name','b.blog_status')                      
+
+                      ->orderBy('b.created_at', 'desc')     
+
+              ->get();
+
+              return $blogs;
+    } 
+
+    public static function showBlogDetail($id)
+    {
+        $blog=DB::table('blogs as b')
+        ->join('users as u','b.created_by','=','u.id')
+        ->where('b.id','=',$id)
+        ->where('b.is_deleted',"=","0")
+        ->select('b.id','b.blog_title as blog_title','b.blog_description','b.blog_meta_description','b.blog_keywords','b.blog_image','b.created_by','b.is_trending','b.is_featured','u.first_name as first_name','u.last_name as last_name')
+        ->get();
+
+
+        return $blog;
+
+    } 
+
+
+
     public static function getBlogs($user_id=null,$offset=0, $whereArr = array(),$orderBy='DESC',$limit=4){
-        $user = DB::table('blogs');
+
+       /* $user = DB::table('blogs');
         $user->join('users','blogs.created_by','=','users.id');
         $user->where('blogs.created_by',"=",$user_id);
-        $user->where('blogs.is_delete',"=",'0');
+        $user->where('blogs.is_deleted',"=",'0');
         $user->where('users.is_verified','=',1);
         $user->where('users.is_delete','=','0');
-        if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
-            $user->where('blogs.blog_status',"=",$whereArr['blog_status']);
+        
+        if (isset($whereArr['blogs.blog_status']) && intval($whereArr['blogs.blog_status']) > 0) {
+            $user->where('blogs.blog_status',"=",$whereArr['blogs.blog_status']);
         }
         $user->orderBy('blogs.id', $orderBy);
+        $user->offset($offset)->limit($limit);
+        return $user->get();*/
+        $user = DB::table('blogs as b');
+        $user->join('users as u','b.created_by','=','u.id');
+        $user->where('b.created_by',"=",$user_id);
+        $user->where('b.is_deleted',"=",'0');
+        $user->where('u.is_verified','=',1);
+        $user->where('u.is_delete','=','0');
+        $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','b.blog_genre','b.is_deleted','b.created_at');
+        if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
+            $user->where('blog_status',"=",$whereArr['blog_status']);
+        }
+        $user->orderBy('b.id', $orderBy);
         $user->offset($offset)->limit($limit);
         return $user->get();
     }

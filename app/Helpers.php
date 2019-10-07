@@ -24,6 +24,8 @@ use App\Settings;
 
 use App\Smtp;
 
+use App\ChildGenres;
+
 function pr($data){
 
     echo "<pre>";
@@ -338,7 +340,7 @@ function getConnectioncount($userid){
 }
 
 function getParentGenreInfo($id){
-
+   
     $data = Genre::find($id);
 
     if($data){

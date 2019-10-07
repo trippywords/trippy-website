@@ -14,6 +14,7 @@ use App\Bookmarks;
 use App\Notifications;
 use App\Usernotification;
 use App\Smtp;
+use App\ChildGenres;
 
 class BlogController extends Controller
 { 
@@ -32,36 +33,58 @@ class BlogController extends Controller
     {
       $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
       $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
-      $genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
-      //die($genrearr);
+
+      $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+      //$genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
+      
       if ($request->ajax()) {
           $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
           return response()->json(['html' => $view]);
       }
       $genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
-      return view('blog.create',compact('genrearr','publish_blogs','publish_total'));
+      return view('blog.create',compact('genres','genrearr','publish_blogs','publish_total'));
     }
 
+
+     public function ajaxChild(Request $request)
+    {
+
+        $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
+
+        return json_encode($child);
+
+    }
+
+    //For storing blog into database
     public function store(Request $request)
     {
+      //dd($request);
       request()->validate([
           'txtBlogName' => 'required',
           //'txtBlogHeading' => 'required',
           //'txtckDescription' => 'required',           
-          'smtp_security' => 'required'         
+          'blog_genre' => 'required'         
           
       ]);
       $blog = new Blog();
       $blog->blog_title   = $request->get('txtBlogName');  
-      $blog->blog_heading = $request->get('txtBlogName');
-      $blog->blog_genre = $request->get('smtp_security');
-      if ($file = $request->hasFile('blog_image')) {
+      //$blog->blog_heading = $request->get('txtBlogName');
+      $blog->parent_genre_id = $request->get('parent_genre_id'); 
+      $blog->blog_genre = $request->get('blog_genre');
+       if ($file = $request->hasFile('blog_image')) {
+
                 $file            = $request->file('blog_image');
+
                 $customimagename  = time() . '.' . $file->getClientOriginalExtension();
+
                 $destinationPath = public_path('blog_img/');
+
                 $file->move($destinationPath, $customimagename);
-                $blog->blog_image = $customimagename;                
-     }
+
+                $blog_image = $customimagename;                
+
+            }
+     $blog->blog_image=$blog_image;
       
       $blog->created_by                = Auth::user()->id;
       $blog->blog_description          = $request->get('txtckDescription');  
@@ -84,15 +107,16 @@ class BlogController extends Controller
       }else{
         $blog->blog_status           = 1;
       }
-      $val = str_slug($blog->blog_title, '-');
+      /*$val = str_slug($blog->blog_title, '-');
       $check_duplicate = Blog::where("blog_slug",$val)->first();
       
       if($check_duplicate){
         $val = $val."1";
       } 
-      $blog->blog_slug = $val;
+      $blog->blog_slug = $val;*/
       $blog->created_at = date('Y-m-d H:i:s');
       $blog->updated_at = date('Y-m-d H:i:s');
+      //dd($blog);
       $blog->save();
       
       if($request->has('draft_btn')){
@@ -101,21 +125,28 @@ class BlogController extends Controller
          return redirect('profile');
       }
     }
+
+
     public function show(Product $product)
     {
         
     }
-    public function edit($slug, Request $request)
-    { 
 
+
+    public function edit($id, Request $request)
+    { 
+      //die($id);
         $genrearr= Genre::select('id','name')->where('is_deleted','=',0)->orderBy('name')->get();
-        $blog= Blog::select('*')->where('blog_slug','=',$slug)->first();               
+        $blog= Blog::select('*')->where('id','=',$id)->first();               
         $blogid=$request->blog_slug;
         if (empty($blog)) {
           return redirect('dashboard');
         }
         return view('blog.edit',compact('blog','genrearr'));
     }
+
+
+
     public function update(Request $request)
     {
       request()->validate([
@@ -153,12 +184,17 @@ class BlogController extends Controller
            return redirect('profile');
         }
     }
+
+
     public function destroy($id)
     {
-        Blog::where('id','=',$id)->update(['is_delete'=>'1']);
+        Blog::where('id','=',$id)->update(['is_deleted'=>'1']);
         return Redirect::back();
     }
+
+
     public function viewDraftBlogs(Request $request){
+      //dd("After click on draft button");
       $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
       $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
 
@@ -175,9 +211,11 @@ class BlogController extends Controller
       }
       return view('blog.view_draft',array('draft_blogs' => $draft_blogs,'publish_blogs' => $publish_blogs,'publish_total' => $publish_total,'draft_total' => $draft_total));
     }
+
+
     public function blogDetailpage($slug)
     {
-        $blog_details=Blog::where('is_delete','=','0')->where('blog_slug','=',$slug)->first(); 
+        $blog_details=Blog::where('is_deleted','=','0')->where('blog_slug','=',$slug)->first(); 
         if($blog_details==null)
         {
             return Redirect::back();
@@ -185,12 +223,13 @@ class BlogController extends Controller
               return view('blog.blog_detail_page',compact('blog_details'));    
         }
     }
-    public function userBlogDetailpage($slug)
+    public function userBlogDetailpage($id)
     {
+      
         if (Auth::user()) {
           session(['is_first_login'=>0]);
         }
-        $blog_details=Blog::where('is_delete','=','0')->where('blog_status','=','1')->where('blog_slug','=',$slug)->first(); 
+        $blog_details=Blog::select('*')->where('is_deleted','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
 
         if($blog_details==null)
         {
@@ -199,23 +238,26 @@ class BlogController extends Controller
          /* $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->where('user_id','=',$blog_details->created_by)->where('is_delete','=','0')->get();*/
           $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->get();
 
-          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_delete','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
+          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_deleted','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
 
           $comments = Comments::select('comments.*','users.first_name','users.last_name')->join('users','users.id','comments.user_id')->where('comments.blog_id','=',$blog_details->id)->where('comments.is_delete','=','0')->orderBy('comments.id','desc')->get();
 
           $auther = User::where('id','=',$blog_details->created_by)->first();
           $users = getUsers();
-          $url = url('blog/'.$slug);
+          $url = url('blog/'.$id);
           return view('blog.user_blog',compact('blog_details','user_genere_details','topblogdata','comments','auther','url','users'));    
         }
     }
 
     public function userBlogDetailById($id)
     {
+      dd($id);
         if (Auth::user()) {
           session(['is_first_login'=>0]);
         }
-        $blog_details=Blog::where('is_delete','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
+        $blog_details=Blog::where('is_deleted','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
+
+        //dd()
 
         if($blog_details==null)
         {
@@ -224,7 +266,7 @@ class BlogController extends Controller
          /* $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->where('user_id','=',$blog_details->created_by)->where('is_delete','=','0')->get();*/
           $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->get();
 
-          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_delete','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
+          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_deleted','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
 
           $comments = Comments::select('comments.*','users.first_name','users.last_name')->join('users','users.id','comments.user_id')->where('comments.blog_id','=',$blog_details->id)->where('comments.is_delete','=','0')->orderBy('comments.id','desc')->get();
 
@@ -329,7 +371,7 @@ class BlogController extends Controller
     public function searchBlog(Request $request){
       $blogTitle = $request->title;
 
-      $blogs = Blog::join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_delete','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
+      $blogs = Blog::join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_deleted','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
         ->where(function($query) use ($blogTitle) {
           $query->where('blogs.blog_title', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_description', 'LIKE', '%'.$blogTitle.'%')
@@ -343,7 +385,7 @@ class BlogController extends Controller
       //         ->orderBy('id','desc')
       //         ->paginate(5);
 
-      $searchCount = Blog::join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_delete','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
+      $searchCount = Blog::join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_deleted','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
         ->where(function($query) use ($blogTitle) {
           $query->where('blogs.blog_title', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_description', 'LIKE', '%'.$blogTitle.'%')
@@ -365,7 +407,7 @@ class BlogController extends Controller
         if (empty($var)) {
           return redirect('dashboard');
         }
-        $blogs = Blog::where('is_delete','=','0')
+        $blogs = Blog::where('is_deleted','=','0')
                 ->where('blog_genre','=',isset($var->id)?$var->id:0)
                 ->orderBy('id','desc')->get();
         if ($request->ajax()) {
@@ -380,7 +422,7 @@ class BlogController extends Controller
       //$keyword = str_replace('-',' ',$keyword);
 
      
-      $results = Blog::where('is_delete','=','0')
+      $results = Blog::where('is_deleted','=','0')
               ->orderBy('id','desc')->get();
       
       $blogs = array();

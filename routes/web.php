@@ -45,7 +45,7 @@ Auth::routes();
 
 
 //Home Controller view
-//  Route::get('/index', 'HomeController@Home');
+ //Route::get('/index', 'HomeController@Home');
 
 Route::get('/', 'HomeController@Home')->name('home');
 
@@ -143,10 +143,13 @@ Route::post('disconnect-tw', 'ProfileController@disconnectTW')->name('disconnect
 Route::get('login/twitter','ProfileController@twitterLogin')->name('twitterlogin');
 
 Route::get('profile/{username}','ProfileController@userProfile')->name('userprofile');
-
-//Route::get('blog/{slug}', 'BlogController@blogDetailpage');
+//old blog detail page(opens with slug)
+Route::get('blog/{slug}', 'BlogController@blogDetailpage');
 
 Route::get('blog/{slug}', 'BlogController@userBlogDetailpage')->name('userblog');
+
+
+//new blog detail page (opens with id)
 Route::get('blogs/{id}', 'BlogController@userBlogDetailById')->name('userblog');
 Route::get('blogi', 'BlogController@index');
 
@@ -312,17 +315,24 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::post('/adminpanel/blog', 'Admin\BlogController@store')->name('admin.blog.store'); // for post user data
 
-        Route::get('/adminpanel/blog/{slug}/edit', 'Admin\BlogController@edit')->name('admin.blog.edit');
+        Route::get('/adminpanel/blog/{id}/edit', 'Admin\BlogController@edit')->name('admin.blog.edit');
 
-        Route::post('/adminpanel/blog/{slug}/update', 'Admin\BlogController@update')->name('admin.blog.update');
+        Route::post('/adminpanel/blog/{id}/update', 'Admin\BlogController@update')->name('admin.blog.update');
 
-        Route::get('/adminpanel/blog/{slug}/destroy', 'Admin\BlogController@destroy')->name('admin.blog.destroy');
+        Route::get('/adminpanel/blog/{id}/destroy', 'Admin\BlogController@destroy')->name('admin.blog.destroy');
 
-        Route::get('/adminpanel/blog/{slug}/show', 'Admin\BlogController@show')->name('admin.blog.show');
+        Route::get('/adminpanel/blog/{id}/show', 'Admin\BlogController@show')->name('admin.blog.show');
 
         Route::get('/adminpanel/blog/getdata', 'Admin\BlogController@getAjaxData')->name('admin.blog.getdata');
 
         Route::post('/adminpanel/blog/update_recommended', 'Admin\BlogController@update_recommended')->name('admin.blog.update_recommended');
+
+
+        Route::get('/adminpanel/blog/ajax','Admin/BlogController@ajaxChild');
+
+        Route::get('/adminpanel/blog/ajax', 'BlogController@ajaxChild');
+
+        //Route::get('/ajax','BlogController@ajaxChild');
 
 
 

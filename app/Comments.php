@@ -50,7 +50,7 @@ class Comments extends Authenticatable
         $user->select('comments.*','users.first_name','users.last_name','users.name','users.profile_image','blogs.blog_title','blogs.blog_slug','blogs.blog_image');
         $user->join('users','comments.user_id','=','users.id');
         $user->join('blogs','comments.blog_id','=','blogs.id');
-        $user->where('blogs.is_delete',"=",'0');
+        $user->where('blogs.is_deleted',"=",'0');
         $user->where('users.is_verified','=',1);
         $user->where('users.is_delete','=','0');
         $user->orderBy('comments.id', 'desc');

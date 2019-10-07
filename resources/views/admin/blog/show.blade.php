@@ -24,8 +24,13 @@
 
 </div>
 
+<?php 
+/*echo "<pre>";
+print_r($blog);
+die();*/
 
-
+?>
+@foreach ($blogs as $blog)
 <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -61,7 +66,7 @@
 
             <strong>Blog Create By:</strong>
 
-            {{ $creator_name }}
+            {{ $blog->first_name}}
 
         </div>
 
@@ -116,9 +121,9 @@
 
         <div class="form-group">
 
-            <strong>Tranding:</strong>
+            <strong>Trending:</strong>
 
-            {{ (isset($blog->is_tranding) && $blog->is_tranding==1)?"Yes":"No" }}
+            {{ (isset($blog->is_trending) && $blog->is_trending==1)?"Yes":"No" }}
 
         </div>
 
@@ -133,5 +138,5 @@
      </div>
      
 </div>
-
+@endforeach
 @endsection

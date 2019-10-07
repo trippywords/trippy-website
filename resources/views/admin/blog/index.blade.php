@@ -26,7 +26,7 @@
             <th>Created By</th>
             <th>Blog Status</th>
             <th>Featured</th>
-            <th>Tranding</th>
+            <th>Trending</th>
             <th>Recommended</th>
             <th width="280px">Action</th>
         </tr>
@@ -41,7 +41,7 @@
             <th>Created By</th>
             <th>Blog Status</th>
             <th>Featured</th>
-            <th>Tranding</th>
+            <th>Trending</th>
             <th>Recommended</th>
             <th width="280px">Action</th>
         </tr>
