@@ -55,19 +55,37 @@
                                         </div>
                                         
                                         <div class="form-group">
-                                            <strong>Genre</strong>
-                                                <select name="smtp_security" class="form-control">
-                                                    <option value="">Select Genre</option>
-                                             @foreach ($genrearr as $genr)
+                                            <strong>Parent Genre</strong>
+                                                <select name="parent_genre_id" id="parent_genre_id" class="form-control">
+                                                    <option value="">Select Parent Genre</option>
+                                             @foreach ($genres as $genr)
                                                     <option value="{{$genr->id}}"
-                                                     @if($genr->id == $blog->blog_genre){{'selected'}} @endif >{{$genr->name}}</option>
+                                                     @if($genr->id == $blog->parent_genre_id){{'selected'}} @endif >{{$genr->parent_name}}</option>
                                               @endforeach
                                              
                                                 </select>
-                                                @if ($errors->has('smtp_security'))
-                                                    <div class="error">{{ $errors->first('smtp_security') }}</div>
+                                                @if ($errors->has('parent_genre_id'))
+                                                    <div class="error">{{ $errors->first('parent_genre_id') }}</div>
                                                 @endif
                                         </div>
+
+                                        <div class="form-group">
+                                            <strong>Child Genre</strong>
+                                                <select name="blog_genre" id="blog_genre" class="form-control">
+                                                    <option value="">Select child Genre</option>
+                                             @foreach ($childgenres as $genr)
+                                                    <option value="{{$genr->id}}"
+                                                     @if($genr->id == $blog->blog_genre){{'selected'}} @endif >{{$genr->child_genre_name}}</option>
+                                              @endforeach
+                                             
+                                                </select>
+                                                @if ($errors->has('blog_genre'))
+                                                    <div class="error">{{ $errors->first('blog_genre') }}</div>
+                                                @endif
+                                        </div>
+
+
+
                                         <div class="form-group">
 
                                             <strong>Blog Picture:</strong>
@@ -136,6 +154,33 @@
 <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
 <script type="text/javascript">
     $(document).ready(function(){
+
+         $('select[name="parent_genre_id"]').on('change',function(){
+             var id=$(this).val();
+             
+            // console.log(id);
+             if(id)
+                {
+                    $.ajax({
+                        type:'GET',
+                        dataType:'json',
+                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        success:function(data)
+                        {
+                            //console.log(data);
+                            $('select[name="blog_genre"]').empty();
+                            $.each(data,function(key,value){
+                            $('select[name="blog_genre"]').append('<option value="'+key+'">'+value+'</option>');
+                        });
+                        },
+                        error: function (e) {
+                    
+                    console.log("ERROR: ", e);
+                }
+                    });
+                }
+
+         });
 
         $("#txtBlogMetaDescription").keyup(function(){
             var txtBlogMetaDescription = $.trim($('#txtBlogMetaDescription').val());

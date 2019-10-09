@@ -58,7 +58,7 @@ class BlogController extends Controller
     //For storing blog into database
     public function store(Request $request)
     {
-      //dd($request);
+      
       request()->validate([
           'txtBlogName' => 'required',
           //'txtBlogHeading' => 'required',
@@ -69,8 +69,12 @@ class BlogController extends Controller
       $blog = new Blog();
       $blog->blog_title   = $request->get('txtBlogName');  
       //$blog->blog_heading = $request->get('txtBlogName');
+
+      //adding parent genre to blog table
       $blog->parent_genre_id = $request->get('parent_genre_id'); 
+      //adding child genre to blog table
       $blog->blog_genre = $request->get('blog_genre');
+
        if ($file = $request->hasFile('blog_image')) {
 
                 $file            = $request->file('blog_image');
@@ -84,13 +88,13 @@ class BlogController extends Controller
                 $blog_image = $customimagename;                
 
             }
-     $blog->blog_image=$blog_image;
       
       $blog->created_by                = Auth::user()->id;
       $blog->blog_description          = $request->get('txtckDescription');  
-      $blog->blog_meta_description     = $request->get('txtBlogMetaDescription');  
+      $blog->blog_meta_description     = $request->get('txtBlogMetaDescription');
+      $blog->blog_image=$blog_image;  
       $blog->blog_keywords             = $request->get('txtBlogKeywords');
-
+      //dd($blog);
       // $varkey = explode(",",$blog->blog_keywords);
       // foreach ($varkey as $valkey) {
       //   if (!empty(trim($valkey))) {
@@ -136,24 +140,32 @@ class BlogController extends Controller
     public function edit($id, Request $request)
     { 
       //die($id);
+      $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+
+
+
         $genrearr= Genre::select('id','name')->where('is_deleted','=',0)->orderBy('name')->get();
-        $blog= Blog::select('*')->where('id','=',$id)->first();               
+        $blog= Blog::select('*')->where('id','=',$id)->first();
+
+        $childgenres=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->get()->toArray();
+
         $blogid=$request->blog_slug;
         if (empty($blog)) {
           return redirect('dashboard');
         }
-        return view('blog.edit',compact('blog','genrearr'));
+        return view('blog.edit',compact('blog','genres','childgenres'));
     }
 
 
 
     public function update(Request $request)
     {
+      //dd($request);
       request()->validate([
           'txtBlogName' => 'required',
           //'txtBlogHeading' => 'required',
           //'txtckDescription' => 'required',           
-          'smtp_security' => 'required'      
+          'blog_genre' => 'required'      
           
       ]);
         if($request->has('draft_btn')){
@@ -161,13 +173,15 @@ class BlogController extends Controller
       }else{
         $blog_status           = 1;
       }
-        Blog::where('blog_slug', '=', $request->txtBlogSlug)->update(['blog_title' => $request->txtBlogName,
+        Blog::where('id', '=', $request->txtBlogId)->update(['blog_title' => $request->txtBlogName,
             'blog_heading' => $request->txtBlogName,
             'blog_status'=>$blog_status,
             'blog_description' => $request->txtDescription,
             'blog_meta_description' => $request->txtBlogMetaDescription,
             'blog_keywords' => $request->txtBlogKeywords,
-            'blog_genre' => $request->smtp_security,
+            'parent_genre_id' => $request->parent_genre_id,
+            'blog_genre' => $request->blog_genre,
+            //'blog_genre' => $request->smtp_security,
             'blog_slug' => str_slug($request->txtBlogName,"-"),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

@@ -66,13 +66,13 @@
                                     <h4 class="media-heading"><a href="{{ url('blog/'.$blog->blogid) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
                                     <p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200 )) @endphp</p>
                                     <?php
-                                        $genre_name= "";
+                                       /* $genre_name= "";
                                         if(!empty($blog->blog_genre)){
                                             $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
                                         }
-                                        $genre_name = $genre->name;
+                                        $genre_name = $genre->name;*/
                                     ?>
-                                    <div class="media-sub-content">Genre:  {{ $genre_name }}</div>
+                                    <div class="media-sub-content">Genre:  {{ $blog->child_genre_name }}</div>
 
                                 </div>
 

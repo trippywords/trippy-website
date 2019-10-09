@@ -247,10 +247,7 @@
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
  <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
- <?php 
-
-
- ?> 
+ 
 <script type="text/javascript">
    
    $(document).ready(function(){
