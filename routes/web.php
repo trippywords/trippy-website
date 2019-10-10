@@ -284,11 +284,6 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
-           
-
-
-
-
 
         //Admin User Management
         Route::get('/adminpanel/users', 'Admin\UserController@index')->name('admin.users');
@@ -343,15 +338,18 @@ Route::group(['middleware' => 'web'], function () {
         
         Route::post('/adminpanel/recommended-blog', 'Admin\RecommendedBlogController@store')->name('admin.recommended-blog.store'); // for post user data
         
-        Route::get('/adminpanel/recommended-blog/{slug}/edit', 'Admin\RecommendedBlogController@edit')->name('admin.recommended-blog.edit');
+        Route::get('/adminpanel/recommended-blog/{id}/edit', 'Admin\RecommendedBlogController@edit')->name('admin.recommended-blog.edit');
         
-        Route::post('/adminpanel/recommended-blog/{slug}/update', 'Admin\RecommendedBlogController@update')->name('admin.recommended-blog.update');
+        Route::post('/adminpanel/recommended-blog/{id}/update', 'Admin\RecommendedBlogController@update')->name('admin.recommended-blog.update');
         
-        Route::get('/adminpanel/recommended-blog/{slug}/destroy', 'Admin\RecommendedBlogController@destroy')->name('admin.recommended-blog.destroy');
+        Route::get('/adminpanel/recommended-blog/{id}/destroy', 'Admin\RecommendedBlogController@destroy')->name('admin.recommended-blog.destroy');
         
-        Route::get('/adminpanel/recommended-blog/{slug}/show', 'Admin\RecommendedBlogController@show')->name('admin.recommended-blog.show');
+        Route::get('/adminpanel/recommended-blog/{id}/show', 'Admin\RecommendedBlogController@show')->name('admin.recommended-blog.show');
         
         Route::get('/adminpanel/recommended-blog/getdata', 'Admin\RecommendedBlogController@getAjaxData')->name('admin.recommended-blog.getdata');
+
+
+
 
         //Admin Contactus Management 
         Route::get('/adminpanel/contactus/getdata', 'ContactusController@getAjaxData')->name('admin.contactus.getdata');

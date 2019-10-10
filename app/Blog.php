@@ -7,6 +7,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\DB;
+//use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class Blog extends Authenticatable
 {
@@ -22,30 +24,45 @@ class Blog extends Authenticatable
         'blog_title','blog_genre' ,'created_by','blog_description','blog_meta_description','blog_keywords','blog_image','blog_status','blog_slug','tags','is_featured','is_trending','is_recommended','parent_genre_id'
     ];
 
-
+    //function for getting table data for recommended as well as blogs for adminpanel 
     public static function getDataTableBlogs()
     {
-
+        if(str_contains(url()->current(), '/adminpanel/recommended-blog/getdata'))
+        {
         $blogs = DB::table('blogs as b')
           ->join('users as u','b.created_by','=','u.id')
           ->join('child_genres as c','b.blog_genre','=','c.id')
-          ->where('b.is_deleted',"=","0")->where('b.is_recommended',"=",0)
-          ->select('b.id','b.blog_title','b.blog_genre','b.blog_image', 'b.created_at','b.created_by','b.blog_slug','b.blog_status','b.is_trending','b.is_featured','c.child_genre_name as child','u.first_name as first_name','u.last_name as last_name','b.blog_status')                      
-
-                      ->orderBy('b.created_at', 'desc')     
+          ->where('b.is_deleted',"=","0")->where('b.is_recommended',"=",1)
+          ->select('b.id','b.blog_title','b.blog_genre','b.blog_image', 'b.created_at','b.created_by','b.blog_slug','b.blog_status','b.is_trending','b.is_featured','c.child_genre_name as child','u.first_name as first_name','u.last_name as last_name','b.blog_status')       
+          ->orderBy('b.created_at', 'desc')     
 
               ->get();
 
               return $blogs;
+          }
+          else
+           {
+             $blogs = DB::table('blogs as b')
+          ->join('users as u','b.created_by','=','u.id')
+          ->join('child_genres as c','b.blog_genre','=','c.id')
+          ->where('b.is_deleted',"=","0")->where('b.is_recommended',"=",0)
+          ->select('b.id','b.blog_title','b.blog_genre','b.blog_image', 'b.created_at','b.created_by','b.blog_slug','b.blog_status','b.is_trending','b.is_featured','c.child_genre_name as child','u.first_name as first_name','u.last_name as last_name','b.blog_status')       
+          ->orderBy('b.created_at', 'desc')     
+
+              ->get();
+
+              return $blogs;
+          }
     } 
 
+   
     public static function showBlogDetail($id)
     {
         $blog=DB::table('blogs as b')
         ->join('users as u','b.created_by','=','u.id')
         ->where('b.id','=',$id)
         ->where('b.is_deleted',"=","0")
-        ->select('b.id','b.blog_title as blog_title','b.blog_description','b.blog_meta_description','b.blog_keywords','b.blog_image','b.created_by','b.is_trending','b.is_featured','u.first_name as first_name','u.last_name as last_name')
+        ->select('b.id','b.blog_title as blog_title','b.blog_description','b.blog_meta_description','b.blog_keywords','b.blog_image','b.created_by','b.is_trending','b.is_featured','b.is_recommended','u.first_name as first_name','u.last_name as last_name')
         ->get();
 
 

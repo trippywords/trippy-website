@@ -13,7 +13,8 @@ $(function () {
         serverSide: false,
         ordering: false,
         dom: 'Bfrtip',
-        "ajax": ADMIN_URL+'/blog/getdata',
+        data:{recom:0},
+        ajax: ADMIN_URL+'/blog/getdata',
         columns: [
             {data: 'id', name: 'id'},
             {data: 'blog_image', name: 'blog_image'},            

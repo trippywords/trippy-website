@@ -10,13 +10,13 @@
 
         <div class="pull-left">
 
-            <h2> Show Blog</h2>
+            <h2> Show Recommended Blog</h2>
 
         </div>
 
         <div class="pull-right">
 
-            <a class="btn btn-primary" href="{{ route('admin.blog') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin.recommended-blog') }}"> Back</a>
 
         </div>
 
@@ -25,7 +25,7 @@
 </div>
 
 
-
+@foreach ($blogs as $blog)
 <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -61,7 +61,7 @@
 
             <strong>Blog Create By:</strong>
 
-            {{ $creator_name }}
+            {{ $blog->first_name}}
 
         </div>
 
@@ -118,7 +118,7 @@
 
             <strong>Tranding:</strong>
 
-            {{ (isset($blog->is_tranding) && $blog->is_tranding==1)?"Yes":"No" }}
+            {{ (isset($blog->is_trending) && $blog->is_trending==1)?"Yes":"No" }}
 
         </div>
 
@@ -137,5 +137,5 @@
     </div>
 
 </div>
-
+@endforeach
 @endsection

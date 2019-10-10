@@ -2,7 +2,7 @@
 			<nav class="sidebar-nav" id="sidebar-nav-scroller">
 				<ul class="nav">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('admin_dashboard') }}">
+						<a class="nav-link" href="{{ route('admin-panel') }}">
 							<i class="mdi mdi-gauge"></i> Dashboard
 							<span class="badge badge-main badge-boxed badge-warning">New</span>
 						</a>
