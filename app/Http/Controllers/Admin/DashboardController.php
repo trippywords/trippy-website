@@ -7,6 +7,7 @@ use App\User;
 use App\Genre;
 use App\Comments;
 use App\Blog;
+use App\ChildGenres;
 
 class DashboardController extends Controller
 
@@ -46,12 +47,14 @@ class DashboardController extends Controller
    {
 
         $user_count=User::where('is_delete','=','0')->count();       //where('is_delete','=','0')->              
-        $genre = Genre::where('is_deleted','N')->count();
+        $genre = ChildGenres::where('is_deleted','0')->count();
+
         $blogs_count = Blog::where('is_deleted','0')->count();
         $publish_blog_count=Blog::where('blog_status','=','1')->where('is_deleted','0')->count();
         $draft_blog_count=Blog::where('blog_status','=','2')->where('is_deleted','0')->count();
 
-        $users=User::where('is_delete','=','0')->where('role_id','!=',4)->orderBy('id')->limit(5)->get();
+        $users=User::where('is_delete','=','0')->where('role_id','!=',4)->orderBy('id','DESC')->get();
+
         $blogs=Blog::where('is_deleted','0')->orderBy('updated_at')->limit(5)->get();
         $comments=Comments::getComments(5);
         $comments_count=Comments::getComments(null,true);
