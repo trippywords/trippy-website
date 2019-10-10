@@ -23,7 +23,7 @@ $(function () {
             {data: 'created_by', name: 'created_by'},
             {data: 'blog_status', name: 'blog_status'},                      
             {data: 'is_featured', name: 'is_featured'},                      
-            {data: 'is_tranding', name: 'is_tranding'},                      
+            {data: 'is_trending', name: 'is_trending'},                      
             {data: 'is_recommended', name: 'is_recommended'},                      
             {data: 'action', name: 'action'},
         ],

@@ -6,7 +6,7 @@
             <h2>Recommended Blogs</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('admin.recommended-blog.create') }}"> Create New</a>
+            <a class="btn btn-success" href="{{ route('admin.recommended-blog.create') }}"> Create New Recommended blog</a>
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
             <th>Created By</th>
             <th>Blog Status</th>
             <th>Featured</th>
-            <th>Tranding</th>
+            <th>Trending</th>
             <th>Recommended</th>
             <th width="280px">Action</th>
         </tr>
@@ -41,7 +41,7 @@
             <th>Created By</th>
             <th>Blog Status</th>
             <th>Featured</th>
-            <th>Tranding</th>
+            <th>Trending</th>
             <th>Recommended</th>
             <th width="280px">Action</th>
         </tr>

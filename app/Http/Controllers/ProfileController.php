@@ -1076,7 +1076,6 @@ class ProfileController extends Controller {
 			User::where('id', '=', Auth::user()->id)->update(['social_icon_status'=>'1']);
 
 			return 1;
-
 		}else{
 
 			User::where('id', '=', Auth::user()->id)->update(['social_icon_status'=>'0']);
@@ -1104,7 +1103,7 @@ class ProfileController extends Controller {
 		}
 		 if($userdetails!=null)
 		 {
-			$blogdetails=Blog::where("created_by",'=',$userdetails->id)->where("blog_status","=","1")->where('is_delete','=','0')->orderBy('id', 'DESC')->get();
+			$blogdetails=Blog::where("created_by",'=',$userdetails->id)->where("blog_status","=","1")->where('is_deleted','=','0')->orderBy('id', 'DESC')->get();
 
 
 			if ($request->ajax()) {

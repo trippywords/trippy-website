@@ -668,7 +668,7 @@
 
                             <i class="fa fa-wrench"></i> Settings</a>
 
-                       <a class="dropdown-item" href="{{ url('/index') }}">
+                       <a class="dropdown-item" href="{{ route('dashboard') }}">
 
                             <i class="fa fa-wrench"></i> Back to Front</a>     
 

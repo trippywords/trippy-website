@@ -213,33 +213,8 @@ class BlogController extends Controller
     public function show($id)
 
     {
-        /*$blogs=DB::table('blogs as b')
-        ->join('users as u','b.created_by','=','u.id')
-        ->where('b.id','=',$id)
-        ->where('b.is_deleted',"=","0")
-        ->select('b.id','b.blog_title as blog_title','b.blog_description','b.blog_meta_description','b.blog_keywords','b.blog_image','b.created_by','b.is_trending','b.is_featured','u.first_name as first_name','u.last_name as last_name')
-        ->get();*/
+       
         $blogs=Blog::showBlogDetail($id);
-
-       // $fafa="chaitrali";
-        //$blog= collect($blogs); 
-        //dd($blog);
-
-        /*$blog = Blog::where("id","=",$id)->first();  
-
-        if($blog->created_by!=0)
-
-        {
-
-            $b_c_name = User::select('name')->where('id', '=',$blog->created_by)->first();   
-
-            $creator_name=$b_c_name->name;
-
-        }else{
-
-            $creator_name='';
-
-        }*/
 
         return view('admin.blog.show',compact('blogs'));//->with('blog');
     }
@@ -410,6 +385,7 @@ exit();*/
 
     public function getAjaxData(Request $request){
 
+            
               $blogs=Blog::getDataTableBlogs();
 
 		 // $laQuery = DB::getQueryLog();
