@@ -19,7 +19,7 @@ class Blog extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'blog_title','blog_genre' ,'created_by','blog_description','blog_meta_description','blog_keywords','blog_image','blog_status','blog_slug','tags','is_featured','is_tranding','is_recommended'
+        'blog_title','blog_genre' ,'created_by','blog_description','blog_meta_description','blog_keywords','blog_image','blog_status','blog_slug','tags','is_featured','is_trending','is_recommended','parent_genre_id'
     ];
 
 
@@ -72,11 +72,13 @@ class Blog extends Authenticatable
         return $user->get();*/
         $user = DB::table('blogs as b');
         $user->join('users as u','b.created_by','=','u.id');
+        $user->join('parent_genres as p','b.parent_genre_id','=','p.id');
+        $user->join('child_genres as c','b.blog_genre','=','c.id');
         $user->where('b.created_by',"=",$user_id);
         $user->where('b.is_deleted',"=",'0');
         $user->where('u.is_verified','=',1);
         $user->where('u.is_delete','=','0');
-        $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','b.blog_genre','b.is_deleted','b.created_at');
+        $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','c.child_genre_name','b.is_deleted','b.created_at','p.parent_name');
         if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
             $user->where('blog_status',"=",$whereArr['blog_status']);
         }

@@ -48,7 +48,7 @@
 
 
 
-{!! Form::model($blog, ['method' => 'POST','files'=> true,'route' => ['admin.blog.update', $blog->blog_slug]]) !!}
+{!! Form::model($blog, ['method' => 'POST','files'=> true,'route' => ['admin.blog.update', $blog->id]]) !!}
 
 <div class="row">
 
@@ -75,49 +75,46 @@
 
     </div> -->
 
+   <div class="col-xs-12 col-sm-12 col-md-12">
+
+
+    <div class="form-group">
+                                            <strong>Parent Genre</strong>
+                                                <select name="parent_genre_id" id="parent_genre_id" class="form-control">
+                                                    <option value="">Select Parent Genre</option>
+                                             @foreach ($genres as $genr)
+                                                    <option value="{{$genr->id}}"
+                                                     @if($genr->id == $blog->parent_genre_id){{'selected'}} @endif >{{$genr->parent_name}}</option>
+                                              @endforeach
+                                             
+                                                </select>
+                                                @if ($errors->has('parent_genre_id'))
+                                                    <div class="error">{{ $errors->first('parent_genre_id') }}</div>
+                                                @endif
+                                        </div>
+
+        
+
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
-
-            <strong>Select Genres:</strong>
-
-            <select name='blog_genre' id='blog_genre' class='form-control'>
-                <option>Select Genres</option>
-                @foreach($genres as $genre)
-                <option value="{{$genre->id}}">{{$genre->name}}</option>
-                @endforeach
-           </select>
-        </div>
-
-    </div>
-     <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Select Child Genres:</strong>
-
-            <select name='blog_child_genre' id='blog_child_genre' class='form-control'>
-                <option>Select Genres</option>
-                
-           </select> 
-        </div>
+                                            <strong>Child Genre</strong>
+                                                <select name="blog_genre" id="blog_genre" class="form-control">
+                                                    <option value="">Select child Genre</option>
+                                             @foreach ($childgenres as $genr)
+                                                    <option value="{{$genr->id}}"
+                                                     @if($genr->id == $blog->blog_genre){{'selected'}} @endif >{{$genr->child_genre_name}}</option>
+                                              @endforeach
+                                             
+                                                </select>
+                                                @if ($errors->has('blog_genre'))
+                                                    <div class="error">{{ $errors->first('blog_genre') }}</div>
+                                                @endif
+                                        </div>
 
     </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Select Genres:</strong>
-
-            <select name='blog_genre' class='form-control'>
-                <option>Select Genres</option>
-                @foreach($genres as $genre)
-                <option value="{{$genre->id}}" @if($genre->id == $blog->blog_genre) {{'selected'}} @endif>{{$genre->name}}</option>
-                @endforeach
-           </select>
-        </div>
-
-    </div> -->
+    
    <div class="col-xs-12 col-sm-12 col-md-12">
 
         <div class="form-group">
@@ -193,8 +190,8 @@
      <div class="col-xs-12 col-sm-12 col-md-12">
 
          <div class="form-group">
-             <strong>Tranding:</strong>
-             <input type="checkbox" name="is_tranding" id="is_tranding" value="1" <?php if(isset($blog->is_tranding) && $blog->is_tranding==1){ ?> checked='checked' <?php } ?>>
+             <strong>Trending:</strong>
+             <input type="checkbox" name="is_trending" id="is_trending" value="1" <?php if(isset($blog->is_trending) && $blog->is_trending==1){ ?> checked='checked' <?php } ?>>
          </div>
      </div>
 
@@ -212,3 +209,37 @@
 
 
 @endsection
+
+<script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+<script type="text/javascript">
+   
+   $(document).ready(function(){
+
+    $('select[name="parent_genre_id"]').on('change',function(){
+             var id=$(this).val();
+             
+             console.log(id);
+             if(id)
+                {
+                    $.ajax({
+                        type:'GET',
+                        dataType:'json',
+                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        success:function(data)
+                        {
+                            console.log(data);
+                            $('select[name="blog_genre"]').empty();
+                            $.each(data,function(key,value){
+                            $('select[name="blog_genre"]').append('<option value="'+key+'">'+value+'</option>');
+                        });
+                        },
+                        error: function (e) {
+                    
+                    console.log("ERROR: ", e);
+                }
+                    });
+                }
+
+         });
+    });
+</script>

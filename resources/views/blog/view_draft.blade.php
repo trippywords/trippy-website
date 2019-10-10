@@ -115,11 +115,11 @@
                                     <?php } ?>
                                 </div>
                                 <?php
-                                    $genre_name= "";
+                                   /* $genre_name= "";
                                     if(!empty($blog->blog_genre)){
                                         $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
                                     }
-                                    $genre_name = $genre->name;
+                                    $genre_name = $genre->name;*/
                                     ?>
                                 <div class="media-body">
 
@@ -132,7 +132,7 @@
                                             $content = '';
                                         } ?>
                                     <p class="media-content">@php echo substr($content, 0,200) @endphp</p>
-                                    <div class="media-sub-content"><strong>Genre: </strong> {{$genre_name}}</div>
+                                    <div class="media-sub-content"><strong>Genre: </strong> {{ $blog->child_genre_name }}</div>
                                 </div>
                                 <div class="media-edit" style="display: none;">
 

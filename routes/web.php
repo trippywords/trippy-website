@@ -453,7 +453,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('compose', 'BlogController@create')->name('compose');
 
-    Route::get('blog-edit/{slug}', 'BlogController@edit')->name('editblog');    
+    Route::get('blog-edit/{id}', 'BlogController@edit')->name('editblog');    
 
     Route::get('draft-edit/{slug}', 'BlogController@edit')->name('editdraft');
 

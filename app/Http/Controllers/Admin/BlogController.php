@@ -265,10 +265,11 @@ class BlogController extends Controller
     {
 
        
-        $data['genres'] = DB::table('genres')->select('id','name')->where('is_deleted','=','N')->orderBy('name')->get()->toArray();
-        
+        $data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
 
         $data['blog'] = Blog::where("id","=",$id)->first(); 
+
+        $data['childgenres']=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->get()->toArray();
 
         /*echo "<pre>";
 
@@ -304,9 +305,10 @@ class BlogController extends Controller
 
      */
 
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
 
     {
+        //dd($request);
 
         $this->validate($request, 
 
@@ -332,10 +334,6 @@ exit();*/
 
         $input = $request->all();     
 
-        
-
-        
-
             if ($file = $request->hasFile('blog_image')) {
 
                 $file            = $request->file('blog_image');
@@ -360,23 +358,20 @@ exit();*/
         $input['blog_heading'] = $request->blog_title;
         $input['blog_slug']= str_slug($request->blog_title, '-');    
         $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
-        $input['is_tranding'] = (isset($request->is_tranding) && $request->is_tranding==1)?TRUE:FALSE;
+        $input['is_trending'] = (isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
+        $input['parent_genre_id']=$request->parent_genre_id;
+        $input['blog_genre']=$request->blog_genre;
+        
         $input['is_recommended'] =FALSE;
-        $blog = Blog::where("blog_slug","=",$slug)->first();
+
+        //dd($input);
+        $blog = Blog::where("id","=",$id)->first();
 
         $blog->update($input);
 
         //DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-
-
-
-
         //$user->assignRole($request->input('roles'));
-
-
-
-
 
         return redirect()->route('admin.blog')
 
