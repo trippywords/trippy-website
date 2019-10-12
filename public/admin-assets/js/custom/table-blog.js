@@ -12,8 +12,7 @@ $(function () {
         processing: true,
         serverSide: false,
         ordering: false,
-        dom: 'Bfrtip',
-        data:{recom:0},
+        dom: 'Bfrtip',       
         ajax: ADMIN_URL+'/blog/getdata',
         columns: [
             {data: 'id', name: 'id'},

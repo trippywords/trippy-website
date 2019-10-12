@@ -15,6 +15,7 @@ use App\Notifications;
 use App\Usernotification;
 use App\Smtp;
 use App\ChildGenres;
+use App\ParentGenres;
 
 class BlogController extends Controller
 { 
@@ -31,24 +32,26 @@ class BlogController extends Controller
 
     public function create(Request $request)
     {
+
       $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
       $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
 
-      $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+      //$genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
       //$genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
-      
+      $genres=ParentGenres::getComposeGenre();
+        //dd($genres);
       if ($request->ajax()) {
           $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
           return response()->json(['html' => $view]);
       }
-      $genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
-      return view('blog.create',compact('genres','genrearr','publish_blogs','publish_total'));
+      //$genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
+      return view('blog.create',compact('genres','publish_blogs','publish_total'));
     }
 
 
      public function ajaxChild(Request $request)
     {
-
+     // dd($request);
         $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
 
         return json_encode($child);
@@ -140,11 +143,11 @@ class BlogController extends Controller
     public function edit($id, Request $request)
     { 
       //die($id);
-      $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+     // $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
 
+      $genres=ParentGenres::getComposeGenre();
 
-
-        $genrearr= Genre::select('id','name')->where('is_deleted','=',0)->orderBy('name')->get();
+        //$genrearr= Genre::select('id','name')->where('is_deleted','=',0)->orderBy('name')->get();
         $blog= Blog::select('*')->where('id','=',$id)->first();
 
         $childgenres=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->get()->toArray();

@@ -80,7 +80,7 @@
 
                         <h2 class="title">
 
-                            New Blog 
+                            New user Blog 
 
                         </h2>
 

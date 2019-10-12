@@ -10,6 +10,8 @@ use App\Blog;
 
 use App\ChildGenres;
 
+use App\ParentGenres;
+
 use App\User;
 
 use Spatie\Permission\Models\Role;
@@ -65,7 +67,8 @@ class BlogController extends Controller
     public function create()
 
     {
-        $data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+        $data['genres']=ParentGenres::getComposeGenre();
+        //$data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
         
         return view('admin.blog.create',$data);
 
@@ -239,8 +242,8 @@ class BlogController extends Controller
 
     {
 
-       
-        $data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+        $data['genres']=ParentGenres::getComposeGenre();
+        //$data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
 
         $data['blog'] = Blog::where("id","=",$id)->first(); 
 

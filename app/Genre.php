@@ -142,6 +142,12 @@ WHERE `genres`.`parent_genre_id`= $id  and `blogs`.`is_delete` = '0'  and `blogs
             return $nextChild;
         }
 
+
+        Public static function getComposeGenre()
+        {
+            $genres
+        } 
+
        
 
 }

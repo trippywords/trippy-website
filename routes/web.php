@@ -25,7 +25,15 @@
 
 //error_reporting(0);
 
+//Ajax calles for child dropdown fetch for admin as well as username
+Route::get('/dropdown','DropdownController@ajaxChild');
 
+//Route::get('/adminpanel/blog/ajax', 'BlogController@ajaxChild')->name('blog/ajax');
+
+Route::get('/adminpanel/dropdown','Admin\DropdownController@ajaxChild');
+
+
+//Routes for clearing cache (artisan calls)
 Route::get('/clear', function() {        
 
     $exitCode6 = Artisan::call('cache:clear');
@@ -323,10 +331,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/adminpanel/blog/update_recommended', 'Admin\BlogController@update_recommended')->name('admin.blog.update_recommended');
 
 
-        Route::get('/adminpanel/blog/ajax','Admin/BlogController@ajaxChild');
+        //Route::get('/adminpanel/blog/ajax','Admin/BlogController@ajaxChild');
 
-        Route::get('/adminpanel/blog/ajax', 'BlogController@ajaxChild');
-
+        
         //Route::get('/ajax','BlogController@ajaxChild');
 
 
