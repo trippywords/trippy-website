@@ -52,7 +52,7 @@
                                         New Blog 
                                     </h2>
 
-                                    <a href="{{ route("profile") }}" class="edit_icon" title="edit">
+                                    <a href="{{ route('profile') }}" class="edit_icon" title="edit">
                                         <i class="fa fa-close"></i>
                                         Close
                                     </a>
@@ -72,7 +72,7 @@
                                             @endif
                                         </div> -->
 
-                                        <div class="form-group">
+        <div class="form-group">
 
             <strong>Select Genres:</strong>
 
@@ -186,7 +186,7 @@
                             <div class="media" data-val="<?php echo $blog->blogid; ?>">
                                 <div class="media-left">
                                     <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
-                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset("/public/blog_img/".$blog->blog_image) }}" class="media-object"></a>
+                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/public/blog_img/'.$blog->blog_image) }}" class="media-object"></a>
                                     <?php } else { ?>
                                         <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
                                     <?php } ?>
@@ -246,22 +246,21 @@
   <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
- <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+ <!-- <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>  -->
  
 <script type="text/javascript">
    
    $(document).ready(function(){
 
     $('select[name="parent_genre_id"]').on('change',function(){
-             var id=$(this).val();
-             
-             console.log(id);
+             var id=$(this).val();            
              if(id)
                 {
                     $.ajax({
                         type:'GET',
                         dataType:'json',
-                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        url:"{{url('/dropdown')}}?id="+id,
+                       
                         success:function(data)
                         {
                             console.log(data);

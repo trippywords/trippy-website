@@ -164,7 +164,7 @@
                     $.ajax({
                         type:'GET',
                         dataType:'json',
-                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
+                        url:"{{url('/dropdown')}}?id="+id,
                         success:function(data)
                         {
                             //console.log(data);

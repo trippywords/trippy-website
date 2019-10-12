@@ -12,7 +12,7 @@
                         type:'GET',
                         dataType:'json',
 
-                        url:ADMIN_URL+"/blog/ajax?id="+id,
+                        url:ADMIN_URL+"/dropdown?id="+id,
                          
                         success:function(data)
                         {

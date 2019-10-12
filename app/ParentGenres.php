@@ -23,4 +23,15 @@ class ParentGenres extends Model
 
 		  return $ParentGenres;
     }
+
+    Public static function getComposeGenre()
+        {
+            $genres=DB::select("select p.id,p.parent_name from parent_genres as p
+            			where EXISTS(SELECT c.id
+        FROM child_genres AS c
+        WHERE c.parent_genre_id = p.id) and p.is_published = 1 and p.is_deleted=0
+            		 ");
+
+             return $genres;
+        } 
 }

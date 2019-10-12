@@ -67,7 +67,7 @@ class HomeController extends Controller {
 
 	public function index(Request $request) { 
 
-		//print_r($request);
+		
 		$is_first_login = $request->session()->get('is_first_login');
 		if (isset($is_first_login) && $is_first_login==1) {
 			return redirect('preference'); 

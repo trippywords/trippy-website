@@ -211,35 +211,5 @@
 @endsection
 
 <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
-<script type="text/javascript">
-   
-   $(document).ready(function(){
+<script src="{{ asset('public/admin-assets/js/custom/admin-multilevel-dropdown.js') }}"></script>
 
-    $('select[name="parent_genre_id"]').on('change',function(){
-             var id=$(this).val();
-             
-             console.log(id);
-             if(id)
-                {
-                    $.ajax({
-                        type:'GET',
-                        dataType:'json',
-                        url:"{{url('/adminpanel/blog/ajax')}}?id="+id,
-                        success:function(data)
-                        {
-                            console.log(data);
-                            $('select[name="blog_genre"]').empty();
-                            $.each(data,function(key,value){
-                            $('select[name="blog_genre"]').append('<option value="'+key+'">'+value+'</option>');
-                        });
-                        },
-                        error: function (e) {
-                    
-                    console.log("ERROR: ", e);
-                }
-                    });
-                }
-
-         });
-    });
-</script>
