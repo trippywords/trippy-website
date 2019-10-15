@@ -143,11 +143,11 @@ WHERE `genres`.`parent_genre_id`= $id  and `blogs`.`is_delete` = '0'  and `blogs
         }
 
 
-        Public static function getComposeGenre()
+        /*Public static function getComposeGenre()
         {
             $genres
         } 
-
+*/
        
 
 }
