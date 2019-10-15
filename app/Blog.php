@@ -103,13 +103,14 @@ class Blog extends Authenticatable
         $user->offset($offset)->limit($limit);
         return $user->get();
     }
-
+    //chaitrali
     //Function for getting fetured blog for guest user as well as logged in user
      public static function getFeaturedBlog($user_id=null)
     {
         if(isset($user_id) && intval($user_id) > 0)
         {
-                $featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,
+            //using old genre table
+                /*$featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,
                 `c`.`blog_image` as `blogImg` ,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`
                 ,`c`.`blog_genre` as `blogId`, `u`.`name` as `authorInfo` , c.is_featured
                 from `genres` as `a`,`genres` as `b`,
@@ -127,13 +128,34 @@ class Blog extends Authenticatable
                 and `u`.`id`=`c`.`created_by` 
                 and `c`.`is_featured`=1 
                 and `d`.`blogid` = `c`.`id` 
-                ORDER BY `b`.`name`");
-                            
+                ORDER BY `b`.`name`");*/
+                
+                $featured_blog=DB::select("SELECT distinct `a`.`parent_name` as `parentGenre`,`b`.`child_genre_name` as `childGenre`,`c`.`blog_title` as `title`,
+                `c`.`blog_image` as `blogImg` ,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`
+                ,`c`.`id` as `blogId`, `u`.`name` as `authorInfo` , c.is_featured
+                from `parent_genres` as `a`,`child_genres` as `b`,
+                `blogs` as `c`,`users` as `u` , 
+                (SELECT distinct  g.id, max(h.id) as blogid
+                from `blogs` as `h`, parent_genres as g
+                where h.is_featured=1 
+                and  h.parent_genre_id = g.id
+                group by parent_genre_id) d 
+                where `a`.`id` in 
+                (select `gn`.`parent_genre_id` from child_genres gn, user_preferences up 
+                where gn.id = up.preference_id and up.is_delete=0 and up.user_id = $user_id )
+                and a.id = b.parent_genre_id
+                
+                and`c`.`blog_genre`= b.id 
+                and `u`.`id`=`c`.`created_by` 
+                and `c`.`is_featured`=1 
+                and `d`.`blogid` = `c`.`id` 
+                ORDER BY `b`.`child_genre_name`");
             return $featured_blog;
         }
         else
         {
-                $featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
+            //using old genre table
+                /*$featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
                 from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u` ,
                 (SELECT distinct  g.parent_genre_id, max(h.id) as blogid
                 from `blogs` as `h`, genres as g
@@ -147,21 +169,46 @@ class Blog extends Authenticatable
                 and `c`.`is_featured`=1 
                 and `d`.`parent_genre_id` = a.id
                 and d.blogid = c.id
-                ORDER BY `b`.`name`");
+                ORDER BY `b`.`name`");*/
+
+                $featured_blog=DB::select("SELECT distinct `a`.`parent_name` as `parentGenre`,`b`.`child_genre_name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
+                from `parent_genres` as `a`,`child_genres` as `b`,`blogs` as `c`,`users` as `u` ,
+                (SELECT distinct  g.id, max(h.id) as blogid
+                from `blogs` as `h`, parent_genres as g
+                where h.is_featured=1 
+                and  h.parent_genre_id = g.id
+                group by parent_genre_id) d
+                where `a`.`id`=`b`.`parent_genre_id` 
+                
+                and `c`.`blog_genre`=`b`.`id` 
+                and `u`.`id`=`c`.`created_by` 
+                and `c`.`is_featured`=1 
+                and `d`.`id` = a.id
+                and d.blogid = c.id
+                ORDER BY `b`.`child_genre_name`");
             
             return $featured_blog;
         }
     }
-
+    //chaitrali
     //Function for getting parent genre for featured blogs details (guest user and logged in user)
     public static function getParentGenre($user_id=null)
     {
          if(isset($user_id) && intval($user_id) > 0)
          {
-            $parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre
+            //using old genre table
+            /*$parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre
                     from genres a,genres b,users u,user_preferences up,blogs c
                     where up.preference_id=a.id
                     and a.parent_genre_id=0
+                    and b.id=c.blog_genre
+                    and c.is_featured=1
+                    and up.user_id=$user_id
+                    and up.is_delete=0");*/
+            //Using new genre table
+            $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name  parentGenre
+                    from parent_genres a,child_genres b,users u,user_preferences up,blogs c
+                    where up.preference_id=a.id                    
                     and b.id=c.blog_genre
                     and c.is_featured=1
                     and up.user_id=$user_id
@@ -169,30 +216,57 @@ class Blog extends Authenticatable
 
             return $parent_genre;
          }else {
-            $parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre from genres a,genres b,blogs c where a.id=b.parent_genre_id and a.parent_genre_id=0 and c.blog_genre=b.id and c.is_featured=1");
+            //using old genre table
+            /*$parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre from genres a,genres b,blogs c where a.id=b.parent_genre_id and a.parent_genre_id=0 and c.blog_genre=b.id and c.is_featured=1");*/
+
+            //using New genre tables
+            $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name      parentGenre from parent_genres a,child_genres b,blogs c 
+                    where a.id=b.parent_genre_id 
+                    and c.blog_genre=b.id 
+                    and c.is_featured=1");
 
             return $parent_genre;
         }
     }
-
+    //chaitrali
     //Function for getting child genre having at least 9 blogs
     public static function getChildGenre($parentGenreId='$row->parentGenreId')
     {
-        $child_genre=DB::select("select b.blog_genre childgenreid,g.name childgenre from blogs b,genres g where b.blog_genre=g.id and b.blog_genre in (select id from genres where parent_genre_id in ($parentGenreId))
+        //using old genre table
+        /*$child_genre=DB::select("select b.blog_genre childgenreid,g.name childgenre from blogs b,genres g where b.blog_genre=g.id and b.blog_genre in (select id from genres where parent_genre_id in ($parentGenreId))
+            group by blog_genre
+            having count(1) >= 9");*/
+          //using New genre tables  
+        $child_genre=DB::select("select b.blog_genre childgenreid,g.child_genre_name childgenre from blogs b,child_genres g 
+            where b.blog_genre=g.id 
+            and b.blog_genre in (select id from child_genres where parent_genre_id in($parentGenreId))
             group by blog_genre
             having count(1) >= 9");
         
         return $child_genre;
     }
-
+    //chaitrali
     //Function for getting 9 blogs per child genre
     public static function getChildBlogs($childGenreId='$blogs->childgenreid')
     {
-        $child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.name childGenre,u.name authorInfo 
+        //Using old genre table
+        /*$child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.name childGenre,u.name authorInfo 
             from blogs b,genres g,users u where
             u.id=b.created_by 
             and b.blog_genre=g.id
             and b.blog_genre in (select  blog_genre
+            from blogs where blog_genre in ($childGenreId)
+            group by blog_genre
+            having count(1) >= 9)
+            order by b.created_at desc
+            limit 9");*/
+
+        //Using New genre table
+        $child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.child_genre_name childGenre,u.name authorInfo 
+            from blogs b,child_genres g,users u 
+            where u.id=b.created_by 
+            and b.blog_genre=g.id
+            and b.blog_genre in (select blog_genre
             from blogs where blog_genre in ($childGenreId)
             group by blog_genre
             having count(1) >= 9)
