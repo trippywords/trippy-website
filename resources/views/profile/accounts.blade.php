@@ -302,7 +302,7 @@
                                     $selected="";
                                     $checked="";
                                     @endphp
-                                    @if(isSelectedgenres($pg->id)>=1)
+                                    @if(isSelectedPgenres($pg->id)>=1)
                                         @php 
                                             $selected=" style=color:black"; 
                                             $checked=" checked";
@@ -314,17 +314,17 @@
                                         @endphp
                                     @endif
                                 <div class="prefrence-toggle-main display-flex-custom">
-                                    <div class="tabcontent-title" {{ $selected }}><a class="plusclick" style="color:#58bb47;font-weight: bolder;font-size:15px " data-toggle="collapse" href="#collapse{{ $pg->id }}"> + </a>  {{ $pg->name }}</div>
+                                    <div class="tabcontent-title" {{ $selected }}><a class="plusclick" style="color:#58bb47;font-weight: bolder;font-size:15px " data-toggle="collapse" href="#collapse{{ $pg->id }}"> + </a>  {{ $pg->parent_name }}</div>
                                     <div class="switch-main">
                                         <label class="switch">
-                                            <input type="checkbox" class="toggle-input pgclass" data-val="{{ $pg->name}}" id="pg_{{ $pg->id }}" name="parrentgen[{{ $pg->id }}]"  value="{{ $pg->id }}"  {{ $checked }} />
+                                            <input type="checkbox" class="toggle-input pgclass" data-val="{{ $pg->parent_name}}" id="pg_{{ $pg->id }}" name="parrentgen[{{ $pg->id }}]"  value="{{ $pg->id }}"  {{ $checked }} />
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="prefrence-toggle-section panel-collapse collapse" id="collapse{{ $pg->id }}">
                                     @foreach(getChildgenres($pg->id) as $childgenres)
-                                        @if(isSelectedgenres($childgenres->id)>=1)
+                                        @if(isSelectedCgenres($childgenres->id)>=1)
                                             @php 
                                             $checked=" checked-custom";
                                             @endphp
@@ -334,8 +334,8 @@
                                             @endphp
                                         @endif
                                     <div class="display-flex-custom">   
-                                        <div class="prefrence-toggle-title">{{ $childgenres->name }}</div>
-                                        <div class="icon icon-check {{ $checked }} childgenres" data-val="{{ $childgenres->name }}" data-pid="{{ $pg->id }}" data-id="{{ $childgenres->id }}" id="child_{{ $childgenres->id }}" ></div>
+                                        <div class="prefrence-toggle-title">{{ $childgenres->child_genre_name }}</div>
+                                        <div class="icon icon-check {{ $checked }} childgenres" data-val="{{ $childgenres->child_genre_name }}" data-pid="{{ $pg->id }}" data-id="{{ $childgenres->id }}" id="child_{{ $childgenres->id }}" ></div>
                                     </div>
                                     @endforeach        
                                 </div>
@@ -1497,7 +1497,9 @@ $(document).ready(function () {
             $("#to_user_id").val($(this).attr('data-val'));
             $("#myModal").modal('show');
         });
+
         $(".pgclass").change(function () {
+            //alert("Hello");
             $("#msgchecked").hide();
             $("#msguncheck").hide();
             var cat_name = $(this).attr('data-val');

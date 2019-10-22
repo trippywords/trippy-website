@@ -2,6 +2,8 @@
 
 use App\Blog;
 
+use App\UserGenrePreference;
+
 use App\Userpreferance;
 
 use App\Genre;
@@ -23,6 +25,8 @@ use Carbon\Carbon;
 use App\Settings;
 
 use App\Smtp;
+
+use App\ParentGenres;
 
 use App\ChildGenres;
 
@@ -118,8 +122,9 @@ function getUsergenres(){
 
 function getParrentgenres(){
 
-    $parrentgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',0)->get();
-
+    /*$parrentgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',0)->get();*/
+   //$parrentgenres= ParentGenres::select('id','parent_name')->where('is_deleted','=',0)->where('is_published','=',1)->get();
+   $parrentgenres=ParentGenres::getComposeGenre();
     return $parrentgenres;
 
 }
@@ -128,19 +133,37 @@ function getParrentgenres(){
 
 function getChildgenres($pgenid){
 
-    $childgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',$pgenid)->get();
+    /*$childgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',$pgenid)->get();
+*/
+    $childgenres= ChildGenres::select('id','child_genre_name')->where('is_deleted','=',0)->where('is_published','=',1)->where('parent_genre_id','=',$pgenid)->get();
 
     return $childgenres;
 
 }
 
-function isSelectedgenres($selgenid)
+function isSelectedPgenres($selgenid)
 
 {
+    //$selectedpgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('parent_preference_id','=',$selgenid)->count();
+    //dd()
+    $selectedpgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
 
-    $selectedgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();    
+    //dd($selectedgen_count); 
 
-    return $selectedgen_count;    
+    return $selectedpgen_count;    
+
+}
+
+function isSelectedCgenres($selgenid)
+
+{
+    $selectedcgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('child_preference_id','=',$selgenid)->count();
+    //dd()
+    //$selectedgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
+
+    //dd($selectedgen_count); 
+
+    return $selectedcgen_count;    
 
 }
 

@@ -19,5 +19,24 @@ class DropdownController extends Controller
         return json_encode($child);
 
     }
+
+
+    public function parentselection()
+    {
+    	$parent=array(1,2,3);
+    	foreach ($parent as $p) 
+    	{
+    		$childlist = ChildGenres::where('parent_genre_id',$p)->get(); 
+    		$wordCount = $childlist->count();
+    		echo $wordCount;
+    		for($i=0;$i<=$wordCount;$i++)
+    		{
+    			$child=ChildGenres::where('parent_genre_id',$p)->get();
+    			echo "<pre>";
+    			print_r($child);
+    			//break;
+    		}
+    	}
+    }
     
 }

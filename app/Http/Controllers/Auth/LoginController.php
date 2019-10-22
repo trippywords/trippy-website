@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        
+        //dd($request);
         $userExist = User::whereRaw("(`email` = '".$request->email."' OR `primary_email` = '".$request->email."') AND `is_delete`='0'")->first();
         
         if (isset($userExist) && $userExist!=null) {
