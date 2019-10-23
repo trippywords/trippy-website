@@ -1509,6 +1509,7 @@ $(document).ready(function () {
                 },
                 url: "{{ route('updateupbyid') }}", type: 'POST', data: {parrent_id: $(this).val()},
                 success: function (result) {
+                    
                     for (var prop in result.childelement) {
                         if (result.childelement.hasOwnProperty(prop)) {
                             // or if (Object.prototype.hasOwnProperty.call(obj,prop)) for safety...

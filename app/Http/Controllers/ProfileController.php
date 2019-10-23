@@ -21,6 +21,8 @@ use Laravel\Socialite\Facades\Socialite;
 
 use App\Userpreferance;
 
+use App\UserGenrePreference;
+
 use App\Genre;
 
 use App\Notifications;
@@ -907,19 +909,23 @@ class ProfileController extends Controller {
 	}
 
 	//update by parrent id 
-	public function updateUPbyid(Request $request) {
-		$checkUP = Userpreferance::where('user_id', '=', Auth::user()->id)->where('is_delete', '=', 0)->where('preference_id', '=', $request->parrent_id)->count();
+	public function updateUPbyid(Request $request) 
+	{
+		$checkUP = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('is_deleted', '=', 0)->where('parent_preference_id', '=', $request->parrent_id)->count();
 		
 		if (isset($checkUP) && $checkUP > 0) {
-			$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrent_id])->update(['is_delete'=>1]);
+
+			$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrent_id])->update(['is_deleted'=>1]);
+
 			$childgenres = getChildgenres($request->parrent_id);
 
 			foreach ($childgenres as $child) {
-				$checkSub = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->parrent_id)->first();
+				$checkSub = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('parent_preference_id', '=', $request->parrent_id)->first();
+
 				if (!empty($checkSub)) {
-					Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$child->id])->update(['is_delete'=>1]);
+					UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$child->id])->update(['is_deleted'=>1]);
 				}else{
-					Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$child->id,'is_delete'=>1]);
+					UserGenrePreference::insert(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrent_id,'child_preference_id'=>$child->id,'is_deleted'=>1]);
 				}
 			}
 		
@@ -928,20 +934,21 @@ class ProfileController extends Controller {
 			$return['childelement'] = $childgenres;
 
 		} else {
-			$checkUP = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->parrent_id)->count();
+			$checkUP = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('parent_preference_id', '=', $request->parrent_id)->count();
 			if (isset($checkUP) && $checkUP > 0) {
-				$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrent_id])->update(['is_delete'=>0]);
+				$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrent_id])->update(['is_deleted'=>0]);
 			}else{
-				$chilP = Userpreferance::insert(['is_delete'=>0,'user_id'=>Auth::user()->id,'preference_id'=>$request->parrent_id]);
+				$chilP = UserGenrePreference::insert(['is_deleted'=>0,'user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrent_id]);
 			}
 			
 			$childgenres = getChildgenres($request->parrent_id);
 			foreach ($childgenres as $child) {
-				$checkSub = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $child->id)->first();
+				$checkSub = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('child_preference_id', '=', $child->id)->first();
+				
 				if (!empty($checkSub)) {
-					Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$child->id])->update(['is_delete'=>0]);
+					UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$child->id])->update(['is_deleted'=>0]);
 				}else{
-					Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$child->id,'is_delete'=>0]);
+					UserGenrePreference::insert(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrent_id,'child_preference_id'=>$child->id,'is_deleted'=>0]);
 				}
 			}
 
@@ -959,25 +966,30 @@ class ProfileController extends Controller {
 
 	public function updateUPbycid(Request $request) {
 
-		$checkUP = Userpreferance::where('user_id', '=', Auth::user()->id)->where('is_delete', '=', 0)->where('preference_id', '=', $request->child_id)->count();
+		$checkUP = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('is_deleted', '=', 0)->where('child_preference_id', '=', $request->child_id)->count();
 		
 		
 		if (isset($checkUP) && $checkUP > 0) {
-			$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->child_id])->update(['is_delete'=>1]);
-			$chilPare = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->parrentid)->count();
+			$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$request->child_id])->update(['is_deleted'=>1]);
+			//dd($chilP);
+
+			$chilPare = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('parent_preference_id', '=', $request->parrentid)->count();
+
+
 			$currentUserPreferenceCount = getChildPreferencesByparent(Auth::user()->id,$request->parrentid);
+
 			if (intval($currentUserPreferenceCount) == 0) {
 				if (isset($chilPare) && $chilPare > 0) {
-					$chilPare = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid])->update(['is_delete'=>1]);
+					$chilPare = UserGenrePreference::where(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrentid])->update(['is_deleted'=>1]);
 				}else{
-					$chilPare = Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid,'is_delete'=>1]);
+					$chilPare = UserGenrePreference::insert(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrentid,'is_deleted'=>1]);
 				}
 				$data['return'] = 0;
 			}else{
 				if (isset($chilPare) && $chilPare > 0) {
-					$chilPare = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid])->update(['is_delete'=>0]);
+					$chilPare = UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$chilP])->update(['is_deleted'=>0]);
 				}else{
-					$chilPare = Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid,'is_delete'=>0]);
+					$chilPare = UserGenrePreference::insert(['user_id'=>Auth::user()->id,'child_preference_id'=>$chilP,'is_deleted'=>0]);
 				}
 				$data['return'] = 1;
 			}
@@ -987,11 +999,12 @@ class ProfileController extends Controller {
 			$data['sub_swstatus'] = 0;
 			$data['parrent_id'] = $request->parrentid;
 		}else{
-			$checkUP = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->child_id)->count();
+			$checkUP = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('child_preference_id', '=', $request->child_id)->count();
+			//dd($checkUP);
 			if (isset($checkUP) &&  $checkUP > 0) {
-				$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->child_id])->update(['is_delete'=>0]);
+				$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$request->child_id])->update(['is_deleted'=>0]);
 			}else{
-				$chilP = Userpreferance::insert(['is_delete'=>0,'user_id'=>Auth::user()->id,'preference_id'=>$request->child_id]);
+				$chilP = UserGenrePreference::insert(['is_deleted'=>0,'user_id'=>Auth::user()->id,'child_preference_id'=>$request->child_id]);
 			}
 		
 			$currentUserPreferenceCount = getChildPreferencesByparent(Auth::user()->id,$request->parrentid);
@@ -999,21 +1012,23 @@ class ProfileController extends Controller {
 			$data['sub_return'] = 1;
 			$data['sub_swstatus'] = 1;
 			if (intval($currentUserPreferenceCount) > 0) {
-				$chilPare = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->parrentid)->count();
+				$chilPare = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('parent_preference_id', '=', $request->parrentid)->count();
+
 				if (isset($chilPare) &&  intval($chilPare) > 0) {
-					$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid])->update(['is_delete'=>0]);
+
+					$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'child_preference_id'=>$request->parrentid])->update(['is_deleted'=>0]);
 				}else{
-					$chilPare = Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid,'is_delete'=>0]);
+					$chilPare = UserGenrePreference::insert(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->child_id,'is_deleted'=>0]);
 				}
 				$data['return'] = 1;
 				$data['swstatus'] = 1;
 				$data['parrent_id'] = $request->parrentid;
 			}else{
-				$chilPare = Userpreferance::where('user_id', '=', Auth::user()->id)->where('preference_id', '=', $request->parrentid)->count();
+				$chilPare = UserGenrePreference::where('user_id', '=', Auth::user()->id)->where('parent_preference_id', '=', $request->parrentid)->count();
 				if (isset($chilPare) &&  intval($chilPare) > 0) {
-					$chilP = Userpreferance::where(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid])->update(['is_delete'=>1]);
+					$chilP = UserGenrePreference::where(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrentid])->update(['is_deleted'=>1]);
 				}else{
-					$chilPare = Userpreferance::insert(['user_id'=>Auth::user()->id,'preference_id'=>$request->parrentid,'is_delete'=>1]);
+					$chilPare = UserGenrePreference::insert(['user_id'=>Auth::user()->id,'parent_preference_id'=>$request->parrentid,'is_deleted'=>1]);
 				}
 				$data['return'] = 0;
 				$data['swstatus'] = 0;

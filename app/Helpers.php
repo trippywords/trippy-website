@@ -144,9 +144,9 @@ function getChildgenres($pgenid){
 function isSelectedPgenres($selgenid)
 
 {
-    //$selectedpgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('parent_preference_id','=',$selgenid)->count();
+    $selectedpgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('parent_preference_id','=',$selgenid)->where('is_deleted','=',0)->count();
     //dd()
-    $selectedpgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
+    //$selectedpgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
 
     //dd($selectedgen_count); 
 
@@ -157,7 +157,7 @@ function isSelectedPgenres($selgenid)
 function isSelectedCgenres($selgenid)
 
 {
-    $selectedcgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('child_preference_id','=',$selgenid)->count();
+    $selectedcgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('child_preference_id','=',$selgenid)->where('is_deleted','=',0)->count();
     //dd()
     //$selectedgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
 
@@ -493,8 +493,23 @@ function getGenres($user_id=null){
     return $selectedgenre;
 }
 
+    /*function getChildPreferencesByparent($user_id,$parent_genre_id){
+        $count = Userpreferance::join('genres','genres.id','=','user_preferences.preference_id')
+        ->where('user_preferences.user_id','=',$user_id)
+        ->where('genres.is_deleted','=','N')
+        ->where('genres.is_published','=','Y')
+        ->where('parent_genre_id','=',$parent_genre_id)
+        ->where('user_preferences.is_delete',0)->count();
+        return $count;
+    }
+*/
     function getChildPreferencesByparent($user_id,$parent_genre_id){
-        $count = Userpreferance::join('genres','genres.id','=','user_preferences.preference_id')->where('user_preferences.user_id','=',$user_id)->where('genres.is_deleted','=','N')->where('genres.is_published','=','Y')->where('parent_genre_id','=',$parent_genre_id)->where('user_preferences.is_delete',0)->count();
+        $count = UserGenrePreference::join('child_genres','child_genres.id','=','user_genre_preferences.child_preference_id')
+        ->where('user_genre_preferences.user_id','=',$user_id)
+        ->where('child_genres.is_deleted','=',0)
+        ->where('child_genres.is_published','=',1)
+        ->where('child_genres.parent_genre_id','=',$parent_genre_id)
+        ->where('user_genre_preferences.is_deleted',0)->count();
         return $count;
     }
 
