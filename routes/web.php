@@ -8,7 +8,7 @@
 
   | Web Routes
 
-  |--------------------------------------------------------------------------
+  |-------------------------------------------------------------------------
 
   |
 
@@ -24,6 +24,8 @@
 
 
 //error_reporting(0);
+
+Route::get('/list','DropdownController@parentselection');
 
 //Ajax calles for child dropdown fetch for admin as well as username
 Route::get('/dropdown','DropdownController@ajaxChild');
@@ -401,11 +403,11 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::post('/saveuserpreference', 'DashboardController@savePreferance')->name('saveuserpreference');
 
-        //parent
+        //parent preference changes by parent id in dashboard
 
         Route::post('/updateupbyid', 'ProfileController@updateUPbyid')->name('updateupbyid');        
 
-        //child
+        //child preference changes by child id in dashboard
 
         Route::post('/updateupbycid', 'ProfileController@updateUPbycid')->name('updateupbycid');
 

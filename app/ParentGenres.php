@@ -26,11 +26,19 @@ class ParentGenres extends Model
 
     Public static function getComposeGenre()
         {
-            $genres=DB::select("select p.id,p.parent_name from parent_genres as p
+            /*$genres=DB::select("select p.id,p.parent_name from parent_genres as p
             			where EXISTS(SELECT c.id
         FROM child_genres AS c
         WHERE c.parent_genre_id = p.id) and p.is_published = 1 and p.is_deleted=0
-            		 ");
+            		 ");*/
+            $genres=DB::select("select p.id,p.parent_name,d.child_genre_image from parent_genres as p ,child_genres as d
+                        where EXISTS(SELECT c.id
+        FROM child_genres AS c
+        WHERE c.parent_genre_id = p.id) and p.is_published = 1 
+        and p.is_deleted=0 
+        and p.id=d.parent_genre_id
+        group by d.parent_genre_id
+                     ");
 
              return $genres;
         } 

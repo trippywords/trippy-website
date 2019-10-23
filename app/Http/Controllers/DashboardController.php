@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Blog;
+use App\UserGenrePreference;
 use App\Userpreferance;
 use App\Genre;
 use App\User;
 use App\Connection;
 use App\Followers;
+use App\ParentGenres;
+use App\ChildGenres;
 class DashboardController extends Controller
 {
     /**
@@ -41,8 +45,10 @@ class DashboardController extends Controller
         }
 
         $user_pref=Userpreferance::where('user_id','=',Auth::user()->id)->where('is_delete','=','0')->count();
+        //dd($user_pref);
         $userData=User::where('id','=',Auth::user()->id)->first();
         if(isset($userData->created_at) && trim($userData->created_at)==trim($userData->last_login))
+        //if(isset($userData->name)=='asdfg')
         {
             $request->session()->put('is_first_login',1);
             return redirect('preference');
@@ -74,16 +80,44 @@ class DashboardController extends Controller
     public function preference(){ 
         session(['preference_redirect_url'=>'']); 
         //if (Auth()->user()) {
-           // $genres= Userpreferance::select('genres.*')->join('genres','genres.id','=','preference_id')->where('user_id','=',Auth::user()->id)->where('is_deleted','=','N')->where('is_published','=','Y')->where('is_delete','=','0')->distinct()->get(); 
+            //$genres= Userpreferance::select('genres.*')->join('genres','genres.id','=','preference_id')->where('user_id','=',Auth::user()->id)->where('is_deleted','=','N')->where('is_published','=','Y')->where('is_delete','=','0')->distinct()->get(); 
         //}else{
-            $genres= Genre::where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','!=',0)->get();
+       $genres=ParentGenres::getComposeGenre();
+        //dd($genres);
+            //$genres= Genre::where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','!=',0)->get();
         //}
         return view('dashboard.preferance',compact('genres'));
     }
     
     public function savePreferance(Request $request){
+        
         if(isset($request->gen) && count($request->gen)>=3){
-            Userpreferance::where('user_id','=',Auth::user()->id)->update(['is_delete'=>1]);
+
+            $parent= $request->gen;
+            
+            foreach ($parent as $key_gen=>$val_gen) {
+            
+            $childlist = ChildGenres::select('id','child_genre_name')->where('parent_genre_id',$key_gen)->get();
+             
+            if(count($childlist)>0)
+            {
+                foreach ($childlist as $child) {
+                $up=new UserGenrePreference;
+                $up->parent_preference_id = $key_gen;
+                $up->child_preference_id = $child->id;
+                $up->user_id = Auth::user()->id;
+                //$up->is_deleted = 0;                
+                $up->save();
+                }
+            }
+           
+        }
+         $request->session()->put('is_first_login',0);
+            User::where('id','=',Auth::user()->id)->update(['last_login'=>date("Y-m-d H:i:s")]);
+            return redirect('dashboard');
+
+
+           /* Userpreferance::where('user_id','=',Auth::user()->id)->update(['is_delete'=>1]);
             foreach($request->gen as $key_gen=>$val_gen)
             {
                 $up = new Userpreferance;
@@ -119,9 +153,10 @@ class DashboardController extends Controller
                 }
                 
             }
+
             $request->session()->put('is_first_login',0);
             User::where('id','=',Auth::user()->id)->update(['last_login'=>date("Y-m-d H:i:s")]);
-            return redirect('dashboard');
+            return redirect('dashboard');*/
         }else{
             return back()->withInput()->withErrors(['Select 3 or more to continue']);
         }

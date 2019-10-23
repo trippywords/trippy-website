@@ -65,7 +65,7 @@
 
                                                         <input type="checkbox" class="box-inner-input" name="gen[{{ $genre->id }}]" id="gen_{{$genre->id}}">
 
-    							<span class="prefrence-text">{{ $genre->name }}</span>
+    							<span class="prefrence-text">{{ $genre->parent_name }}</span>
 
     							<span class="tick"></span>
 
@@ -87,7 +87,7 @@
 
     								<input type="checkbox" class="box-inner-input" name="gen[{{ $genre->id }}]" id="gen_{{$genre->id}}">
 
-                                                                    <span class="prefrence-text">{{ $genre->name }}</span>
+                                                                    <span class="prefrence-text">{{ $genre->parent_name }}</span>
 
     								<span class="tick"></span>
 
