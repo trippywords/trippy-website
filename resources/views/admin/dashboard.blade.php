@@ -93,8 +93,8 @@
                     <ul id="messageList">
                         @if($users)
                             @foreach($users as $user)
-                                <li class="clearfix">
-                                    <a href="{{ url('profile/'.$user->name.'') }}" class="dropdown-item" target="_blank">
+                                <li class="clearfix dropdown-item">
+                                    <a href="{{ url('profile/'.$user->name.'') }}" class="" target="_blank">
                                         <div class="message-box ">
                                             <div class="u-img float-left">
                                                 <?php if(isset($user->profile_image) && $user->profile_image != null && file_exists(public_path() . '/user_img/' . $user->profile_image)){ ?>
@@ -142,8 +142,8 @@
                     <ul id="messageList">
                         @if($blogs)
                             @foreach($blogs as $blog)
-                                <li class="clearfix">
-                                    <a href="{{ url('blog/'.$blog->blog_slug.'') }}" class="dropdown-item" target="_blank">
+                                <li class="clearfix dropdown-item">
+                                    <a href="{{ url('blog/'.$blog->id.'') }}" class="" target="_blank">
                                         <div class="message-box ">
                                             <div class="u-img float-left">
                                                 <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
@@ -198,8 +198,8 @@
 
                         @if($comments)
                             @foreach($comments as $comment)
-                                <li class="clearfix">
-                                    <a href="{{ url('blog/'.$comment->blog_slug.'') }}" title="{{ $comment->blog_title }}" class="dropdown-item" target="_blank">
+                                <li class="clearfix dropdown-item">
+                                    <a href="{{ url('blog/'.$comment->blog_slug.'') }}" title="{{ $comment->blog_title }}" class="" target="_blank">
                                         <div class="message-box ">
                                             <div class="u-img float-left">
                                                 <?php if (isset($comment->blog_image) && $comment->blog_image != null && file_exists(public_path() . '/blog_img/' . $comment->blog_image)) { ?>

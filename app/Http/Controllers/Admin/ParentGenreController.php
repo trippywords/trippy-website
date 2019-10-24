@@ -74,7 +74,7 @@ class ParentGenreController extends Controller
      
         $ParentGenre->is_published = $request->get('selPublished');
 
-        if($request->get('selPublished')=='1')
+        /*if($request->get('selPublished')=='1')
 
         {
 
@@ -84,7 +84,7 @@ class ParentGenreController extends Controller
 
             $ParentGenre->is_deleted ='1';
 
-        }
+        }*/
 
         $ParentGenre->save();
 
