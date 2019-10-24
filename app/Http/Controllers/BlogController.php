@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Comments;
 use Illuminate\Support\Facades\DB;
 use App\Userpreferance;
+use App\UserGenrePreference;
 use App\Genre;
 use App\Bookmarks;
 use App\Notifications;
@@ -253,7 +254,7 @@ class BlogController extends Controller
             return Redirect::back();
         }else{
          /* $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->where('user_id','=',$blog_details->created_by)->where('is_delete','=','0')->get();*/
-          $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->get();
+          $user_genere_details= UserGenrePreference::select('child_preference_id')->groupBy('parent_preference_id')->get();
 
           $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_deleted','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
 

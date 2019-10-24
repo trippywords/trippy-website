@@ -60,7 +60,15 @@ function getFollowerscount($userid){
     return $count;
  }
 function getUsergenres(){
-    $selectedgenre= Userpreferance::select('genres.id','genres.name')->join('genres','genres.id','=','preference_id')->where('user_id','=',Auth::user()->id)->where('is_deleted','=','N')->where('is_published','=','Y')->where('is_delete','=','0')->distinct()->get();        
+    //$selectedgenre= Userpreferance::select('genres.id','genres.name')->join('genres','genres.id','=','preference_id')->where('user_id','=',Auth::user()->id)->where('is_deleted','=','N')->where('is_published','=','Y')->where('is_delete','=','0')->distinct()->get();
+    $selectedgenre= UserGenrePreference::select('child_genres.id','child_genres.child_genre_name as name')
+                    ->join('child_genres','child_genres.id','=','user_genre_preferences.child_preference_id')
+                    ->where('user_id','=',Auth::user()->id)
+                    ->where('child_genres.is_deleted','=',0)
+                    ->where('is_published','=',1)
+                    ->where('user_genre_preferences.is_deleted','=','0')
+                    
+                    ->get();        
 
     $string='';
 
@@ -364,11 +372,11 @@ function getConnectioncount($userid){
 
 function getParentGenreInfo($id){
    
-    $data = Genre::find($id);
+    $data = ParentGenres::find($id);
 
     if($data){
 
-        return $data->name;
+        return $data->parent_name;
 
     }else{
 
@@ -379,9 +387,9 @@ function getParentGenreInfo($id){
 }
 
 function getParentGenreSlug($id){
-    $data = Genre::find($id);
+    $data = ParentGenres::find($id);
     if($data){
-        return $data->genre_slug;
+        return $data->id;
     }else{
         return "";
     }

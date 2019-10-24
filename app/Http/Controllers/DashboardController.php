@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Blog;
 use App\UserGenrePreference;
 use App\Userpreferance;
-use App\Genre;
+//use App\Genre;
 use App\User;
 use App\Connection;
 use App\Followers;

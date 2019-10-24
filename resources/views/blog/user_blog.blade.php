@@ -55,9 +55,9 @@ if (isset($content) && trim($content)=='') {
 				</li>
 				<?php
                     if(isset($blog_details->blog_genre) && intval($blog_details->blog_genre) > 0){
-                        $genre = DB::table('genres')->where('id',$blog_details->blog_genre)->first();
+                        $genre = DB::table('child_genres')->where('id',$blog_details->blog_genre)->first();
                     }
-                    $genre_name = $genre->name;
+                    $genre_name = $genre->child_genre_name;
                 if (isset($genre_name) && $genre_name!='') { ?>
 				<li>
 					<i class="icon icon-right-arrow"></i>
@@ -155,10 +155,10 @@ if (isset($content) && trim($content)=='') {
 											<h3 class="categories-list-title">Genre</h3>
 											<ul class="categories-list-section">
 												@foreach($user_genere_details as $usergen)
-												<?php $genre_name = getParentGenreInfo($usergen->preference_id); ?>
+												<?php $genre_name = getParentGenreInfo($usergen->child_preference_id); ?>
 												@if($genre_name!='')
 												<li class="categories-list categories-list-hover">
-													<a href="{{url('genre/blog',getParentGenreSlug($usergen->preference_id))}}" target="_blank" class="categories">{{ $genre_name }}</a>
+													<a href="{{url('genre/blog',getParentGenreSlug($usergen->parent_preference_id))}}" target="_blank" class="categories">{{ $genre_name }}</a>
 												</li>
 												@endif
 												@endforeach    

@@ -19,11 +19,11 @@
 					<li class="nav-title">Blogs</li>
 
 					
- 					<li class="nav-item">
-							<a class="nav-link " href="{{ route('admin-genre.index') }}">
+ 					<!-- <li class="nav-item">
+							<a class="nav-link " href="">
 								<i class="mdi mdi-atom"></i> Genre old
 							</a>
-					</li>
+					</li> -->
 
 
 					<li class="nav-item">
