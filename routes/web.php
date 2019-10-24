@@ -226,12 +226,13 @@ Route::group(['middleware' => 'web'], function () {
         // All routes you put here can only be accessible to users with super-admin role
 
         Route::get('/adminpanel', 'Admin\DashboardController@index')->name('admin-panel');
+        
         Route::get('/adminpanel/comments', 'Admin\DashboardController@comments')->name('admin.comments');
 
 
         // Get Data for genre and routes for admin genre management
-        //Admin genre management
-        Route::get('/adminpanel/genre/getdata', 'Admin\GenreController@getAjaxData')->name('admin-genre.getdata');
+        //Admin old genre table management
+        /*Route::get('/adminpanel/genre/getdata', 'Admin\GenreController@getAjaxData')->name('admin-genre.getdata');
 
         Route::resource('/adminpanel/genre', 'Admin\GenreController', [
 
@@ -252,7 +253,7 @@ Route::group(['middleware' => 'web'], function () {
                 'destroy' => 'admin-genre.destroy'
             ]
         ]);
-        Route::get('/adminpanel/genre/{id}/destroy', 'Admin\GenreController@destroy')->name('admin-genre.destroy');
+        Route::get('/adminpanel/genre/{id}/destroy', 'Admin\GenreController@destroy')->name('admin-genre.destroy');*/
 
 
 
