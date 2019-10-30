@@ -212,7 +212,7 @@ Route::get('admin', 'Admin\AdminController@admin')->name('admin');
 
 Route::post('admin', 'Admin\AdminController@checkLogin')->name('checkLogin');
 
-Route::get('admindashboard', 'Admin\AdminController@Dashboard')->name("admin_dashboard");
+//Route::get('admindashboard', 'Admin\AdminController@Dashboard')->name("admin_dashboard");
 //logout for admin
 Route::get('adminlogout', 'Admin\AdminController@Logout')->name("admin_logout");
 

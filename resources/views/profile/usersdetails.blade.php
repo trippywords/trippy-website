@@ -52,6 +52,7 @@
 										</div>
 									<?php } ?>
 								</div>
+
 								<?php } ?>
 								<div class="profile_section media align-items-center">
 									<div class="profile_pic media-left">
@@ -86,6 +87,8 @@
 								<div class="social_icon">
 									<div class="text-right">
 										<?php if ($userdetails != null && $userdetails->social_icon_status == '1') { ?>
+											
+
 											<?php if ($userdetails != null && $userdetails->facebook_profile_url != null && $userdetails->facebook_id != null) { ?>
 												<a target="_blank" href="<?php echo $userdetails->facebook_profile_url ?>"><i class="fa fa-facebook" style="font-size: 20px;color:white"></i></a>&nbsp;&nbsp;
 											<?php } ?>
@@ -225,6 +228,7 @@
 									</div>
 								</div>
 							</div>
+						<?php } ?>
 							@endforeach	
 							@endif
 						</div>
