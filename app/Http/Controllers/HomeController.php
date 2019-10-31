@@ -955,7 +955,7 @@ class HomeController extends Controller {
 
 		foreach ($parentGenreResult as $row) {
 			//for getting child genre for featured blogs details	
-			$childGenreResult=Blog::getChildGenre($row->parentGenreId);
+			$childGenreResult=Blog::getChildGenre($row->parentGenreId,$user_id);
 			
 			$row->childGenres=$childGenreResult;
 			$blogResult=array();
@@ -970,7 +970,7 @@ class HomeController extends Controller {
 			$finalsResult[]=$row;
 		}
 
-		$blog = DB::table('blogs')
+		/*$blog = DB::table('blogs')
               
               //->where('blogs.is_delete',"=","0")
               ->where('is_recommended',"=",1)
@@ -978,16 +978,15 @@ class HomeController extends Controller {
                
               ->limit(3)   
               ->get(); 
-        $blogs=json_encode($blog);
+        $blogs=json_encode($blog);*/
 		
 		//JSON for featuredBlogs
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
-		/*echo "<pre>";
-		print_r($featuredBlogsDetails);*/
 		
-		return view('home',compact('featuredBlogs','featuredBlogsDetails','blogs'));
+		
+		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
 
 }

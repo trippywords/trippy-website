@@ -269,7 +269,7 @@ class BlogController extends Controller
 
     public function userBlogDetailById($id)
     {
-      dd($id);
+      //dd($id);
         if (Auth::user()) {
           session(['is_first_login'=>0]);
         }
