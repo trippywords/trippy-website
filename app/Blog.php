@@ -148,6 +148,7 @@ class Blog extends Authenticatable
                 and`c`.`blog_genre`= b.id 
                 and `u`.`id`=`c`.`created_by` 
                 and `c`.`is_featured`=1 
+                and `c`.`blog_status`=1
                 and `d`.`blogid` = `c`.`id` 
                 ORDER BY `b`.`child_genre_name`");
             return $featured_blog;
@@ -183,6 +184,7 @@ class Blog extends Authenticatable
                 and `c`.`blog_genre`=`b`.`id` 
                 and `u`.`id`=`c`.`created_by` 
                 and `c`.`is_featured`=1 
+                and `c`.`blog_status`=1
                 and `d`.`id` = a.id
                 and d.blogid = c.id
                 ORDER BY `b`.`child_genre_name`");
@@ -211,6 +213,7 @@ class Blog extends Authenticatable
                     where up.parent_preference_id=a.id                    
                     and b.id=c.blog_genre
                     and c.is_featured=1
+                    and c.blog_status=1
                     and up.user_id=$user_id
                     and up.is_deleted=0");
 
@@ -221,7 +224,8 @@ class Blog extends Authenticatable
 
             //using New genre tables
             $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name      parentGenre from parent_genres a,child_genres b,blogs c 
-                    where a.id=b.parent_genre_id 
+                    where a.id=b.parent_genre_id
+                    and c.blog_status=1 
                     and c.blog_genre=b.id 
                     and c.is_featured=1");
 
@@ -248,6 +252,7 @@ class Blog extends Authenticatable
             and u.id=$user_id
             and b.blog_genre=up.child_preference_id
             and up.is_deleted=0
+            and b.blog_status=1
             group by blog_genre
             having count(1) >= 9");
             return $child_genre;
@@ -255,7 +260,8 @@ class Blog extends Authenticatable
         }else{
         
             $child_genre=DB::select("select b.blog_genre childgenreid,g.child_genre_name childgenre from blogs b,child_genres g 
-            where b.blog_genre=g.id 
+            where b.blog_genre=g.id
+            and b.blog_status=1 
             and b.blog_genre in (select id from child_genres where parent_genre_id in($parentGenreId))
             group by blog_genre
             having count(1) >= 9");
@@ -283,6 +289,7 @@ class Blog extends Authenticatable
         $child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.child_genre_name childGenre,u.name authorInfo 
             from blogs b,child_genres g,users u 
             where u.id=b.created_by 
+            and b.blog_status=1
             and b.blog_genre=g.id
             and b.blog_genre in (select blog_genre
             from blogs where blog_genre in ($childGenreId)

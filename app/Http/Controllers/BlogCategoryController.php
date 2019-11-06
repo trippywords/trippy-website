@@ -37,7 +37,7 @@ class BlogCategoryController extends Controller {
         $latest_blogs = DB::table('blogs')->select('blogs.*','users.first_name','users.last_name','users.profile_image')
         ->join('users','users.id','blogs.created_by')
         ->where('blogs.blog_status','1')
-        ->where('blogs.is_delete','0')
+        ->where('blogs.is_deleted','0')
         ->where('users.is_delete','0')
         ->where('users.is_verified','=',1)
         ->orderBy('blogs.id', 'DESC')
@@ -45,26 +45,26 @@ class BlogCategoryController extends Controller {
 	
         $featured_blogs = DB::table('blogs')->select('blogs.*','users.first_name','users.last_name','users.profile_image')
         ->join('users','users.id','blogs.created_by')
-        ->where('blogs.blog_status','1')->where('blogs.is_delete','0')
+        ->where('blogs.blog_status','1')->where('blogs.is_deleted','0')
         ->where('blogs.is_featured','1')->where('users.is_delete','0')
         ->where('users.is_verified','=',1)->orderBy('blogs.id', 'DESC')->limit(4)->get();
 	
         $tranding_blogs = DB::table('blogs')->select('blogs.*','users.first_name','users.last_name','users.profile_image')
         ->join('users','users.id','blogs.created_by')
-        ->where('blogs.blog_status','1')->where('blogs.is_delete','0')
-        ->where('blogs.is_tranding','1')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
+        ->where('blogs.blog_status','1')->where('blogs.is_deleted','0')
+        ->where('blogs.is_trending','1')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
         ->orderBy('blogs.id', 'DESC')->limit(4)->get();
         
         $popular_blogs = [];
         if (count($latest_blogs) > 4) {
             $popular_blogs = DB::table('blogs')->select('blogs.*','users.first_name','users.last_name','users.profile_image')
             ->join('users','users.id','blogs.created_by')->where('blogs.blog_status','1')
-            ->where('blogs.is_delete','0')->where('users.is_delete','0')
+            ->where('blogs.is_deleted','0')->where('users.is_delete','0')
             ->where('users.is_verified','=',1)->get()->random(4);
         }else{
             $popular_blogs = DB::table('blogs')->select('blogs.*','users.first_name','users.last_name','users.profile_image')
             ->join('users','users.id','blogs.created_by')->where('blogs.blog_status','1')
-            ->where('blogs.is_delete','0')->where('users.is_delete','0')
+            ->where('blogs.is_deleted','0')->where('users.is_delete','0')
             ->where('users.is_verified','=',1)->limit(4)->get();
         }
 	  
