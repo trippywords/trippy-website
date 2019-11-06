@@ -100,6 +100,7 @@ Route::get('/thankyou', 'HomeController@thankyou')->name('thankyou');
 
 
 
+
 Route::post('/contactussend', 'HomeController@contactussend')->name('contactussend');
 
 Route::get('/account-details', 'ProfileController@accountdetails')->name('account-details');
@@ -205,14 +206,17 @@ Route::get('/acceptrequest/{userid}', 'ProfileController@acceptRequest')->name('
 Route::get('/rejectrequest/{userid}', 'ProfileController@rejectRequest')->name('rejectrequest');
 
 
+//Coming soon page
+Route::get('coming_soon','Admin\AdminController@comingSoon')->name('coming_soon');
 
+Route::get('coming_soon_feed','Admin\AdminController@comingSoonFeed')->name('coming_soon_feeds');
 
 //Routes for admin login functionality 
 Route::get('admin', 'Admin\AdminController@admin')->name('admin');
 
 Route::post('admin', 'Admin\AdminController@checkLogin')->name('checkLogin');
 
-Route::get('admindashboard', 'Admin\AdminController@Dashboard')->name("admin_dashboard");
+//Route::get('admindashboard', 'Admin\AdminController@Dashboard')->name("admin_dashboard");
 //logout for admin
 Route::get('adminlogout', 'Admin\AdminController@Logout')->name("admin_logout");
 

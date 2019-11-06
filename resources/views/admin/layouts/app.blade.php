@@ -104,13 +104,13 @@
 
                 <li class="breadcrumb-item ">
 
-                    <a href="{{ route('admin_dashboard') }}">Home</a>
+                    <a href="{{ route('admin-panel') }}">Home</a>
 
                 </li>
 
                 <li class="breadcrumb-item active">
 
-                    <a href="{{ route('admin_dashboard') }}">Dashboards</a>
+                    <a href="{{ route('admin-panel') }}">Dashboards</a>
 
                 </li>
 

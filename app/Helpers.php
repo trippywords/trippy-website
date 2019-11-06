@@ -447,7 +447,7 @@ function getBlogDetails($blogid)
 }
 
 function getblogGenre($id){
-    $blogArray = DB::table('blogs')->join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=','1')->where('blogs.is_delete','=','0')->where("blogs.blog_genre", "=", $id)->where('users.is_verified','=',1)->where('users.is_delete','=','0')->orderBy('blogs.id','desc')->first();
+    $blogArray = DB::table('blogs')->join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=','1')->where('blogs.is_deleted','=','0')->where("blogs.blog_genre", "=", $id)->where('users.is_verified','=',1)->where('users.is_delete','=','0')->orderBy('blogs.id','desc')->first();
     if(empty($blogArray))
     {
         $blogArray=array();

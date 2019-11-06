@@ -52,6 +52,7 @@
 										</div>
 									<?php } ?>
 								</div>
+
 								<?php } ?>
 								<div class="profile_section media align-items-center">
 									<div class="profile_pic media-left">
@@ -150,6 +151,10 @@
 						<div class="row" id="appdiv">
 							@if(count($blogdetails) > 0)
 							@foreach($blogdetails as $blogdata)
+							<?php 
+							//dd($blogdata);
+
+							?>
 							<div class="col-lg-6 col-md-12">
 								<div class="block_author_section">                                    
 									<div class="block_profile_main">
@@ -170,16 +175,17 @@
 												</div>
 											</div>
 											<div class="media-body">
-												<?php if(Auth::user()){ 
+												<?php //if(Auth::user()){ 
 												if ($userdetails != null) {
 													?>
 													<a target="_blank" href="{{ url("blog/".$blogdata->blog_slug) }}" title="{{ $blogdata->blog_title }}" class="user_name">{{ $blogdata->blog_title }}</a>
 													<?php
 
 													$is_bookmarked=App\Bookmarks::select('is_delete')->where('blog_id','=',$blogdata->id)->where('is_delete','=',0)->where('user_id','=',Auth::user()->id)->first();
-												} }else{ ?>
+												 }else{ ?>
 													<a target="_blank" href="{{ url("blog/".$blogdata->blog_slug) }}" title="{{ $blogdata->blog_title }}" class="user_name">{{ $blogdata->blog_title }}</a>
 												<? }
+											
 												?>
 												<div class="time"><?php echo date("F j, Y", strtotime($blogdata->updated_at)); ?></div>
 											</div>
@@ -216,7 +222,10 @@
 										<a target="_blank" href="{{ url("blog/".$blogdata->blog_slug) }}" title="{{ $blogdata->blog_title }}" class="title">{{ $blogdata->blog_title }}</a>
 									</div>
 									<p class="block_author_content">
-										@php echo html_entity_decode(str_limit($blogdata->blog_description, 200)) @endphp
+										<?php 
+											print_r($blogdata->blog_description);
+										?>
+										
 									</p>
 									<div class="read_more_section">
 										<a  href="{{ url('blog/'.$blogdata->blog_slug) }}" style="color: #25aae2;" title="Read More">Read More...</a>
@@ -225,14 +234,22 @@
 									</div>
 								</div>
 							</div>
-							@endforeach	
-							@endif
+							
+							
+							<?php }?>
+							
+							
 						</div>
 					</div>
 				</div>
+
 			</div>
+
 		</div>
+		@endforeach	
+		@endif					
 	</div>
+
 </section>
 <script>
 	$(document).ready(function () {

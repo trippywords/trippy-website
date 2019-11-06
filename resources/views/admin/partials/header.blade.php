@@ -650,7 +650,7 @@
 
                                 <p class="text-muted">{{ Auth::user()->email }}</p>
 
-                                <a href="{{ route('admin_dashboard') }}" class="btn btn-round btn-theme btn-sm">View Profile</a>
+                                <a href="{{ route('admin-panel') }}" class="btn btn-round btn-theme btn-sm">View Profile</a>
 
                             </div>
 

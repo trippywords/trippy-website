@@ -249,7 +249,7 @@
               <?php $i=1; ?>
               <div class="blog-main-slider-section">
                 @foreach($sub_cat as $sub)
-                  <?php $blogs = DB::table('blogs')->join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=','1')->where('blogs.is_delete','=','0')->where("blogs.blog_genre", "=", $sub->id)->where('users.is_verified','=',1)->where('users.is_delete','=','0')->orderBy("blogs.id","desc")->limit(6)->get()->toArray(); ?>
+                  <?php $blogs = DB::table('blogs')->join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=','1')->where('blogs.is_deleted','=','0')->where("blogs.blog_genre", "=", $sub->id)->where('users.is_verified','=',1)->where('users.is_delete','=','0')->orderBy("blogs.id","desc")->limit(6)->get()->toArray(); ?>
                   @if(!empty($blogs))
                   <div id="subCatDiv{{$sub->id}}" class="owl-carousel owl-theme subcat_blog{{ $subVal->id }} <?php echo (isset($i) && $i==1)?"active":''; ?>">
                      <div class="item">

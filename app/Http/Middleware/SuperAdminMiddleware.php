@@ -18,6 +18,7 @@ class SuperAdminMiddleware
     public function handle($request, Closure $next)
     {
         $roles = $request->user()->roles;
+        
         foreach ($roles as $role) {
             if($role->name == 'super-admin')
                 // If user is super-admin, accept the request
