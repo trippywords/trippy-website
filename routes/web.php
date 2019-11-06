@@ -206,6 +206,7 @@ Route::get('/acceptrequest/{userid}', 'ProfileController@acceptRequest')->name('
 Route::get('/rejectrequest/{userid}', 'ProfileController@rejectRequest')->name('rejectrequest');
 
 
+//Coming soon page
 Route::get('coming_soon','Admin\AdminController@comingSoon')->name('coming_soon');
 
 Route::get('coming_soon_feed','Admin\AdminController@comingSoonFeed')->name('coming_soon_feeds');

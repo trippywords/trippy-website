@@ -61,7 +61,12 @@
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading"><a target="_blank" href="{{ url('blog/'.$blog->blogid)}}">{{ $blog->blog_title }}</a></h4>
-                                        <p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200)) @endphp</p>
+
+                                        <a target="_blank" href="{{ url('blog/'.$blog->blogid)}}">
+                                        <p class="media-content">
+                                            @php echo strip_tags(str_limit($blog->blog_description, 200)) 
+                                            @endphp
+                                        </p></a>
                                         <?php
                                            /* $genre_name= "";
                                             if(!empty($blog->blog_genre)){

@@ -45,7 +45,7 @@ class DashboardController extends Controller
         }
 
         $user_pref=Userpreferance::where('user_id','=',Auth::user()->id)->where('is_delete','=','0')->count();
-        //dd($user_pref);
+
         $userData=User::where('id','=',Auth::user()->id)->first();
         if(isset($userData->created_at) && trim($userData->created_at)==trim($userData->last_login))
         //if(isset($userData->name)=='asdfg')
@@ -53,15 +53,18 @@ class DashboardController extends Controller
             $request->session()->put('is_first_login',1);
             return redirect('preference');
         }else{
+            
             $request->session()->put('is_first_login',0);
             $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
             
             $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
+            
+
             if ($request->ajax()) {
                 $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
                 return response()->json(['html' => $view]);
             }                        
-            return view('dashboard.profile', compact('is_admin','publish_blogs','publish_total'));
+            return view('dashboard.profile', compact('is_admin','publish_blogs','publish_total','page'));
         }
 }
     public function viewDraftBlogsDashboard(Request $request){
