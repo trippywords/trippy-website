@@ -20,8 +20,16 @@ use App\Comments;
 use Auth;
 
 class AdminController extends Controller
-
 {
+    function comingSoonFeed()
+    {
+        return view('coming_soon');
+    }
+
+    function comingSoon()
+    {
+        return view('coming_soon');
+    }
 
     function admin(){
 

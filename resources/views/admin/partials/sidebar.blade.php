@@ -16,7 +16,7 @@
 
 					 
 
-					<li class="nav-title">Blogs</li>
+					<!-- <li class="nav-title">Blogs</li> -->
 
 					
  					<!-- <li class="nav-item">
@@ -54,7 +54,7 @@
 							</a>
 					</li>
 						<li class="nav-item">
-							<a class="nav-link " href="#">
+							<a class="nav-link " href="{{ route('coming_soon_feeds') }}">
 								<i class="mdi mdi-atom"></i> Manage Feeds
 							</a>
 					</li>
@@ -75,7 +75,7 @@
 
 					<li class="nav-title"> System </li>
 					<li class="nav-item">
-							<a class="nav-link " href="#">
+							<a class="nav-link " href="{{ route('coming_soon') }}">
 								<i class="mdi mdi-atom"></i> Reported Authors
 							</a>
 					</li>
