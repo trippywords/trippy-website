@@ -290,15 +290,17 @@ if (isset($content) && trim($content)=='') {
 							$tags = explode(',',$blog_details->blog_keywords);
 							@endphp
 							<div class="tag-section">
-								@for($i=0;$i<count($tags);$i++)
+								<?php for($i=0;$i<count($tags);$i++){?>
 								<a target="_blank" href="{{url('keywords',str_replace(' ','-',$tags[$i]))}}" title="{{$tags[$i]}}" class="btn btn-primary">{{$tags[$i]}}</a>
-								@endfor
+								<?php
+							}
+								?>
 							</div>
 
 						</div>
 						@endif
 						<div class="author-detail-main">
-							<h6 class="author-name"><a href="{{url("profile/".App\User::where('id','=',$blog_details->created_by)->first()->name)}}" class="name" title="<?php echo App\User::where('id','=',$blog_details->created_by)->first()->name ?>"><?php echo ucfirst(App\User::where('id','=',$blog_details->created_by)->first()->first_name); ?> <?php echo ucfirst(App\User::where('id','=',$blog_details->created_by)->first()->last_name); ?></a></h6>
+							<h6 class="author-name"><a href="{{<?php url("profile/" .App\User::where('id','=',$blog_details->created_by)->first()->name )?>}}" class="name" title="<?php echo App\User::where('id','=',$blog_details->created_by)->first()->name ?>"><?php echo ucfirst(App\User::where('id','=',$blog_details->created_by)->first()->first_name); ?> <?php echo ucfirst(App\User::where('id','=',$blog_details->created_by)->first()->last_name); ?></a></h6>
 							<p class="author-detail"><?php echo App\User::where('id','=',$blog_details->created_by)->first()->description ?></p>
 						</div>
 					</div>

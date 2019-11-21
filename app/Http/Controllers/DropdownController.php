@@ -21,7 +21,7 @@ class DropdownController extends Controller
     }
 
 
-    public function parentselection()
+    /*public function parentselection()
     {
     	$parent=array(1,2,3);
     	foreach ($parent as $p) 
@@ -37,6 +37,6 @@ class DropdownController extends Controller
     			//break;
     		}
     	}
-    }
+    }*/
     
 }
