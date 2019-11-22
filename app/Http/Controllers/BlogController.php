@@ -48,15 +48,7 @@ class BlogController extends Controller
     }
 
 
-    /* public function ajaxChild(Request $request)
-    {
-     
-        $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
-
-        return json_encode($child);
-
-    }
-*/
+    
     //For storing blog into database
     public function store(Request $request)
     {
