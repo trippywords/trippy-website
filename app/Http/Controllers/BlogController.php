@@ -10,7 +10,7 @@ use App\Comments;
 use Illuminate\Support\Facades\DB;
 use App\Userpreferance;
 use App\UserGenrePreference;
-use App\Genre;
+//use App\Genre;
 use App\Bookmarks;
 use App\Notifications;
 use App\Usernotification;
@@ -36,29 +36,19 @@ class BlogController extends Controller
 
       $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
       $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
-
-      //$genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
-      //$genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
+      
       $genres=ParentGenres::getComposeGenre();
         //dd($genres);
       if ($request->ajax()) {
           $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
           return response()->json(['html' => $view]);
       }
-      //$genrearr= Genre::select('id','name')->where('is_deleted','=','N')->where('parent_genre_id','!=','0')->orderBy('name')->get();
+      
       return view('blog.create',compact('genres','publish_blogs','publish_total'));
     }
 
 
-     public function ajaxChild(Request $request)
-    {
-     // dd($request);
-        $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
-
-        return json_encode($child);
-
-    }
-
+    
     //For storing blog into database
     public function store(Request $request)
     {
@@ -115,13 +105,13 @@ class BlogController extends Controller
       }else{
         $blog->blog_status           = 1;
       }
-      /*$val = str_slug($blog->blog_title, '-');
-      $check_duplicate = Blog::where("blog_slug",$val)->first();
+      $val = str_slug($blog->blog_title, '-');
+      /*$check_duplicate = Blog::where("blog_slug",$val)->first();
       
       if($check_duplicate){
         $val = $val."1";
-      } 
-      $blog->blog_slug = $val;*/
+      } */
+      $blog->blog_slug = $val;
       $blog->created_at = date('Y-m-d H:i:s');
       $blog->updated_at = date('Y-m-d H:i:s');
       //dd($blog);
@@ -241,32 +231,128 @@ class BlogController extends Controller
               return view('blog.blog_detail_page',compact('blog_details'));    
         }
     }
+
+//Implemented API logic for blog detail page not using it now (first will get approved and design)
     public function userBlogDetailpage($id)
     {
-      
+     // dd($id);
         if (Auth::user()) {
           session(['is_first_login'=>0]);
         }
-        $blog_details=Blog::select('*')->where('is_deleted','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
+        //$blog_details=Blog::select('*')->where('is_deleted','=','0')->where('blog_status','=','1')->where('id','=',$id)->first();
+//Single query for blog with comments
+/*$blog_details=DB::select("select a.id commentatorId,a.name commentatorName,a.created_at,b.id blogId,b.blog_title,b.blog_image ,b.blog_description ,b.tags blogTags,c.comments,c.user_id,c.created_at commentedAt,u.id authorId,u.name authorName,u.description aurthorSummary,g.id,g.child_genre_name 
+  from users u,users a,child_genres g,blogs b left join comments c
+  on b.id=c.blog_id
+  WHERE b.created_by=u.id
+  and b.blog_genre=g.id
+  and b.id=$id
+  and a.id=c.user_id
+");
 
-        if($blog_details==null)
+
+$finalArray = array();
+foreach ($blog_details as $row)
+{
+   if(empty($finalArray)) {
+        $finalArray['blogDetail'] = [
+            'bid' => $row->blogId,
+            'blogChildGenre' => $row->child_genre_name,
+            'blogTitle' => $row->blog_title,
+            'blogImage' => $row->blog_image,
+            'blogDescription' => $row->blog_description,
+            'authorId' => $row->authorId,
+            'authorName' => $row->authorName,
+            'aurthorSummary' => $row->aurthorSummary
+
+        ];
+    }
+   
+   
+    $finalArray['blogDetail']['comments'][] = [
+        'comment' => $row->comments,
+        'commentatorName'=> $row->commentatorName,
+        'commentatorId' => $row->commentatorId,
+        'commentedAt' => $row->commentedAt
+    ];
+
+}
+$comm=json_encode($finalArray,JSON_PRETTY_PRINT);
+echo "<pre>";
+print_r($comm);
+}*/
+
+   /* $prev_blog = 0;
+
+    $finalArray = array();
+
+    foreach ($blog_details as $student) 
+    { 
+        if ($prev_blog != $student->id)
+        {
+            $finalArray['blog'][] = array('bid' => $student->id,
+                                    'blogTitle' => $student->blog_title,
+                                    'blogImage' => $student->blog_image,
+                                    'blogDescription' => $student->blog_description
+                                    );
+            $prev_blog = $student->id;
+        }
+        $finalArray[key($finalArray)][] = array('comment ' => $student->comments);
+
+    }
+    $comm=json_encode($finalArray);
+    print_r($comm);
+
+   // dd($blog_details);
+  }*/
+
+$blog_details=DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b.blog_title blogTitle,b.blog_image blogImage,b.blog_description blogDescription,b.blog_keywords blogTags,u.id authorId,u.name,u.description aurthorSummary 
+  from blogs b,users u,child_genres g
+  where b.id=$id
+  and b.blog_genre=g.id
+  and b.created_by=u.id 
+  ");
+
+
+    foreach ($blog_details as $row) 
+    {
+        
+      $comments=DB::select("select c.comments comment,u.name commentatorName,u.id commentatorId,c.created_at commentedAt 
+        from comments c,users u 
+        where c.blog_id=$row->blogId
+        and c.user_id=u.id");
+
+      //dd($comments);
+      
+      $row->comments=$comments;
+      $blogResult=array();
+    
+      $finalsResult[]=$row;
+            
+    }
+    $BlogsDetails = json_encode(['blogDetail' => $finalsResult],JSON_PRETTY_PRINT);
+      echo "<pre>";
+      print_r($BlogsDetails);
+  }
+        /*if($blog_details==null)
         {
             return Redirect::back();
-        }else{
+        }else{*/
          /* $user_genere_details= Userpreferance::select('preference_id')->groupBy('preference_id')->where('user_id','=',$blog_details->created_by)->where('is_delete','=','0')->get();*/
-          $user_genere_details= UserGenrePreference::select('child_preference_id')->groupBy('parent_preference_id')->get();
+          //$user_genere_details= UserGenrePreference::select('child_preference_id')->groupBy('parent_preference_id')->get();
 
-          $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_deleted','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
+         // $topblogdata= Blog::select('*')->where('created_by','=',$blog_details->created_by)->where('is_deleted','=','0')->where('id','!=',$blog_details->id)->where('blog_status','=','1')->orderBy('id', 'DESC')->limit(4)->get();
 
-          $comments = Comments::select('comments.*','users.first_name','users.last_name')->join('users','users.id','comments.user_id')->where('comments.blog_id','=',$blog_details->id)->where('comments.is_delete','=','0')->orderBy('comments.id','desc')->get();
+          ///$comments = Comments::select('comments.*','users.first_name','users.last_name')->join('users','users.id','comments.user_id')->where('comments.blog_id','=',$blog_details->id)->where('comments.is_delete','=','0')->orderBy('comments.id','desc')->get();
 
-          $auther = User::where('id','=',$blog_details->created_by)->first();
-          $users = getUsers();
-          $url = url('blog/'.$id);
-          return view('blog.user_blog',compact('blog_details','user_genere_details','topblogdata','comments','auther','url','users'));    
-        }
+          //$auther = User::where('id','=',$blog_details->created_by)->first();
+          
+          //$users = getUsers();
+          //$url = url('blog/'.$id);
+          //return view('blog.user_blog',compact('blog_details','user_genere_details','topblogdata','comments','auther','url','users'));    
+       /* }
     }
-
+*/
     public function userBlogDetailById($id)
     {
       //dd($id);
@@ -275,7 +361,7 @@ class BlogController extends Controller
         }
         $blog_details=Blog::where('is_deleted','=','0')->where('blog_status','=','1')->where('id','=',$id)->first(); 
 
-        //dd()
+        //dd($blog_details);
 
         if($blog_details==null)
         {
