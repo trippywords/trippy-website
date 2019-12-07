@@ -3346,7 +3346,7 @@
 		border: 1px solid #efefef;
 	}
         .profile_page .search {
-       	width:fit-content;
+       	width:250px;
        	 margin-bottom: 20px;
     }
 	.profile_page .profile_search {
@@ -3359,7 +3359,8 @@
 	}
 	.profile_page .profile_search .search .form-control {
 	    padding: .375rem .75rem;
-	    margin-top: 0;
+			margin-top: 0;
+			width: 216.5px;
 	}
 	.profile_page .profile_search .search .form-control.error {
 		height: auto;
@@ -3369,7 +3370,7 @@
 	    padding: 10px;
 	    font-size: 16px;
 	    border-style: none;
-	    padding: 11px;
+	    padding: 9px;
 	    color: #ffffff;
 	    border-top-right-radius: 5px;
 	    border-bottom-right-radius: 5px;
