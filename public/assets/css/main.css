@@ -4287,7 +4287,7 @@
 
 	.block_page .profile_page_side_section .user_profile .user_image_section .view_menu:hover i {
 
-		-ms-transform: rotate(90deg);
+		transform: rotate(90deg);
 
 	  	-webkit-transform: rotate(90deg);
 
@@ -6020,7 +6020,7 @@
         width: 100%;
         margin: 3px;
         color: #fff !important;
-    }.
+    }
 
 	.bookmark-main.connection-main .connection-main-section .connection-section .profile_pic img {
 
@@ -6672,7 +6672,7 @@
 			border-collapse: collapse;
 		}
 		.blog-section .blog-section table tr {
-		    display: .blog-section table-row;
+		    display: table-row;
 		    vertical-align: inherit;
 		    border-color: inherit;
 		}
@@ -6707,7 +6707,7 @@
 		    padding: 0;
 		}
 		.blog-section table tbody {
-		    display: .blog-section table-row-group;
+		    display: table-row-group;
 		    vertical-align: middle;
 		    border-color: inherit;
 		}
@@ -7315,10 +7315,10 @@
 		margin: auto;
 	}
 
-	.blog-main-slider-main .blog-main-slider-title .blog-dots-text .owl-item {
-		/*width: unset;*/
-		/*display: inline-block;*/
-	}
+	/* .blog-main-slider-main .blog-main-slider-title .blog-dots-text .owl-item {
+		width: unset;
+		display: inline-block;
+	} */
 
 	/*.blog-main-slider-main .blog-main-slider-title .blog-dots-text .owl-item,*/
 	.blog-main-slider-main .blog-main-slider-title .blog-dots-text .owl-item .item,
