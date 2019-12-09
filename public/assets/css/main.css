@@ -4967,10 +4967,8 @@ textarea {
   height: 50px;
 }
 .account-details-main .account-details-list .account-form .account-form-button {
-  padding: 15px 19px;
+  padding: 6px 10px;
   font-size: 20;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
 }
 #frmUpdateEmail .account-form-button.updemail-button {
   border-radius: 0.25rem;
@@ -7786,10 +7784,10 @@ textarea {
   margin-top: 15px;
   border-radius: 0.25rem;
 }
-.account-form .input-group-btn .btn.btn-primary {
+/* .account-form .input-group-btn .btn.btn-primary {
   margin-top: 0px;
   padding: 15px 19px;
-}
+} */
 
 .submit-account-btn {
   font-size: 16px;
