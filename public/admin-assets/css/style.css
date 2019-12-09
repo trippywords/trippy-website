@@ -7068,7 +7068,7 @@ body {
     .sidebar .sidebar-form .form-control::placeholder {
       color: rgba(255, 255, 255, 0.7); }
   .sidebar .sidebar-nav {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     padding-bottom: 200px;
     position: relative;
     flex: 1;
