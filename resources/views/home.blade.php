@@ -114,7 +114,18 @@ endif;
 							<div class="item">
 								<div class="feed-blog-container">
 									<div class="feed-blog-parent-genre">{{ $blog['parentGenre'] }}</div>
-									<img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+
+
+									<?php if (isset($blog['blogImg']) && $blog['blogImg'] != null && file_exists(public_path() . '/blog_img/' . $blog['blogImg'])) { ?>
+                                        <img src="{{ asset("/public/blog_img/".$blog['blogImg']) }}" class="media-object">
+                                    <?php } else { ?>
+                                        <img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object">
+                                    <?php } ?>
+
+
+
+
+									<!-- <img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}"> -->
 									<div class="feed-blog-child-genre">{{ $blog['childGenre'] }}</div>
 									<div class="feed-blog-title">{{ $blog['title'] }}</div>
 									<div class="feed-blog-desc">{!! $blog['description'] !!}</div>
@@ -167,7 +178,16 @@ endif;
 											<div class="col-md-4">
 												<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
 													<div class="feed-blog-container feed-blog-detail-container">
-														<img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+
+
+														<?php if (isset($blog['blogImg']) && $blog['blogImg'] != null && file_exists(public_path() . '/blog_img/' . $blog['blogImg'])) { ?>
+                                        <img src="{{ asset("/public/blog_img/".$blog['blogImg']) }}" class="media-object">
+                                    <?php } else { ?>
+                                        <img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object">
+                                    <?php } ?>
+
+
+														<!-- <img class="feed-blog-img" src="public/blog_img/{{ $blog['blogImg'] }}"> -->
 														<div class="feed-blog-title">{{ $blog['title'] }}</div>
 														<div class="feed-blog-author">
 															Posted by {{ $blog['authorInfo'] }} | {{ date('F d, Y', strtotime($blog['createdAt'])) }}
@@ -183,7 +203,17 @@ endif;
 												<div class="col-md-6">
 													<a href="{{ url('blogs/'.$blog['blogId']) }}" target="_blank">
 														<div class="feed-blog-mini-container">
-															<img class="feed-blog-mini-img" src="public/blog_img/{{ $blog['blogImg'] }}">
+															
+															<?php if (isset($blog['blogImg']) && $blog['blogImg'] != null && file_exists(public_path() . '/blog_img/' . $blog['blogImg'])) { ?>
+                                        <img class="feed-blog-mini-img" src="{{ asset("/public/blog_img/".$blog['blogImg']) }}" class="media-object ">
+                                    <?php } else { ?>
+                                        <img class="feed-blog-mini-img" src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object">
+                                    <?php } ?>
+
+
+
+
+															<!-- <img class="feed-blog-mini-img" src="{{ asset('/') }}public/blog_img/no_img.jpg" alt="About TrippyWords"> -->
 															<div class="feed-blog-mini-detail">
 																<div class="feed-blog-title">{{ $blog['title'] }}</div>
 																<div class="feed-blog-author">Posted by {{ $blog['authorInfo'] }}</div>
