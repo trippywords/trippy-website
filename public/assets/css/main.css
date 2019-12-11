@@ -3179,7 +3179,7 @@ textarea {
   .profile_main_section
   .table
   .ad-checkbox-inline {
-  width: 20px;
+    padding-left: 10px;
 }
 
 .profile_page
@@ -3534,7 +3534,7 @@ textarea {
     .profile_main_section
     .table
     .draft_td {
-    width: 95px;
+    width: 40px;
   }
   .profile_page .modal-dialog .modal-content .modal-header .close {
     left: 88vw;
