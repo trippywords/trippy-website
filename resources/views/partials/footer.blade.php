@@ -1,3 +1,4 @@
+</div>
 <footer>
 <?php if(Auth::guard('web')->user()==null){ ?>
 	<div class="subscribe-mail">
