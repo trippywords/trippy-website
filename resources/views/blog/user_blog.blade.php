@@ -246,32 +246,41 @@ if (isset($content) && trim($content)=='') {
 									<i class="icon fa fa-share"></i>
 								</a>
 							</li>-->
+
+							@php
+			$settings = getSettings();
+		@endphp
 							<li class="social-list">
-								<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo Request::url(); ?>" target="_blank" title="" class="social-icon">
+								<a href="{{addhttp($settings->site_facebook)}}" target="_blank" title="" class="social-icon">
 									<i class="icon fa fa-facebook"></i>
 								</a>
 							</li>
 							<li class="social-list">
-								<a href="https://twitter.com/home?status=<?php echo Request::url(); ?>"  title="" class="social-icon">
+								<a href="{{addhttp($settings->site_twitter)}}"  title="" target="_blank" class="social-icon">
 									<i class="icon fa fa-twitter"></i>
 								</a>
 							</li>
 							<li class="social-list">
 								<!--											<a href="https://plus.google.com/share?url=<?php //echo Request::url(); ?>" target="_blank" title="" class="social-icon">-->
-									<a href="https://plusone.google.com/_/+1/confirm?hl=en&url=<?php echo Request::url(); ?>&title=<?php echo $blog_details->blog_title; ?>"  title="" class="social-icon">
+									<a href="{{addhttp($settings->site_google)}}"  target="_blank" title="" class="social-icon">
 										<i class="icon fa fa-google-plus"></i>
 									</a>
 								</li>
 								<li class="social-list">
-									<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo Request::url(); ?>&title=<?php echo $blog_details->blog_title; ?>&summary=&source="  title="" class="social-icon">
+									<a href="{{addhttp($settings->site_linkedin)}}" target="_blank" title="" class="social-icon">
 										<i class="icon fa fa-linkedin"></i>
 									</a>
 								</li>
 								<li class="social-list">
-									<a href="https://pinterest.com/pin/create/button/?url=<?php echo Request::url(); ?>&media={{asset("/public/blog_img/".$blog_details->blog_image) }}&description=<?php echo $blog_details->blog_title; ?>"  title="" class="social-icon">
+								<a href="{{addhttp($settings->site_instagram)}}" target="_blank" title="instagram" class="icon">
+								<i class="fa fa-instagram"></i>
+								</a>
+								</li>
+								<!-- <li class="social-list">
+									<a href="https://pinterest.com/pin/create/button/?url=<?php //echo Request::url(); ?>&media={{asset("/public/blog_img/".$blog_details->blog_image) }}&description=<?php //echo $blog_details->blog_title; ?>" target="_blank" title="" class="social-icon">
 										<i class="icon fa fa-pinterest"></i>
 									</a>
-								</li>
+								</li> -->
 								@if(Auth::user())
 								<li class="social-list bookmark-main">
 									<a href="javascript:;" title="" class="social-icon" onclick="blogbookmark(<?php echo $blog_details->id; ?>)">
