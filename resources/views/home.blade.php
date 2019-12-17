@@ -147,6 +147,7 @@ endif;
 		// Working with featuredBlogsDetails JSON response
 		$featuredDetails = [];
 		$featuredBlogsDetailsRow = json_decode($featuredBlogsDetails, TRUE);
+
 		if(!empty($featuredBlogsDetailsRow)) {
 			$featuredDetails = $featuredBlogsDetailsRow['featuredBlogsDetails'];
 		}
@@ -154,8 +155,9 @@ endif;
 
 	<!-- Featured Blog Details Row -->
 	@if (count($featuredDetails) > 0)
-		<div class="container">
+		
 			@foreach ($featuredDetails as $blogDetail)
+			<div class="container">
 				@if (!empty($blogDetail['childGenres']))
 				<div class="feed-blog-details-parent">
 					<div class="row">
@@ -233,10 +235,12 @@ endif;
 							@endforeach
 						</div>
 				@endif
-			@endforeach
 				</div>
-		</div>
+			@endforeach
+			</div>		
 	@endif
+	
+		
 
 	<!-- About Us -->
 	<div class="section-gap-half-padding about_trippywords_section">

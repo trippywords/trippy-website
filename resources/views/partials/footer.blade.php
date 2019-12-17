@@ -28,7 +28,7 @@
 	</div> 
 <?php } ?>
 	<div class="footer-section">
-		<div class="container">
+		 <div class="container"> 
 		@php
 			$settings = getSettings();
 		@endphp
@@ -59,7 +59,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> 
 		</div>
 	</div>
 </footer>
