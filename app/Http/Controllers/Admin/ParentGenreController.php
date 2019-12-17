@@ -92,7 +92,7 @@ class ParentGenreController extends Controller
 
         return redirect()->route('admin-parent-genre')
 
-                        ->with('success','Genre created successfully.');
+                        ->with('success','Parent Genre created successfully.');
 
     }
 
@@ -137,7 +137,7 @@ class ParentGenreController extends Controller
 
         return redirect()->route('admin-parent-genre')
 
-                        ->with('success','parent Genre updated successfully');
+                        ->with('success','Parent Genre updated successfully');
 
     }
 

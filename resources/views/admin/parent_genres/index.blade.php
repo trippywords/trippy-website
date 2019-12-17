@@ -6,7 +6,7 @@
 <div class="animated fadeIn">
 	<h3>Parent Genre</h3>
 	<small>
-		<a href="">Manage Parent Genres</a>
+		<span>Manage Parent Genres</span>
 	</small>
 		<div class="pull-right">
 			<!-- @can('genre-create') -->

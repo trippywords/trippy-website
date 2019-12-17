@@ -32,7 +32,7 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Detail:</strong>
-                     {!! Form::textarea('parent_detail', old('parent_detail'), array('placeholder' => 'Detail','class' => 'form-control','required'=>'required')) !!}
+                     {!! Form::textarea('parent_detail', old('parent_detail'), array('placeholder' => 'Summary of Parent Genre ','class' => 'form-control','required'=>'required')) !!}
 		        </div>
 		    </div>
             <!-- <div class="col-xs-12 col-sm-12 col-md-12">
@@ -51,8 +51,8 @@
                     <strong>Is Published:</strong>
                     <select class="form-control" required="required" name="selPublished">
                         <option value="">Select Status</option>
-                        <option value="1">Published</option>
-                        <option value="0">Unpublished</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
                     </select>
                 </div>
             </div>

@@ -13,6 +13,7 @@ $(function () {
         processing: true,
         serverSide: false,
         ordering: false,
+        stateSave: true,
         dom: 'Bfrtip',
         "ajax": ADMIN_URL+'/parent-genre/getdata',
         columns: [
