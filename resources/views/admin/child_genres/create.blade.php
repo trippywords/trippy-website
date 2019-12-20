@@ -33,7 +33,7 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Detail:</strong>
-                     {!! Form::textarea('child_genre_detail', old('child_genre_detail'), array('placeholder' => 'Detail','class' => 'form-control','required'=>'required')) !!}
+                     {!! Form::textarea('child_genre_detail', old('child_genre_detail'), array('placeholder' => 'Summary of Child Genre','class' => 'form-control','required'=>'required')) !!}
 		        </div>
 		    </div>
             
@@ -48,7 +48,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                <strong>Is Published:</strong>     
-             {!! Form::select('selPublished', ['' => 'Select Status', '1' => 'Published', '0' => 'Unpublished'],null,array('class'=>'form-control','required'=>'required')) !!}
+             {!! Form::select('selPublished', ['' => 'Select Status', '1' => 'Yes', '0' => 'No'],null,array('class'=>'form-control','required'=>'required')) !!}
                  </div>
              </div>
 
