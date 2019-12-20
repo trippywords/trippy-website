@@ -118,6 +118,8 @@ class BlogController extends Controller
         ]);
 
         $blog = new Blog();
+        
+        $blog_image="";
 
         if ($file = $request->hasFile('blog_image')) {
 
