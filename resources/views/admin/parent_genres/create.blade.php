@@ -32,7 +32,7 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Detail:</strong>
-                     {!! Form::textarea('parent_detail', old('parent_detail'), array('placeholder' => 'Summary of Parent Genre ','class' => 'form-control','required'=>'required')) !!}
+                     {!! Form::textarea('parent_detail', old('parent_detail'), array('placeholder' => 'Summary of Parent Genre','class' => 'form-control','required'=>'required')) !!}
 		        </div>
 		    </div>
             <!-- <div class="col-xs-12 col-sm-12 col-md-12">
