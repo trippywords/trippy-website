@@ -20,7 +20,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin-parent-genre.store') }}" method="POST" >
+    <form action="{{ route('admin-parent-genre.store') }}" method="POST" id="parent_form" >
     	@csrf
          <div class="row">
 		    <div class="col-xs-12 col-sm-12 col-md-12">
@@ -62,3 +62,32 @@
 		</div>
     </form>
 @endsection
+
+<script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script >
+
+    
+        $(document).keyup(function(){
+
+            $.validator.addMethod("firstAlfa", function(value, element) {
+            return this.optional(element) || /^[A-Za-z_ ][A-Za-z0-9_ ]*$/.test(value);
+            }, "First letter shuld be characters");
+
+            $("#parent_form").validate({
+              // Specify vaidation rules
+
+              rules: {      
+                "parent_name":{
+                    required:true,
+                    firstAlfa:true,
+                    maxlength:50,
+                }
+
+            },
+           
+            });
+        });
+        
+    
+ </script>
