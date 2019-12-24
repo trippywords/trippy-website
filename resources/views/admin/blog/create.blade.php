@@ -46,9 +46,11 @@
 
 
 
-{!! Form::open(array('route' => 'admin.blog.store','method'=>'POST','files'=> true)) !!}
-
+<!-- {!! Form::open(array('id'=>'blog','route' => 'admin.blog.store','method'=>'POST','files'=> true)) !!} -->
+<!-- {!! Form::open(array('id'=>'blog','route' => 'admin.blog.store','method'=>'POST','files'=> true)) !!} -->
+<form id="blog" action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data">
 <div class="row">
+    {{ csrf_field() }}
 
     <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -79,7 +81,7 @@
             <strong>Select Genres:</strong>
 
             <select name='parent_genre_id' id='parent_genre_id' class='form-control'>
-                <option>Select Genres</option>
+                <option value="">Select Genres</option>
                 @foreach($genres as $genre)
                 <option value="{{$genre->id}}">{{$genre->parent_name}}</option>
                 @endforeach
@@ -94,7 +96,7 @@
             <strong>Select Child Genres:</strong>
 
             <select name='blog_genre' id='blog_genre' class='form-control'>
-                <option>Select Genres</option>
+                <option value="">Select Genres</option>
                 
            </select> 
         </div>
@@ -108,7 +110,9 @@
 
             <strong>Blog Picture:</strong>
 
-            {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
+            <input type="file" name="blog_image" class="form-control" role="form">
+
+            <!-- {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control','required'=>'required')) !!} -->
 
         </div>
 
@@ -185,14 +189,77 @@
 {!! Form::close() !!}
 @endsection
 
+
+
+
 <!-- <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script> -->
   <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>
 <script src="{{ asset('public/admin-assets/js/custom/admin-multilevel-dropdown.js') }}"></script>
-
+<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script >
+
+    
+        $(document).keyup(function(){
+            $("#blog").validate({
+              // Specify vaidation rules
+
+              rules: {      
+                "blog_title": {
+                     required : true,
+                     minlength :15,
+                },
+
+                "parent_genre_id" : {
+                    required : true
+                },
+
+                "blog_genre" : {
+                    required : true
+                },
+
+                "blog_image" : {
+                    required : true,
+                    
+                },
+                "blog_description":{
+                    required:true,
+                },
+
+                "blog_meta_description":{
+                    required:true,
+                },
+
+                "blog_keywords" :{
+                    required : true,
+                }
+
+            },
+            messages: {    
+                "blog_title" :{
+                    required: "Input required",
+                    minlength: "Please, at least {0} characters are necessary",
+                    },
+                "parent_genre_id" :{
+                    required: "Please select parent genre",
+                    },
+                "blog_genre" :{
+                    required: "Please select child genre",
+                },
+                "blog_image" : {
+                    required : "Please upload file",
+                },
+                "blog_keywords":{
+                    required : "This field is required",
+                }
+                
+                }
+            });
+        });
+        
     $("#error_keyword").hide();
     $("#blog_keywords").blur(function(){
             var a = $("#blog_keywords").val();

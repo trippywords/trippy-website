@@ -48,7 +48,7 @@
 
 
 
-{!! Form::model($blog, ['method' => 'POST','files'=> true,'route' => ['admin.blog.update', $blog->id]]) !!}
+{!! Form::model($blog, ['id'=>'blog','method' => 'POST','files'=> true,'route' => ['admin.blog.update', $blog->id]]) !!}
 
 <div class="row">
 
@@ -212,4 +212,68 @@
 
 <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
 <script src="{{ asset('public/admin-assets/js/custom/admin-multilevel-dropdown.js') }}"></script>
+<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script >
 
+    
+        $(document).keyup(function(){
+            $("#blog").validate({
+              // Specify vaidation rules
+
+              rules: {      
+                "blog_title": {
+                     required : true,
+                     minlength :15,
+                },
+
+                "parent_genre_id" : {
+                    required : true
+                },
+
+                "blog_genre" : {
+                    required : true
+                },
+
+                "blog_image" : {
+                    required : true,
+                    
+                },
+                "blog_description":{
+                    required:true,
+                },
+
+                "blog_meta_description":{
+                    required:true,
+                },
+
+                "blog_keywords" :{
+                    required : true,
+                }
+
+            },
+            messages: {    
+                "blog_title" :{
+                    required: "Input required",
+                    minlength: "Please, at least {0} characters are necessary",
+                    },
+                "parent_genre_id" :{
+                    required: "Please select parent genre",
+                    },
+                "blog_genre" :{
+                    required: "Please select child genre",
+                },
+                "blog_image" : {
+                    required : "Please upload file",
+                },
+                "blog_keywords":{
+                    required : "This field is required",
+                }
+                
+                }
+            });
+        });
+        
+    
+ </script>
+ 

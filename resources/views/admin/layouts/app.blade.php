@@ -200,7 +200,7 @@
     @yield('footer_script')
 
 
-
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <!-- octadmin Main Script -->
 
     <script src="{{ url('/public/admin-assets/js/app.js') }}"></script>

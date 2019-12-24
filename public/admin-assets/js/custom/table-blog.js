@@ -12,6 +12,7 @@ $(function () {
         processing: true,
         serverSide: false,
         ordering: false,
+        stateSave: true,
         dom: 'Bfrtip',       
         ajax: ADMIN_URL+'/blog/getdata',
         columns: [
