@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Auth;
 
 use URL;
 
+use Illuminate\Support\Str;
+
 
 
 class BlogController extends Controller
@@ -107,13 +109,17 @@ class BlogController extends Controller
 
                  ['blog_title'=> 'required',
 
-                //'blog_heading'=> 'required',                 
+                //'blog_heading'=> 'required', 
+                'blog_image'=> 'required',                
 
                 'blog_description'=> 'required',
 
                 'blog_meta_description'=> 'required',
 
-                'blog_keywords'=> 'required'           
+                'blog_keywords'=> 'required',
+
+                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=250,min_height=500',
+
 
         ]);
 
@@ -292,7 +298,8 @@ class BlogController extends Controller
 
         $this->validate($request, 
 
-                 ['blog_title'=> 'required',
+                 [
+                    'blog_title'=> 'required',
 
                 //'blog_heading'=> 'required',                 
 
@@ -300,7 +307,9 @@ class BlogController extends Controller
 
                 'blog_meta_description'=> 'required',
 
-                'blog_keywords'=> 'required'           
+                'blog_keywords'=> 'required' ,
+
+                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',          
 
         ]);
 
@@ -437,8 +446,10 @@ exit();*/
 
          })
 
-         ->addColumn('blog_title', function($blog) {                  
-            return '<a href="'.url('blog/'.$blog->id.'').'" target="_blank">'.$blog->blog_title.'</a>';
+         ->addColumn('blog_title', function($blog) {
+            $value=$blog->blog_title;
+            $blog_title=Str::limit($value, $limit = 50, $end = '...');                 
+            return '<a href="'.url('blog/'.$blog->id.'').'" target="_blank">'.$blog_title.'</a>';
 
          })
          //->addColumn('blog_heading', function($blog) { return $blog->blog_heading; })
