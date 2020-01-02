@@ -69,7 +69,11 @@ class ChildGenreController extends Controller
 
         $childgenre->save();
 
-        return view('admin.child_genres.index');
+        return redirect()->route('admin-child-genre')
+
+                        ->with('success','Child Genre created successfully.');
+
+        //return view('admin.child_genres.index');
     }
 
 
