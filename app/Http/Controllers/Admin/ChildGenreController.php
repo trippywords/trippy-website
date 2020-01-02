@@ -120,7 +120,7 @@ class ChildGenreController extends Controller
 
             }else{
 
-                return "<img src='http://via.placeholder.com/100x100'>";
+                return "<img src='".URL::to('/')."/public/genre_img/no_img.jpg' height='100' width='100'>";
 
             }
 
@@ -159,6 +159,7 @@ class ChildGenreController extends Controller
 
     {  
           $childgenre=ChildGenres::find($id); 
+          //dd($childgenre);
            
          return view('admin.child_genres.show',compact('childgenre'));
 
