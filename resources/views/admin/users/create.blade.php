@@ -83,9 +83,9 @@
 
         <div class="form-group">
 
-            <strong>Name:</strong>
+            <strong>Username:</strong>
 
-            {!! Form::text('name', old('name'), array('placeholder' => 'Name','class' => 'form-control','required'=>'required')) !!}
+            {!! Form::text('name', old('name'), array('placeholder' => 'Username','class' => 'form-control','required'=>'required')) !!}
 
         </div>
 
