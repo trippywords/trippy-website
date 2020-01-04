@@ -51,7 +51,8 @@ if (isset($content) && trim($content)=='') {
 					<i class="icon icon-right-arrow"></i>
 				</li>
 				<li>
-					<a href="{{url('profile/'.$auther->name)}}" class="breadcrumbs-list">Blog</a>
+					<a href="" class="breadcrumbs-list">Blog</a>
+					<!-- <a href="{{url('profile/'.$auther->name)}}" class="breadcrumbs-list">Blog</a> -->
 				</li>
 				<?php
                     if(isset($blog_details->blog_genre) && intval($blog_details->blog_genre) > 0){
@@ -171,7 +172,7 @@ if (isset($content) && trim($content)=='') {
 												@foreach($topblogdata as $tblogdata)
 
 				                                    <li class="categories-list">
-													<a href="{{ url('blog/'.$tblogdata->blog_slug) }}" target="_blank" title="" class="post-title">
+													<a href="{{ url('blogs/'.$tblogdata->id) }}" target="_blank" title="" class="post-title">
 														{{ $tblogdata->blog_title }}
 													</a>
 				<!--										<span class="categories">Photograph</span>-->
