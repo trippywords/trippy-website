@@ -16,7 +16,7 @@
 
         <div class="pull-right">
 
-            <a class="btn btn-primary" href="{{ route('admin_dashboard') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('admin-panel') }}"> Back</a>
 
         </div>
 
