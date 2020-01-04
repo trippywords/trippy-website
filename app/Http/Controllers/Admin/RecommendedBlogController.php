@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Blog;
 use App\User;
 use Spatie\Permission\Models\Role;
+use App\ParentGenres;
+
 use DB;
 use Hash;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +38,11 @@ class RecommendedBlogController extends Controller
 
     public function create()
     {
-         $data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+         //$data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
+
+        $data['genres']=ParentGenres::getComposeGenre();
         return view('admin.recommended_blog.create',$data);
+
     }
 
     /**
