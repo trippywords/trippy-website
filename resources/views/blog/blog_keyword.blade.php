@@ -28,17 +28,19 @@
 						
 			   			<div class="profile_main_section no-padding" id="searced_blogs">
 							@if(count($blogs) > 0)
+							<?php //print_r($blogs);
+							//dd();?>
 							@foreach ($blogs as $blog)
 							<div class="media" data-val="<?php echo $blog['id']; ?>">
 								<div class="media-left">
 									@if(!empty(isset($blog->blog_image)?$blog->blog_image:""))
-									<a href="{{ url('blog',isset($blog->blog_slug)?($blog->blog_slug):'')}}" target="_blank"><img src="{{ asset('/') }}public/blog_img/{{ $blog->blog_image }}" class="media-object"></a>
+									<a href="{{ url('blogs',isset($blog->id)?($blog->id):'')}}" target="_blank"><img src="{{ asset('/') }}public/blog_img/{{ $blog->blog_image }}" class="media-object"></a>
 									@else
-									<a href="{{ url('blog',isset($blog->blog_slug)?($blog->blog_slug):'')}}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
+									<a href="{{ url('blogs',isset($blog->id)?($blog->id):'')}}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
 									@endif
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><a href="{{ url('blog',isset($blog->blog_slug)?($blog->blog_slug):'')}}" target="_blank">{{ isset($blog->blog_title)?$blog->blog_title:'' }}</a></h4>
+									<h4 class="media-heading"><a href="{{ url('blogs',isset($blog->id)?($blog->id):'')}}" target="_blank">{{ isset($blog->blog_title)?$blog->blog_title:'' }}</a></h4>
 									<p class="media-content">@php echo strip_tags(str_limit(isset($blog->blog_description)?$blog->blog_description:"", 200)) @endphp</p>
 									<?php
 	                                    $genre_name= "";

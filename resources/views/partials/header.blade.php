@@ -113,7 +113,7 @@
 
 									</div>
 
-									<div class="profile_li">
+									<!-- <div class="profile_li">
 
 										<a href="{{ url('blog-category') }}" class="profile_menus" title="">
 
@@ -123,7 +123,7 @@
 
 										</a>
 
-									</div>
+									</div> -->
 
 									<div class="profile_li">
 
