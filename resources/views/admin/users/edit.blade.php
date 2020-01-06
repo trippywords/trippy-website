@@ -107,9 +107,9 @@
 
         <div class="form-group">
 
-            <strong>Password:</strong>
+            <strong>New Password:</strong>
 
-            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+            {!! Form::password('password', array('placeholder' => 'New Password','class' => 'form-control')) !!}
 
         </div>
 
