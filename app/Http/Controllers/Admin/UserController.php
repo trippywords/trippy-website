@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 
-use App\followers;
+use App\Followers;
 
 use Spatie\Permission\Models\Role;
 
@@ -494,7 +494,7 @@ class UserController extends Controller
 
 
         //updating followers model with deleted user
-        followers::where('follower_id',$id)->update(['is_delete'=>'1']);
+        Followers::where('follower_id',$id)->update(['is_delete'=>'1']);
 
         return redirect()->route('admin.users')
 
