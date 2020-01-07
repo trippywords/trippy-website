@@ -162,7 +162,7 @@ class ParentGenreController extends Controller
 
          	//}
 
-         	$delete_btn = '<a onclick=\'return confirm("Delete this record?")\' class="btn btn-info" href="'.route('admin-parent-genre.destroy',$ParentGenre->id).'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+         	$delete_btn = '<a onclick=\'return confirm("Delete this record?")\' class="btn btn btn-danger" href="'.route('admin-parent-genre.destroy',$ParentGenre->id).'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
 
          	return $show_btn.$edit_btn.$delete_btn;
 
