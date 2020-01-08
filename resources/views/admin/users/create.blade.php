@@ -51,7 +51,7 @@
 
 
 
-{!! Form::open(array('route' => 'admin.users.store','method'=>'POST','files'=> true)) !!}
+{!! Form::open(array('id'=>'user','route' => 'admin.users.store','method'=>'POST','files'=> true)) !!}
 
 <div class="row">
 
@@ -182,3 +182,22 @@
 
 {!! Form::close() !!}
 @endsection
+
+<script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    
+    <script>
+         $(document).keyup(function(){
+            $("#user").validate({
+
+                rules: {      
+                "first_name": {
+                     required : true,
+                     minlength :15,
+                }
+            }
+            });
+        });
+        
+    </script>
