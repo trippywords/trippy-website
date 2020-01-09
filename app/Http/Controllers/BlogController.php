@@ -56,8 +56,11 @@ class BlogController extends Controller
       request()->validate([
           'txtBlogName' => 'required',
           //'txtBlogHeading' => 'required',
-          //'txtckDescription' => 'required',           
-          'blog_genre' => 'required'         
+          'txtckDescription' => 'required',           
+          'blog_genre' => 'required',
+          'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=250,min_height=500',
+               
+          'txtBlogKeywords' => 'required',
           
       ]);
       $blog = new Blog();
@@ -68,6 +71,7 @@ class BlogController extends Controller
       $blog->parent_genre_id = $request->get('parent_genre_id'); 
       //adding child genre to blog table
       $blog->blog_genre = $request->get('blog_genre');
+       $blog_image="";
 
        if ($file = $request->hasFile('blog_image')) {
 
