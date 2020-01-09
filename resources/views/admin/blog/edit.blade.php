@@ -119,7 +119,7 @@
 
         <div class="form-group">
 
-            <strong>Profile Picture:</strong>
+            <strong>Blog Picture:</strong>
 
             {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
             <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
