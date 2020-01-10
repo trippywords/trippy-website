@@ -186,13 +186,13 @@
                             <div class="media" data-val="<?php echo $blog->blogid; ?>">
                                 <div class="media-left">
                                     <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
-                                        <a href="{{ url('blog/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/public/blog_img/'.$blog->blog_image) }}" class="media-object"></a>
+                                        <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/public/blog_img/'.$blog->blog_image) }}" class="media-object"></a>
                                     <?php } else { ?>
-                                        <a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
+                                        <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
                                     <?php } ?>
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="{{ url('blog/'.$blog->blog_slug) }}">{{ $blog->blog_title }}</a></h4>
+                                    <h4 class="media-heading"><a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
                                     <p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200)) @endphp</p>
                                     <?php
                                     $genre_name= "";
