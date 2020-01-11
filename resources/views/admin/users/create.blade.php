@@ -189,12 +189,59 @@
     
     <script>
          $(document).keyup(function(){
+
+            $.validator.addMethod("firstAlfa", function(value, element) {
+            return this.optional(element) || /^[A-Za-z_ ][A-Za-z0-9_ ]*$/.test(value);
+            }, "First letter shuld be characters");
+
+            $.validator.addMethod("specialChar", function(value, element) {
+            return this.optional(element) || /^[ A-Za-z0-9_@./#&+-]*$/.test(value);
+            }, "First letter shuld be characters");
+
+           /*$.validator.addMethod("notEqualTo", function(value, element) {
+                   return $('#name').val() != $('#first_name').val()
+            }, "* First name and Username should not match");
+*/
             $("#user").validate({
 
                 rules: {      
                 "first_name": {
                      required : true,
-                     minlength :15,
+                     minlength :2,
+                     firstAlfa : true,
+                },
+                "last_name": {
+                     required : true,
+                     minlength :2,
+                     firstAlfa : true,
+                },
+                "name":{
+                    required:true,
+                    minlength:5,
+                    specialChar:true,
+                    
+                    
+                }
+            },
+
+                 messages: {    
+                "first_name" :{
+                    required: "Input required",
+                    minlength: "Please, at least {0} characters are necessary",
+                    firstAlfa:"First letter should be character and Special characters not allowed "
+                },
+
+                "first_name" :{
+                    required: "Input required",
+                    minlength: "Please, at least {0} characters are necessary",
+                    firstAlfa:"First letter should be character and Special characters not allowed "
+                },
+                "name":{
+                    required:"Input required",
+                    minlength:"Please, at least {0} characters are necessary",
+                    specialChar:"First letter should be character and can accept special character",
+                    notEqualTo:"First name and Username should not match"
+                    
                 }
             }
             });
