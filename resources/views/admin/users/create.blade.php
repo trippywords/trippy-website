@@ -219,8 +219,16 @@
                     required:true,
                     minlength:5,
                     specialChar:true,
-                    
-                    
+                },
+                "password":{
+                    required:true,
+                    minlength:6,
+                    specialChar:true,
+                },
+                "confirm-password":{
+                    required:true,
+                    minlength:6,
+                    specialChar:true,
                 }
             },
 
