@@ -57,7 +57,7 @@
 							@else
 							<div class="profile_main_section no_any_content d-flex align-items-center justify-content-center">
 								<span>
-									<img src="{{ asset('/') }}public/blog_img/no-blog.png"  alt="{!!Auth::user()->name !!}" height="100px" widht="100px" >
+									{{--<img src="{{ asset('/') }}public/blog_img/no-blog.png"  alt="{!!Auth::user()->name !!}" height="100px" widht="100px" >--}}
 								</span>
 								<p class="content_text">Awww ! no blogs. Write now <span>Just click on button</span></p>
 							</div>
