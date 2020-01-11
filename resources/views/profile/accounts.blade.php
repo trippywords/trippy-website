@@ -661,7 +661,7 @@
                                         </div>
                                         <div class="media-body">
                                             <div class="tabcontent-title connection-profile">
-                                                <a href="<?php echo URL::to('/').'/blog/'.$blogd->blog_slug;?>" target="_blank"><?php echo $blogd->blog_title; ?>
+                                                <a href="<?php echo URL::to('/').'/blogs/'.$blogd->id;?>" target="_blank"><?php echo $blogd->blog_title; ?>
                                                 </a>
                                             </div>
                                             <div class="connection-profile desc"><?php echo $blogd->blog_title; ?></div>
