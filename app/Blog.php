@@ -198,15 +198,7 @@ class Blog extends Authenticatable
     {
          if(isset($user_id) && intval($user_id) > 0)
          {
-            //using old genre table
-            /*$parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre
-                    from genres a,genres b,users u,user_preferences up,blogs c
-                    where up.preference_id=a.id
-                    and a.parent_genre_id=0
-                    and b.id=c.blog_genre
-                    and c.is_featured=1
-                    and up.user_id=$user_id
-                    and up.is_delete=0");*/
+            
             //Using new genre table
             $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name  parentGenre
                     from parent_genres a,child_genres b,users u,user_genre_preferences up,blogs c
@@ -219,9 +211,7 @@ class Blog extends Authenticatable
 
             return $parent_genre;
          }else {
-            //using old genre table
-            /*$parent_genre=DB::select("select distinct a.id parentGenreId,a.name parentGenre from genres a,genres b,blogs c where a.id=b.parent_genre_id and a.parent_genre_id=0 and c.blog_genre=b.id and c.is_featured=1");*/
-
+            
             //using New genre tables
             $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name      parentGenre from parent_genres a,child_genres b,blogs c 
                     where a.id=b.parent_genre_id
@@ -236,18 +226,13 @@ class Blog extends Authenticatable
     //Function for getting child genre having at least 9 blogs
     public static function getChildGenre($parentGenreId='$row->parentGenreId',$user_id=null)
     {
-        //dd("chaitrali");
-        //using old genre table
-        /*$child_genre=DB::select("select b.blog_genre childgenreid,g.name childgenre from blogs b,genres g where b.blog_genre=g.id and b.blog_genre in (select id from genres where parent_genre_id in ($parentGenreId))
-            group by blog_genre
-            having count(1) >= 9");*/
+        
           //using New genre tables  
         if(isset($user_id) && intval($user_id) > 0)
          {
             //dd($user_id);
             $child_genre=DB::select("select b.blog_genre childgenreid,g.child_genre_name childgenre from blogs b,child_genres g ,user_genre_preferences up ,users u
             where b.blog_genre=g.id 
-            
             and b.blog_genre in (select id from child_genres where parent_genre_id in($parentGenreId))
             and u.id=$user_id
             and b.blog_genre=up.child_preference_id
@@ -255,7 +240,27 @@ class Blog extends Authenticatable
             and b.blog_status=1
             group by blog_genre
             having count(1) >= 9");
-            return $child_genre;
+
+            $result=array();
+            foreach($child_genre as $child_blog)
+            {
+                
+            $countBlog=DB::select("select count(id) as count from blogs where blog_genre=$child_blog->childgenreid and is_deleted='0'");
+            foreach ($countBlog as $value) {
+
+                        if(!empty($child_blog) && $value->count >= 9)
+                    {
+                        //print_r($value->count);
+                        $result[]=$child_blog;
+                    }
+                }
+            
+                
+            }
+            /*echo "<pre>";
+            print_r($result);
+            dd();*/
+            return $result;
 
         }else{
         
@@ -273,18 +278,7 @@ class Blog extends Authenticatable
     //Function for getting 9 blogs per child genre
     public static function getChildBlogs($childGenreId='$blogs->childgenreid')
     {
-        //Using old genre table
-        /*$child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.name childGenre,u.name authorInfo 
-            from blogs b,genres g,users u where
-            u.id=b.created_by 
-            and b.blog_genre=g.id
-            and b.blog_genre in (select  blog_genre
-            from blogs where blog_genre in ($childGenreId)
-            group by blog_genre
-            having count(1) >= 9)
-            order by b.created_at desc
-            limit 9");*/
-
+       
         //Using New genre table
         $child_blogs=DB::select("select b.id blogId,b.blog_image blogImg,b.blog_title title,b.created_at createdAt,b.blog_description description,g.child_genre_name childGenre,u.name authorInfo 
             from blogs b,child_genres g,users u 

@@ -970,21 +970,14 @@ class HomeController extends Controller {
 			$finalsResult[]=$row;
 		}
 
-		/*$blog = DB::table('blogs')
-              
-              //->where('blogs.is_delete',"=","0")
-              ->where('is_recommended',"=",1)
-              ->select('id','blog_slug')                      
-               
-              ->limit(3)   
-              ->get(); 
-        $blogs=json_encode($blog);*/
 		
 		//JSON for featuredBlogs
 		$featuredBlogs = json_encode(['featuredBlogs'=>$getFeaturedBlog],JSON_PRETTY_PRINT);
 		//JSON for FeaturedBlogDetails
 		$featuredBlogsDetails = json_encode(['featuredBlogsDetails' => $finalsResult],JSON_PRETTY_PRINT);
-		
+		/*echo "<pre>";
+		print_r($featuredBlogsDetails);
+		*/
 		
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
