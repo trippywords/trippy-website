@@ -105,7 +105,7 @@ if (isset($content) && trim($content)=='') {
 									</div> 
 									<div class="media-body user_info">
 										<div class="designation">Author</div>
-										<a href="{{url("profile/".$auther->name)}}" class="name" title="<?php echo $auther->name ?>"><?php echo ucfirst($auther->first_name) ?> <?php echo ucfirst($auther->last_name); ?></a>
+										<a href="{{-- {{url("profile/".$auther->name)}} --}}" class="name" title="<?php echo $auther->name ?>"><?php echo ucfirst($auther->first_name) ?> <?php echo ucfirst($auther->last_name); ?></a>
 									</div>
 									</div>
 									</div>
