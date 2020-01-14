@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 use App\Blog;
 
+use App\Bookmarks;
+
 use App\ChildGenres;
 
 use App\ParentGenres;
