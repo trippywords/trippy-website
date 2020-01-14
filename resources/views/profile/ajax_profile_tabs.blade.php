@@ -14,7 +14,7 @@
 
 		                <div class="media-left">
 
-		                    <div class=ofile_pic">
+		                    <div class="profile_pic">
 
 		                        <?php if(isset($userdetail->profile_image) && $userdetail->profile_image != null && file_exists(public_path() . '/user_img/' . $userdetail->profile_image)){ ?>
 
@@ -138,7 +138,7 @@
 
                             <div class="tabcontent-title connection-profile">
 
-                                <a href="{{ url('blog/'.$blogd->blog_slug) }}" target="_blank"><?php echo $blogd->blog_title; ?>
+                                <a href="{{ url('blogs/'.$blogd->id) }}" target="_blank"><?php echo $blogd->blog_title; ?>
 
                                 </a>
 
