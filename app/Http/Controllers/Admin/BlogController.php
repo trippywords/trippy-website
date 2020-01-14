@@ -387,7 +387,10 @@ exit();*/
     public function destroy($id)
 
     {
+        
         Blog::where('id',$id)->update(['is_deleted'=>'1']);
+
+        Bookmarks::where('blog_id',$id)->update(['is_delete'=>'1']);
 
         return redirect()->route('admin.blog')
 
