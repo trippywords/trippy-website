@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 use App\Blog;
 
+use App\Bookmarks;
+
 use App\ChildGenres;
 
 use App\ParentGenres;
@@ -387,7 +389,10 @@ exit();*/
     public function destroy($id)
 
     {
+        
         Blog::where('id',$id)->update(['is_deleted'=>'1']);
+
+        Bookmarks::where('blog_id',$id)->update(['is_delete'=>'1']);
 
         return redirect()->route('admin.blog')
 

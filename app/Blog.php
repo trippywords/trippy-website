@@ -132,7 +132,7 @@ class Blog extends Authenticatable
                 
                 $featured_blog=DB::select("SELECT distinct `a`.`parent_name` as `parentGenre`,`b`.`child_genre_name` as `childGenre`,`c`.`blog_title` as `title`,
                 `c`.`blog_image` as `blogImg` ,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`
-                ,`c`.`id` as `blogId`, `u`.`name` as `authorInfo` , c.is_featured
+                ,`c`.`id` as `blogId`, `u`.`name` as `authorInfo` , `c`.`is_featured`
                 from `parent_genres` as `a`,`child_genres` as `b`,
                 `blogs` as `c`,`users` as `u` , 
                 (SELECT distinct  g.id, max(h.id) as blogid
@@ -144,7 +144,7 @@ class Blog extends Authenticatable
                 (select `gn`.`parent_genre_id` from child_genres gn, user_genre_preferences up 
                 where gn.id = up.child_preference_id and up.is_deleted=0 and up.user_id=$user_id )
                 and a.id = b.parent_genre_id
-                
+                and `c`.`is_deleted` = '0'
                 and`c`.`blog_genre`= b.id 
                 and `u`.`id`=`c`.`created_by` 
                 and `c`.`is_featured`=1 
@@ -180,7 +180,7 @@ class Blog extends Authenticatable
                 and  h.parent_genre_id = g.id
                 group by parent_genre_id) d
                 where `a`.`id`=`b`.`parent_genre_id` 
-                
+                and `c`.`is_deleted` = '0'
                 and `c`.`blog_genre`=`b`.`id` 
                 and `u`.`id`=`c`.`created_by` 
                 and `c`.`is_featured`=1 

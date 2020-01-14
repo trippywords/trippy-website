@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Blog;
+use App\Bookmarks;
 use App\User;
 use Spatie\Permission\Models\Role;
 use App\ParentGenres;
@@ -187,7 +188,10 @@ class RecommendedBlogController extends Controller
 
     public function destroy($id)
     {
+
         Blog::where('id',$id)->update(['is_deleted'=>'1']);
+
+        Bookmarks::where('blog_id',$id)->update(['is_delete'=>'1']);
         return redirect()->route('admin.recommended-blog')->with('success','Blog deleted successfully');
     }
 
