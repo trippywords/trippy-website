@@ -143,7 +143,7 @@
 
             <strong>Description:</strong>
 
-            {!! Form::textarea('description', old('description'), array('placeholder' => 'Description','class' => 'form-control')) !!}
+            {!! Form::textarea('description', old('description'), array('placeholder' => 'Summary','class' => 'form-control')) !!}
 
         </div>
 
