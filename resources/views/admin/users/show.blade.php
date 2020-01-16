@@ -98,8 +98,14 @@
         <div class="form-group">
 
             <strong>Description:</strong>
-
+ 
+            <?php if(!empty($user->description)){?>
             {{ $user->description }}
+            <?php 
+            }else {
+                echo "NULL";
+            }   
+            ?>
 
         </div>
 
