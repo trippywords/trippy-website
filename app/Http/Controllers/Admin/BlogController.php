@@ -120,7 +120,7 @@ class BlogController extends Controller
 
                 'blog_keywords'=> 'required',
 
-                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=250,min_height=500',
+                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',
 
 
         ]);

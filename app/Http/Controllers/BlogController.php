@@ -58,7 +58,7 @@ class BlogController extends Controller
           //'txtBlogHeading' => 'required',
           'txtckDescription' => 'required',           
           'blog_genre' => 'required',
-          'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=250,min_height=500',
+          'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',
                
           'txtBlogKeywords' => 'required',
           
