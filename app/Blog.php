@@ -238,6 +238,7 @@ class Blog extends Authenticatable
             and b.blog_genre=up.child_preference_id
             and up.is_deleted=0
             and b.blog_status=1
+            and b.is_deleted='0'
             group by blog_genre
             having count(1) >= 9");
 
@@ -266,7 +267,8 @@ class Blog extends Authenticatable
         
             $child_genre=DB::select("select b.blog_genre childgenreid,g.child_genre_name childgenre from blogs b,child_genres g 
             where b.blog_genre=g.id
-            and b.blog_status=1 
+            and b.blog_status=1
+            and b.is_deleted='0' 
             and b.blog_genre in (select id from child_genres where parent_genre_id in($parentGenreId))
             group by blog_genre
             having count(1) >= 9");
@@ -284,6 +286,7 @@ class Blog extends Authenticatable
             from blogs b,child_genres g,users u 
             where u.id=b.created_by 
             and b.blog_status=1
+            and b.is_deleted='0'
             and b.blog_genre=g.id
             and b.blog_genre in (select blog_genre
             from blogs where blog_genre in ($childGenreId)
