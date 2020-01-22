@@ -33,6 +33,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        $page = $request->page+4;
         $roles=$request->user()->roles;
         foreach ($roles as $role)
         {
@@ -64,7 +65,7 @@ class DashboardController extends Controller
                 $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
                 return response()->json(['html' => $view]);
             }                        
-            return view('dashboard.profile', compact('is_admin','publish_blogs','publish_total'));
+            return view('dashboard.profile', compact('page','is_admin','publish_blogs','publish_total'));
         }
 }
     public function viewDraftBlogsDashboard(Request $request){

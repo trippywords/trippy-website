@@ -110,7 +110,7 @@
                             @if(isset($publish_total) && intval($publish_total) > 0)
 
                                 <div class="blog_button">
-                                    <a href="javascript:;" class="btn btn-primary" id="load_more" title="Load More" data-page="4">
+                                    <a href="javascript:;" class="btn btn-primary" id="loadmore" title="Load More" data-page="{{ $page }}">
                                         LOAD MORE
                                     </a>
 
@@ -216,11 +216,12 @@
             });
 
 
-             $("body").on('click','#load_more',function(){
+             $("body").on('click','#loadmore',function(){
                 console.log("chita");
                 var page = $(this).attr('data-page');
+                console.log(page);
                 $('.ajax-load').show();
-                $('#load_more').hide();
+                $('#loadmore').hide();
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -232,7 +233,8 @@
                     data: {'page':page}, 
                     success: function (result) {
                         if(result) {
-                            $('#load_more').hide();
+                            $('#loadmore').hide();
+                            $('.ajax-load').hide();
                             $('#load_more_blog').hide();
                             $("#published_blogs").append(result);  
                         }

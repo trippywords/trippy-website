@@ -1,4 +1,5 @@
-<?php if (count($publish_blogs)) { ?>
+<?php 
+if (count($publish_blogs)) { ?>
 	@foreach ($publish_blogs as $blog)
 
 	<div class="media" data-val="<?php echo $blog->blogid; ?>">
