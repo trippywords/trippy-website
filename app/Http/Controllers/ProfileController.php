@@ -367,6 +367,7 @@ class ProfileController extends Controller {
 
 		
 		$page = $request->page+4;
+		//dd($page);
 
 		if(isset($request->draft) && $request->draft == 1){
 			$draft_blogs = Blog::getBlogs(Auth::user()->id,$request->page,array('blog_status'=>2));

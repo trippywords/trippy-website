@@ -120,6 +120,7 @@ $(document).ready(function () {
 
     $("body").on('click','#loadmore',function(){
         var page = $(this).attr('data-page');
+        console.log(page);
         $('.ajax-load').show();
         $('#loadmore').hide();
         $.ajaxSetup({
