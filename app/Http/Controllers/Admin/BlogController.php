@@ -454,7 +454,7 @@ exit();*/
          ->addColumn('blog_title', function($blog) {
             $value=$blog->blog_title;
             $blog_title=Str::limit($value, $limit = 50, $end = '...');                 
-            return '<a href="'.url('blog/'.$blog->id.'').'" target="_blank">'.$blog_title.'</a>';
+            return '<a href="'.route('admin.blog.show',$blog->id).'" >'.$blog_title.'</a>';
 
          })
          //->addColumn('blog_heading', function($blog) { return $blog->blog_heading; })
