@@ -557,7 +557,7 @@ class UserController extends Controller
         })
 
          ->addColumn('name', function($user) {                  
-            return '<a href="'.url('profile/'.$user->name.'').'" target="_blank">'.$user->first_name.' '.$user->last_name.'</a>';
+            return '<a href="'.route('admin.users.show',$user->id).'">'.$user->first_name.' '.$user->last_name.'</a>';
 
          })
 
