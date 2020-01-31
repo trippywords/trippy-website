@@ -270,6 +270,12 @@ class ChildGenreController extends Controller
 */
         $childgenre->save();
 
+        if($request->get('selPublished')==0)
+        {
+          $countblogs=DB::select("select count(id) as count from blogs where blog_genre=$childgenre->id and is_deleted='0'");
+          dd($countblogs);
+        }
+
 
 
         return redirect()->route('admin-child-genre')
