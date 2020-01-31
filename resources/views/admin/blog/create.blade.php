@@ -157,6 +157,7 @@
              <strong>Blog Status:</strong>
              <select name="blog_status">
                  <option value="1">Published</option>
+                 <option value="0">Un-Published</option>
                  <option value="2">Draft</option>
              </select>
          </div>

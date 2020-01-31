@@ -169,11 +169,18 @@
              <select name="blog_status">
              	 @if($blog->blog_status == 1)
                  <option value="1" selected="selected">Published</option>
+                 <option value="0">Un-published</option>
+                 <option value="2">Draft</option>
+                 @elseif($blog->blog_status == 0)
+                 <option value="1">Published</option>
+                  <option value="0" selected="selected">Un-published</option>
                  <option value="2">Draft</option>
                  @else
                  <option value="1">Published</option>
+                 <option value="0">Un-published</option>
                  <option value="2" selected="selected">Draft</option>
                  @endif
+                 
              </select>
          </div>
      </div>
