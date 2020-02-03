@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ParentGenres;
 use App\ChildGenres;
+use App\blog;
 use DB;
+
 use URL;
 
 
@@ -21,8 +23,6 @@ class ChildGenreController extends Controller
 
     public function store(Request $request)
     {
-
-
     	 request()->validate([
 
             'child_genre_name' => 'required|unique:child_genres,child_genre_name',
@@ -34,8 +34,6 @@ class ChildGenreController extends Controller
         ]);
 
         $childgenre = new ChildGenres();
-
-       // $string = $request->get('child_genre_name');
 
         $profile_img = "";
 
@@ -59,8 +57,6 @@ class ChildGenreController extends Controller
 
         $childgenre->child_genre_detail = $request->get('child_genre_detail');
 
-        //$genre->genre_slug = $slug;
-
         $childgenre->parent_genre_id = $request->get('selParent');
 
         $childgenre->is_published = $request->get('selPublished');
@@ -72,23 +68,16 @@ class ChildGenreController extends Controller
         return redirect()->route('admin-child-genre')
 
                         ->with('success','Child Genre created successfully.');
-
-        //return view('admin.child_genres.index');
     }
 
 
     public function index()
     {
-
-       //$ChildGenres = ChildGenres::getChildGenres();
-        
-       //dd($ChildGenres);	
-
         return view('admin.child_genres.index');
-
     }
 
-    public function getAjaxData(Request $request){
+    public function getAjaxData(Request $request)
+    {
 
 		  $ChildGenres = ChildGenres::getChildGenres();
 
@@ -100,11 +89,7 @@ class ChildGenreController extends Controller
 
          	$show_btn = '<a class="btn btn-info" href="'.route('admin-child-genre.show',$ChildGenre->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
 
-         	//if($this->user->can('genre-edit')){
-
         		$edit_btn = '<a class="btn btn-primary" href="'.route('admin-child-genre.edit',$ChildGenre->id).'"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-
-         	//}
 
          	$delete_btn = '<a onclick=\'return confirm("Delete this record?")\' class="btn btn btn-danger" href="'.route('admin-child-genre.destroy',$ChildGenre->id).'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
 
@@ -162,11 +147,9 @@ class ChildGenreController extends Controller
     public function show($id)
 
     {  
-          $childgenre=ChildGenres::find($id); 
-          //dd($childgenre);
-           
-         return view('admin.child_genres.show',compact('childgenre'));
-
+        $childgenre=ChildGenres::find($id); 
+          
+        return view('admin.child_genres.show',compact('childgenre'));
     }
 
     public function destroy($id)
@@ -190,7 +173,6 @@ class ChildGenreController extends Controller
     public function update(Request $request,$id)
 
     {
-
          request()->validate([
 
             'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
@@ -201,13 +183,7 @@ class ChildGenreController extends Controller
 
         ]);
 
-
-
         $childgenre = ChildGenres::find($id);
-
-       // $string = $request->get('name');
-
-        //$slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $string);
 
         $profile_img = "";
 
@@ -233,50 +209,40 @@ class ChildGenreController extends Controller
 
         $childgenre->child_genre_detail = $request->get('child_genre_detail');
 
-        //$genre->genre_slug = $slug;
-
         $childgenre->parent_genre_id = $request->get('selParent');
 
         $childgenre->is_published = $request->get('selPublished');
 
         //$childgenre->child_genre_image = $profile_img;
 
-
-
-
-
-
-        /*$genre->name = $request->get('name');
-
-        $genre->genre_slug = $slug;
-
-        $genre->detail = $request->get('detail');
-
-        $genre->parent_genre_id = $request->get('selParent');
-
-        $genre->is_published = $request->get('selPublished');
-*/
-       /* if($request->get('selPublished')=='Y')
-
-        {
-
-            $genre->is_deleted ='N';
-
-        }else{
-
-            $genre->is_deleted ='Y';
-
-        }
-*/
         $childgenre->save();
-
+        
         if($request->get('selPublished')==0)
         {
           $countblogs=DB::select("select count(id) as count from blogs where blog_genre=$childgenre->id and is_deleted='0'");
-          dd($countblogs);
+
+          foreach($countblogs as $count)
+          { 
+            $result=blog::where('blog_status','=',1)
+                        ->where('blog_genre','=',$childgenre->id)
+                        ->update(['blog_status'=>'0']);
+          }
+         
         }
 
+        if($request->get('selPublished')==1)
+        {
+          $countblogs=DB::select("select count(id) as count from blogs where blog_genre=$childgenre->id and is_deleted='0'");
 
+          foreach($countblogs as $count)
+          { 
+            
+            $result=blog::where('blog_status','=',0)
+                        ->where('blog_genre','=',$childgenre->id)
+                        ->update(['blog_status'=>'1']);
+          }
+         
+        }
 
         return redirect()->route('admin-child-genre')
 
