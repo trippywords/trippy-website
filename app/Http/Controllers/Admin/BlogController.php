@@ -471,7 +471,12 @@ exit();*/
             if($blog->blog_status==1)
             {
                 return "Publish";
-            } else{
+            } 
+            elseif($blog->blog_status==0)
+            {
+                return "Un-Published";
+            }
+            else{
                 return "Draft";
             }
         })

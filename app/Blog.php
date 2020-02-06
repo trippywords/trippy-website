@@ -95,10 +95,11 @@ class Blog extends Authenticatable
         $user->where('b.is_deleted',"=",'0');
         $user->where('u.is_verified','=',1);
         $user->where('u.is_delete','=','0');
+        $user->where('b.blog_status','!=',2);
         $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','c.child_genre_name','b.is_deleted','b.created_at','p.parent_name');
-        if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
+        /*if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
             $user->where('blog_status',"=",$whereArr['blog_status']);
-        }
+        }*/
         $user->orderBy('b.id', $orderBy);
         $user->offset($offset)->limit($limit);
         return $user->get();
