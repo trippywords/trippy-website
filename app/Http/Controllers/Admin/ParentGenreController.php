@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Genre;
+//use App\Genre;
 use App\ParentGenres;
+use App\ChildGenres;
+use App\blog;
 use DB;
 
 use URL;
@@ -105,6 +107,7 @@ class ParentGenreController extends Controller
 
     public function update(Request $request,$id)
     {
+        
     	 request()->validate([
 
             'parent_name' => 'required|unique:parent_genres,parent_name,'.$id,
@@ -114,6 +117,8 @@ class ParentGenreController extends Controller
         ]);
 
         $ParentGenre = ParentGenres::find($id);
+
+        //dd($ParentGenre->id);
 
         $ParentGenre->parent_name = $request->get('parent_name');
 
@@ -134,6 +139,50 @@ class ParentGenreController extends Controller
         }*/
 
         $ParentGenre->save();
+
+        if($request->get('selPublished')==0)
+        {
+          $countchild=DB::select("select count(id) as count,id as childId from child_genres where parent_genre_id=$ParentGenre->id and is_deleted='0'");
+          
+          foreach($countchild as $childCount)
+          { 
+            $result=ChildGenres::where('parent_genre_id','=',$ParentGenre->id)
+                        //->where('blog_genre','=',$childgenre->id)
+                        ->update(['is_published'=>'0']);
+            $countBlogs=DB::select("select count(id) as blogCount,id as blogId from blogs  
+                        where blog_genre=$childCount->childId and is_deleted='0'");
+            foreach ($countBlogs as $blogs)
+            {
+                $result=blog::where('blog_status','=',1)
+                        ->where('blog_genre','=',$childCount->childId)
+                        ->update(['blog_status'=>'0']);
+            }
+
+          }
+         
+        }
+
+        if($request->get('selPublished')==1)
+        {
+          $countchild=DB::select("select count(id) as count,id as childId from child_genres where parent_genre_id=$ParentGenre->id and is_deleted='0'");
+          
+          foreach($countchild as $childCount)
+          { 
+            $result=ChildGenres::where('parent_genre_id','=',$ParentGenre->id)
+                        //->where('blog_genre','=',$childgenre->id)
+                        ->update(['is_published'=>'1']);
+            $countBlogs=DB::select("select count(id) as blogCount,id as blogId from blogs  
+                        where blog_genre=$childCount->childId and is_deleted='0'");
+            foreach ($countBlogs as $blogs)
+            {
+                $result=blog::where('blog_status','=',0)
+                        ->where('blog_genre','=',$childCount->childId)
+                        ->update(['blog_status'=>'1']);
+            }
+
+          }
+         
+        }
 
         return redirect()->route('admin-parent-genre')
 

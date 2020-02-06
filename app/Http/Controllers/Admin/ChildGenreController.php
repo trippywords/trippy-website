@@ -243,7 +243,6 @@ class ChildGenreController extends Controller
           }
          
         }
-
         return redirect()->route('admin-child-genre')
 
                         ->with('success','Child Genre updated successfully');
