@@ -15,7 +15,9 @@ class DropdownController extends Controller
    public function ajaxChild(Request $request)
     {
       
-        $child=ChildGenres::where('parent_genre_id',$request->id)->pluck('child_genre_name','id');
+        $child=ChildGenres::where('parent_genre_id',$request->id)
+        ->where('is_deleted','=',0)
+        ->pluck('child_genre_name','id');
 
         return json_encode($child);
 
