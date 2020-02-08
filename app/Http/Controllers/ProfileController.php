@@ -347,10 +347,10 @@ class ProfileController extends Controller {
     }
 
 	public function edit(Request $request) {
-		$page = $request->page+4;
+		$page = $request->page+5;
 
 		$publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
-		$publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
+		$publish_total = count(Blog::getBlogs(Auth::user()->id,5,array('blog_status'=>1)));
 
 		if ($request->ajax()) {
 
@@ -366,7 +366,7 @@ class ProfileController extends Controller {
 	public function getBlogs(Request $request) {
 
 		
-		$page = $request->page+4;
+		$page = $request->page+5;
 		//dd($page);
 
 		if(isset($request->draft) && $request->draft == 1){

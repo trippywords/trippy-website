@@ -217,7 +217,7 @@
 
 
              $("body").on('click','#loadmore',function(){
-                console.log("chita");
+                //console.log("chita");
                 var page = $(this).attr('data-page');
                 console.log(page);
                 $('.ajax-load').show();
@@ -229,13 +229,13 @@
                 });
                 $.ajax({
                     url: "{{route('getBlogs')}}",
-                    type: "POST",
+                    method: "POST",
                     data: {'page':page}, 
                     success: function (result) {
                         if(result) {
-                            $('#loadmore').hide();
-                            $('.ajax-load').hide();
-                            $('#load_more_blog').hide();
+                            $('#loadmore').remove();
+                            $('.ajax-load').remove();
+                            $('#load_more_blog').remove();
                             $("#published_blogs").append(result);  
                         }
                     }

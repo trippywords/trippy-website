@@ -33,7 +33,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->page+4;
+        $page = $request->page+5;
         $roles=$request->user()->roles;
         foreach ($roles as $role)
         {
@@ -58,8 +58,7 @@ class DashboardController extends Controller
             $request->session()->put('is_first_login',0);
             $publish_blogs = Blog::getBlogs(Auth::user()->id,0,array('blog_status'=>1));
             
-            $publish_total = count(Blog::getBlogs(Auth::user()->id,4,array('blog_status'=>1)));
-            
+            $publish_total = count(Blog::getBlogs(Auth::user()->id,5,array('blog_status'=>1)));
 
             if ($request->ajax()) {
                 $view = view('blog.view_published_blog', compact('publish_blogs'))->render();
