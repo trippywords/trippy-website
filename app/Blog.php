@@ -72,7 +72,7 @@ class Blog extends Authenticatable
 
 
 
-    public static function getBlogs($user_id=null,$offset=0, $whereArr = array(),$orderBy='DESC',$limit=4){
+    public static function getBlogs($user_id=null,$offset=0, $whereArr = array(),$orderBy='DESC',$limit=5){
 
        /* $user = DB::table('blogs');
         $user->join('users','blogs.created_by','=','users.id');
