@@ -135,9 +135,9 @@ $(document).ready(function () {
             success: function (result) {
                 console.log(result);
                 if(result) {
-                    $('#loadmore').hide();
-                    $('.ajax-load').hide();
-                    $('#load_more_blog').hide();
+                    $('#loadmore').remove();
+                    $('.ajax-load').remove();
+                    $('#load_more_blog').remove();
                     $("#published_blogs").append(result);  
                 }
             }
