@@ -25,7 +25,7 @@
     @endif
 
 
-    {!! Form::model($ChildGenre, ['method' => 'POST','files'=> true,'route' => ['admin-child-genre.update',$ChildGenre->id]]) !!}
+    {!! Form::model($ChildGenre, ['id'=>'childForm','method' => 'POST','files'=> true,'route' => ['admin-child-genre.update',$ChildGenre->id]]) !!}
 
 <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -44,18 +44,20 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Parent Genre:</strong>
-                    <select class="form-control" name="selParent">
-                        <option value="0">Select Genre</option>
-                        <?php foreach($ParentGenres as $g): ?>
-                            <?php if($g->id == $ChildGenre->parent_genre_id): ?>
-                                <option value="<?php echo $g->id; ?>" selected="selected"><?php echo $g->parent_name; ?></option>
-                            <?php else: ?>
-                                <option value="<?php echo $g->id; ?>"><?php echo $g->parent_name; ?></option>
-                            <?php endif;?>
-                        <?php endforeach; ?>
+
+                    <select name="parent_genre_id" id="parent_genre_id" class="form-control">
+                        <option value="">Select Parent Genre</option>
+                 @foreach ($ParentGenres as $genr)
+                        <option value="{{$genr->id}}"
+                         @if($genr->id == $ChildGenre->parent_genre_id){{'selected'}} @endif >{{$genr->parent_name}}</option>
+                  @endforeach
+                 
                     </select>
-                </div>
+                    @if ($errors->has('parent_genre_id'))
+                        <div class="error">{{ $errors->first('parent_genre_id') }}</div>
+                    @endif
             </div>
+        </div>
             
            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
@@ -88,3 +90,4 @@
 
     
 @endsection
+
