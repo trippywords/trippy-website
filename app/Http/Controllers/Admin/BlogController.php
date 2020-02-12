@@ -307,6 +307,10 @@ class BlogController extends Controller
 
                 'blog_description'=> 'required',
 
+                'parent_genre_id'=>'required',
+
+                'blog_genre'=>'required',
+
                 'blog_meta_description'=> 'required',
 
                 'blog_keywords'=> 'required' ,
