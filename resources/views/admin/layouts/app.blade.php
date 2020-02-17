@@ -164,7 +164,7 @@
 
         <!-- <a href="#" class="text-theme">TrippyWords</a> &copy; 2020  -->
         <a href="#" class="text-theme">TrippyWords</a> &copy; <script>document.write(new Date().getFullYear())</script>
-  </span>
+        
         </div>
 
     </footer>
