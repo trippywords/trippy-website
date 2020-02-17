@@ -700,7 +700,7 @@
 
 
 
-        <div class="hamburger hamburger--arrowalt-r navbar-toggler aside-menu-toggler ">
+        <!-- <div class="hamburger hamburger--arrowalt-r navbar-toggler aside-menu-toggler ">
 
             <div class="hamburger-box">
 
@@ -708,7 +708,7 @@
 
             </div>
 
-        </div>
+        </div> -->
 
     </header>
 
