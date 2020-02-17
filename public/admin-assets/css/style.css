@@ -9354,7 +9354,7 @@ body {
 .navbar-search .navbar-search-btn {
   display: inline-block;
   border: none;
-  min-height: 60px;
+  min-height: 46px;
   margin-left: -5px !important;
   background: white;
   color: #c2cfd6;
