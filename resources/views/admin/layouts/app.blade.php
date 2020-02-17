@@ -162,7 +162,10 @@
 
     <footer class="app-footer">
 
-        <a href="#" class="text-theme">TrippyWords</a> &copy; 2018 
+        <!-- <a href="#" class="text-theme">TrippyWords</a> &copy; 2020  -->
+        <a href="#" class="text-theme">TrippyWords</a> &copy; <script>document.write(new Date().getFullYear())</script>
+  </span>
+        </div>
 
     </footer>
 
