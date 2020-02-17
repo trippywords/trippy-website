@@ -10891,6 +10891,7 @@ button {
 .btn-round {
   border-radius: 50px !important;
   padding: 5px 15px !important;
+  margin-right: 18px;
 }
 
 .btn-theme {
