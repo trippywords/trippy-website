@@ -9382,9 +9382,9 @@ body {
   }
   .navbar .navbar-nav {
     position: absolute;
-    top: 50%;
+    top: 60%;
     text-align: center;
-    left: 50%;
+    left: 48%;
     margin-left: -138.88889px;
   }
   .navbar .navbar-nav .nav-item.show {
