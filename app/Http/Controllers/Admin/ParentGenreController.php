@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 //use App\Genre;
 use App\ParentGenres;
 use App\ChildGenres;
-use App\blog;
+use App\Blog;
 use DB;
 
 use URL;
@@ -140,23 +140,27 @@ class ParentGenreController extends Controller
 
         $ParentGenre->save();
 
-        if($request->get('selPublished')==0)
+        if($request->get('selPublished') == 0)
         {
           $countchild=DB::select("select count(id) as count,id as childId from child_genres where parent_genre_id=$ParentGenre->id and is_deleted='0'");
           
           foreach($countchild as $childCount)
           { 
+            //dd($childCount);
             $result=ChildGenres::where('parent_genre_id','=',$ParentGenre->id)
                         //->where('blog_genre','=',$childgenre->id)
                         ->update(['is_published'=>'0']);
-            $countBlogs=DB::select("select count(id) as blogCount,id as blogId from blogs  
-                        where blog_genre=$childCount->childId and is_deleted='0'");
+            $countBlogs=DB::select("select count(id) as blogCount,id as blogId from blogs where blog_genre = '$childCount->childId' and is_deleted ='0'");
+            if($countBlogs>=0)
+            {
+
             foreach ($countBlogs as $blogs)
             {
-                $result=blog::where('blog_status','=',1)
+                $result=Blog::where('blog_status','=',1)
                         ->where('blog_genre','=',$childCount->childId)
                         ->update(['blog_status'=>'0']);
             }
+          }
 
           }
          
@@ -172,13 +176,17 @@ class ParentGenreController extends Controller
                         //->where('blog_genre','=',$childgenre->id)
                         ->update(['is_published'=>'1']);
             $countBlogs=DB::select("select count(id) as blogCount,id as blogId from blogs  
-                        where blog_genre=$childCount->childId and is_deleted='0'");
+                        where blog_genre='$childCount->childId' and is_deleted='0'");
+             if($countBlogs>=0)
+            {
+
             foreach ($countBlogs as $blogs)
             {
-                $result=blog::where('blog_status','=',0)
+                $result=Blog::where('blog_status','=',0)
                         ->where('blog_genre','=',$childCount->childId)
                         ->update(['blog_status'=>'1']);
             }
+          }
 
           }
          
