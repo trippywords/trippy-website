@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ParentGenres;
 use App\ChildGenres;
-use App\blog;
+use App\Blog;
 use DB;
 
 use URL;
@@ -223,7 +223,7 @@ class ChildGenreController extends Controller
 
           foreach($countblogs as $count)
           { 
-            $result=blog::where('blog_status','=',1)
+            $result=Blog::where('blog_status','=',1)
                         ->where('blog_genre','=',$childgenre->id)
                         ->update(['blog_status'=>'0']);
           }
@@ -237,7 +237,7 @@ class ChildGenreController extends Controller
           foreach($countblogs as $count)
           { 
             
-            $result=blog::where('blog_status','=',0)
+            $result=Blog::where('blog_status','=',0)
                         ->where('blog_genre','=',$childgenre->id)
                         ->update(['blog_status'=>'1']);
           }
