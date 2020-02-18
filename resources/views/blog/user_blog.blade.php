@@ -57,8 +57,9 @@ if (isset($content) && trim($content)=='') {
 				<?php
                     if(isset($blog_details->blog_genre) && intval($blog_details->blog_genre) > 0){
                         $genre = DB::table('child_genres')->where('id',$blog_details->blog_genre)->first();
+                        $genre_name = $genre->child_genre_name;
                     }
-                    $genre_name = $genre->child_genre_name;
+                    
                 if (isset($genre_name) && $genre_name!='') { ?>
 				<li>
 					<i class="icon icon-right-arrow"></i>
