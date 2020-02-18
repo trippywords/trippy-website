@@ -9370,6 +9370,8 @@ body {
     height: 120px !important;
   }
   .navbar .navbar-toggler {
+    position: absolute;
+    top: 48%;
     color: #536c79;
   }
   .navbar .navbar-brand {
