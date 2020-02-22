@@ -35,6 +35,7 @@ class ParentGenres extends Model
                     and p.is_deleted=0 
                     and p.id=d.parent_genre_id
                     and d.is_published=1
+                    and d.is_deleted=0
                     group by d.parent_genre_id
                      ");
 
