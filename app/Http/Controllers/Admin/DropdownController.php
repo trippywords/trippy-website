@@ -17,6 +17,7 @@ class DropdownController extends Controller
       
         $child=ChildGenres::where('parent_genre_id',$request->id)
         ->where('is_deleted','=',0)
+        ->where('is_published','=',1)
         ->pluck('child_genre_name','id');
 
         return json_encode($child);

@@ -34,6 +34,7 @@ class ParentGenres extends Model
                     WHERE c.parent_genre_id = p.id) and p.is_published = 1 
                     and p.is_deleted=0 
                     and p.id=d.parent_genre_id
+                    and d.is_published=1
                     group by d.parent_genre_id
                      ");
 
