@@ -178,7 +178,7 @@ class ChildGenreController extends Controller
             'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
 
             'child_genre_detail' => 'required',
-            'selParent' => 'required',
+            'parent_genre_id' => 'required',
             'selPublished'=>'required',
 
         ]);
@@ -209,7 +209,7 @@ class ChildGenreController extends Controller
 
         $childgenre->child_genre_detail = $request->get('child_genre_detail');
 
-        $childgenre->parent_genre_id = $request->get('selParent');
+        $childgenre->parent_genre_id = $request->get('parent_genre_id');
 
         $childgenre->is_published = $request->get('selPublished');
 

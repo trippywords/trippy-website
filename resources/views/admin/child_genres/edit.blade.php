@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <strong>Is Published:</strong>
                     <select class="form-control" required="required" name="selPublished">
-                        <option value="">Select Status</option>
+                        
                         <?php if($ChildGenre->is_published == '1'){ ?>
                             <option value="1" selected="selected">Published</option>
                             <option value="0">Unpublished</option>
