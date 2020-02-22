@@ -168,42 +168,6 @@ class BlogController extends Controller
 
              $blog->save();
 
-
-
-       /* $input = $request->all(); */ 
-
-         /*Upload,rename image*/
-
-/*            if ($file = $request->hasFile('blog_image')) {
-
-                $file            = $request->file('blog_image');
-
-                $customimagename  = time() . '.' . $file->getClientOriginalExtension();
-
-                $destinationPath = public_path('blog_img/');
-
-                $file->move($destinationPath, $customimagename);
-
-                $input['blog_image'] = $customimagename;                
-
-            }*/
-
-        /*$input['created_by']=Auth::user()->id;   
-
-        $blog_slug= str_slug($request->blog_title, '-');
-        $check_duplicate = Blog::where("blog_slug",$blog_slug)->first();
-      
-        if($check_duplicate){
-            $blog_slug = $blog_slug."1";
-        } 
-        $input['blog_slug'] = $blog_slug;
-        $input['blog_heading'] = $request->blog_title;
-        $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
-        $input['is_tranding'] = (isset($request->is_tranding) && $request->is_tranding==1)?TRUE:FALSE;
-        $input['is_recommended'] =FALSE;
-        $input['parent_genre_id']=$request->blog_genre;
-        $user = Blog::create($input);*/
-
         //$user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.blog')->with('success','Blog created successfully');
@@ -253,30 +217,14 @@ class BlogController extends Controller
     {
 
         $data['genres']=ParentGenres::getComposeGenre();
-        //$data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
-
+        
         $data['blog'] = Blog::where("id","=",$id)->first(); 
 
-        $data['childgenres']=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->get()->toArray();
-
-        /*echo "<pre>";
-
-         var_dump($data['blog']->toArray());
-
-         exit;*/
-
-        //$roles = Role::pluck('name','name')->all();
-
-        //$userRole = $user->roles->pluck('name','name')->all();
-
-        
+        $data['childgenres']=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->where('is_published','=',1)->get()->toArray();
 
         return view('admin.blog.edit',$data);//'roles','userRole'
 
     }
-
-
-
 
 
     /**
@@ -296,14 +244,11 @@ class BlogController extends Controller
     public function update(Request $request, $id)
 
     {
-        //dd($request);
 
         $this->validate($request, 
 
                  [
-                    'blog_title'=> 'required',
-
-                //'blog_heading'=> 'required',                 
+                    'blog_title'=> 'required',                
 
                 'blog_description'=> 'required',
 
@@ -318,13 +263,6 @@ class BlogController extends Controller
                 'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',          
 
         ]);
-
-/*echo '<pre>';
-
-echo $request->blog_status;
-
-exit();*/
-
 
 
         $input = $request->all();     
@@ -363,8 +301,6 @@ exit();*/
         $blog = Blog::where("id","=",$id)->first();
 
         $blog->update($input);
-
-        //DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         //$user->assignRole($request->input('roles'));
 
@@ -409,18 +345,9 @@ exit();*/
     public function getAjaxData(Request $request){
 
             
-              $blogs=Blog::getDataTableBlogs();
+        $blogs=Blog::getDataTableBlogs();
 
-		 // $laQuery = DB::getQueryLog();
-
-		  
-
-                  /*foreach($blogs as $blog) {
-
-                      DB::table('blogs')->where('id','=',$blog->id)->update(['blog_slug'=>str_slug($blog->blog_title)]);
-
-                  }   */               
-
+		 
 		  $blogs= collect($blogs);                           
 
       return \DataTables::of($blogs)
