@@ -2,7 +2,7 @@
 
 @section('title','Home')
 
-@section('content')
+@section('content')	
 
 	<section>
 
@@ -236,8 +236,8 @@ endif;
 						</div>
 				@endif
 				</div>
+				</div>
 			@endforeach
-			</div>		
 	@endif
 	
 		
