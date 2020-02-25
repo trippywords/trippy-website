@@ -194,7 +194,7 @@ endif;
 														<div class="feed-blog-author">
 															Posted by {{ $blog['authorInfo'] }} | {{ date('F d, Y', strtotime($blog['createdAt'])) }}
 														</div>
-														<div class="feed-blog-desc">{!! $blog['description'] !!}</div>
+														<div class="feed-blog-desc">{!! str_limit($blog['description'], $limit = 25, $end = '...') !!}</div>
 														<div class="feed-blog-child-genre">READ MORE</div>
 													</div>
 												</a>
