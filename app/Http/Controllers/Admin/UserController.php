@@ -86,7 +86,8 @@ class UserController extends Controller
             'last_name' => 'required',
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password'
+            'password' => 'required|same:confirm-password',
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif',
             //'roles' => 'required'
         ]);
 
