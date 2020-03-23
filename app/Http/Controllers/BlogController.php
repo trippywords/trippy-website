@@ -92,17 +92,7 @@ class BlogController extends Controller
       $blog->blog_meta_description     = $request->get('txtBlogMetaDescription');
       $blog->blog_image=$blog_image;  
       $blog->blog_keywords             = $request->get('txtBlogKeywords');
-      //dd($blog);
-      // $varkey = explode(",",$blog->blog_keywords);
-      // foreach ($varkey as $valkey) {
-      //   if (!empty(trim($valkey))) {
-      //     $keywordval[] = $valkey;
-      //   }
-      // }
-      // if($blog->blog_keywords!='')
-      // {
-      //   implode(",", $keywordval);
-      // }
+     
 
       if($request->has('draft_btn')){
         $blog->blog_status           = 2;
@@ -110,15 +100,11 @@ class BlogController extends Controller
         $blog->blog_status           = 1;
       }
       $val = str_slug($blog->blog_title, '-');
-      /*$check_duplicate = Blog::where("blog_slug",$val)->first();
       
-      if($check_duplicate){
-        $val = $val."1";
-      } */
       $blog->blog_slug = $val;
       $blog->created_at = date('Y-m-d H:i:s');
       $blog->updated_at = date('Y-m-d H:i:s');
-      //dd($blog);
+     
       $blog->save();
       
       if($request->has('draft_btn')){
@@ -137,12 +123,9 @@ class BlogController extends Controller
 
     public function edit($id, Request $request)
     { 
-      //die($id);
-     // $genres=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
-
+    
       $genres=ParentGenres::getComposeGenre();
 
-        //$genrearr= Genre::select('id','name')->where('is_deleted','=',0)->orderBy('name')->get();
         $blog= Blog::select('*')->where('id','=',$id)->first();
 
         $childgenres=DB::table('child_genres')->select('id','child_genre_name')->where('is_deleted','=',0)->get()->toArray();
@@ -158,11 +141,9 @@ class BlogController extends Controller
 
     public function update(Request $request)
     {
-      //dd($request);
+     
       request()->validate([
           'txtBlogName' => 'required',
-          //'txtBlogHeading' => 'required',
-          //'txtckDescription' => 'required',           
           'blog_genre' => 'required'      
           
       ]);
@@ -241,7 +222,7 @@ class BlogController extends Controller
 //Implemented API logic for blog detail page not using it now (first will get approved and design)
     public function userBlogDetailpage($id)
     {
-     // dd($id);
+     
         if (Auth::user()) {
           session(['is_first_login'=>0]);
         }

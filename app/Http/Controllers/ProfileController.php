@@ -57,91 +57,21 @@ class ProfileController extends Controller {
 
 	function __construct() {
 
-		// $this->middleware('permission:product-list');
-
-		// $this->middleware('permission:product-create', ['only' => ['create','store']]);
-
-		// $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-
-		// $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-
-
-
-
+		
 
 		/* Check for if user is logged in or not */
-
 
 
 		if(!Auth::user())
 
 		{
-
 		    redirect('/');
 
 		}
 
-
-
 	}
 
 
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-
-	public function index() {
-
-			
-
-	}
-
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-
-	public function create() {
-
-		
-
-	}
-
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-
-	public function store(Request $request) {
-
-		
-
-	}
-
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \App\Product  $product
-	 * @return \Illuminate\Http\Response
-	 */
-
-	public function show(Product $product) {
-
-		
-
-	}
 
 	public function twittercallback(Request $request){
 		$user = Socialite::with('twitter')->user();
@@ -416,14 +346,7 @@ class ProfileController extends Controller {
 
 	 */
 
-	public function destroy(Product $product) {
-
-		
-
-	}
-
-
-
+	
 	public function update_description(Request $req) {
 
 		$user = User::find(Auth::guard('web')->user()->id);
@@ -435,7 +358,6 @@ class ProfileController extends Controller {
 		return redirect('profile'); 
 
 	}
-
 
 
 	public function update_profile_image(Request $req) {

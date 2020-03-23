@@ -9,7 +9,6 @@ class ParentGenres extends Model
 {
     //
 
-
     public static function getParentGenres()
     {
     	 $ParentGenres = DB::table('parent_genres')->where('is_deleted','=',0)

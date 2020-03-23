@@ -60,7 +60,7 @@ function getFollowerscount($userid){
     return $count;
  }
 function getUsergenres(){
-    //$selectedgenre= Userpreferance::select('genres.id','genres.name')->join('genres','genres.id','=','preference_id')->where('user_id','=',Auth::user()->id)->where('is_deleted','=','N')->where('is_published','=','Y')->where('is_delete','=','0')->distinct()->get();
+    
     $selectedgenre= UserGenrePreference::select('child_genres.id','child_genres.child_genre_name as name')
                     ->join('child_genres','child_genres.id','=','user_genre_preferences.child_preference_id')
                     ->where('user_id','=',Auth::user()->id)
@@ -130,19 +130,14 @@ function getUsergenres(){
 
 function getParrentgenres(){
 
-    /*$parrentgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',0)->get();*/
-   //$parrentgenres= ParentGenres::select('id','parent_name')->where('is_deleted','=',0)->where('is_published','=',1)->get();
    $parrentgenres=ParentGenres::getComposeGenre();
     return $parrentgenres;
 
 }
 
 
-
 function getChildgenres($pgenid){
 
-    /*$childgenres= Genre::select('id','name')->where('is_deleted','=','N')->where('is_published','=','Y')->where('parent_genre_id','=',$pgenid)->get();
-*/
     $childgenres= ChildGenres::select('id','child_genre_name')->where('is_deleted','=',0)->where('is_published','=',1)->where('parent_genre_id','=',$pgenid)->get();
 
     return $childgenres;
@@ -153,24 +148,15 @@ function isSelectedPgenres($selgenid)
 
 {
     $selectedpgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('parent_preference_id','=',$selgenid)->where('is_deleted','=',0)->count();
-    //dd()
-    //$selectedpgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
-
-    //dd($selectedgen_count); 
-
+    
     return $selectedpgen_count;    
-
 }
 
 function isSelectedCgenres($selgenid)
 
 {
     $selectedcgen_count= UserGenrePreference::where('user_id','=',Auth::user()->id)->where('child_preference_id','=',$selgenid)->where('is_deleted','=',0)->count();
-    //dd()
-    //$selectedgen_count= Userpreferance::where('user_id','=',Auth::user()->id)->where('preference_id','=',$selgenid)->where('is_delete','=',0)->count();   
-
-    //dd($selectedgen_count); 
-
+    
     return $selectedcgen_count;    
 
 }
@@ -308,12 +294,6 @@ function getUserdetailbyid($user_id){
 
 }
 
-/*function gethumandate($date){
-
-    $dt = Carbon::parse($date);
-    return $dt->diffForHumans();
-
-}*/
 function gethumandate($datetime, $full = false){
     $now = new DateTime;
     $ago = new DateTime($datetime);
@@ -361,8 +341,6 @@ function getConnection($user_id,$connection_id){
 }
 
 function getConnectioncount($userid){
-
-   // $count= Connection::join('users','user_connection.connect_user_id','=','users.id')->where("user_connection.user_id","=",$userid)->where('user_connection.is_delete','=',0)->where('is_request','=',0)->count();
 
     $count= DB::select("SELECT uc.* FROM `user_connection` as uc WHERE uc.`connect_user_id`=$userid and uc.is_request=0 and uc.`is_delete`=0 and (SELECT `id` FROM `user_connection` where user_id=$userid and uc.`user_id`=user_connection.`connect_user_id` and is_request=0 and `is_delete`=0 GROUP BY `user_id` ) is not null");
 
@@ -501,16 +479,7 @@ function getGenres($user_id=null){
     return $selectedgenre;
 }
 
-    /*function getChildPreferencesByparent($user_id,$parent_genre_id){
-        $count = Userpreferance::join('genres','genres.id','=','user_preferences.preference_id')
-        ->where('user_preferences.user_id','=',$user_id)
-        ->where('genres.is_deleted','=','N')
-        ->where('genres.is_published','=','Y')
-        ->where('parent_genre_id','=',$parent_genre_id)
-        ->where('user_preferences.is_delete',0)->count();
-        return $count;
-    }
-*/
+  
     function getChildPreferencesByparent($user_id,$parent_genre_id){
         $count = UserGenrePreference::join('child_genres','child_genres.id','=','user_genre_preferences.child_preference_id')
         ->where('user_genre_preferences.user_id','=',$user_id)

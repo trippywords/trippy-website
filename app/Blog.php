@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -74,19 +73,7 @@ class Blog extends Authenticatable
 
     public static function getBlogs($user_id=null,$offset=0, $whereArr = array(),$orderBy='DESC',$limit=5){
 
-       /* $user = DB::table('blogs');
-        $user->join('users','blogs.created_by','=','users.id');
-        $user->where('blogs.created_by',"=",$user_id);
-        $user->where('blogs.is_deleted',"=",'0');
-        $user->where('users.is_verified','=',1);
-        $user->where('users.is_delete','=','0');
-        
-        if (isset($whereArr['blogs.blog_status']) && intval($whereArr['blogs.blog_status']) > 0) {
-            $user->where('blogs.blog_status',"=",$whereArr['blogs.blog_status']);
-        }
-        $user->orderBy('blogs.id', $orderBy);
-        $user->offset($offset)->limit($limit);
-        return $user->get();*/
+       
         $user = DB::table('blogs as b');
         $user->join('users as u','b.created_by','=','u.id');
         $user->join('parent_genres as p','b.parent_genre_id','=','p.id');
@@ -97,9 +84,7 @@ class Blog extends Authenticatable
         $user->where('u.is_delete','=','0');
         $user->where('b.blog_status','!=',2);
         $user->select('b.id as blogid','u.id as userid','u.name as name','b.blog_title','b.blog_status as blog_status','b.blog_description','b.blog_image','b.blog_slug','c.child_genre_name','b.is_deleted','b.created_at','p.parent_name');
-        /*if (isset($whereArr['blog_status']) && intval($whereArr['blog_status']) > 0) {
-            $user->where('blog_status',"=",$whereArr['blog_status']);
-        }*/
+        
         $user->orderBy('b.id', $orderBy);
         $user->offset($offset)->limit($limit);
         return $user->get();
@@ -110,27 +95,7 @@ class Blog extends Authenticatable
     {
         if(isset($user_id) && intval($user_id) > 0)
         {
-            //using old genre table
-                /*$featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,
-                `c`.`blog_image` as `blogImg` ,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`
-                ,`c`.`blog_genre` as `blogId`, `u`.`name` as `authorInfo` , c.is_featured
-                from `genres` as `a`,`genres` as `b`,
-                `blogs` as `c`,`users` as `u` , (SELECT distinct  g.parent_genre_id, max(h.id) as blogid
-                from `blogs` as `h`, genres as g
-                where is_featured=1 
-                AND h.blog_genre = g.id
-                group by parent_genre_id) d 
-                where `a`.`id` in 
-                (select `gn`.`parent_genre_id` from genres gn, user_preferences up 
-                where gn.id = up.preference_id and up.is_delete=0 and up.user_id = $user_id)
-                and a.id = b.parent_genre_id
-                and `a`.`parent_genre_id`= 0 
-                and`c`.`blog_genre`= b.id 
-                and `u`.`id`=`c`.`created_by` 
-                and `c`.`is_featured`=1 
-                and `d`.`blogid` = `c`.`id` 
-                ORDER BY `b`.`name`");*/
-                
+               
                 $featured_blog=DB::select("SELECT distinct `a`.`parent_name` as `parentGenre`,`b`.`child_genre_name` as `childGenre`,`c`.`blog_title` as `title`,
                 `c`.`blog_image` as `blogImg` ,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`
                 ,`c`.`id` as `blogId`, `u`.`name` as `authorInfo` , `c`.`is_featured`
@@ -156,23 +121,6 @@ class Blog extends Authenticatable
         }
         else
         {
-            //using old genre table
-                /*$featured_blog=DB::select("SELECT distinct `a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
-                from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u` ,
-                (SELECT distinct  g.parent_genre_id, max(h.id) as blogid
-                from `blogs` as `h`, genres as g
-                where is_featured=1 
-                and  h.blog_genre = g.id
-                group by parent_genre_id) d
-                where `a`.`id`=`b`.`parent_genre_id` 
-                and `a`.`parent_genre_id`=0 
-                and `c`.`blog_genre`=`b`.`id` 
-                and `u`.`id`=`c`.`created_by` 
-                and `c`.`is_featured`=1 
-                and `d`.`parent_genre_id` = a.id
-                and d.blogid = c.id
-                ORDER BY `b`.`name`");*/
-
                 $featured_blog=DB::select("SELECT distinct `a`.`parent_name` as `parentGenre`,`b`.`child_genre_name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`id` as `blogId`,`u`.`name` as `authorInfo` 
                 from `parent_genres` as `a`,`child_genres` as `b`,`blogs` as `c`,`users` as `u` ,
                 (SELECT distinct  g.id, max(h.id) as blogid
@@ -200,7 +148,7 @@ class Blog extends Authenticatable
          if(isset($user_id) && intval($user_id) > 0)
          {
             
-            //Using new genre table
+            //Using new parent and child genre table
             $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name  parentGenre
                     from parent_genres a,child_genres b,users u,user_genre_preferences up,blogs c
                     where up.parent_preference_id=a.id                    
@@ -213,7 +161,7 @@ class Blog extends Authenticatable
             return $parent_genre;
          }else {
             
-            //using New genre tables
+            //using New parent and child genre tables
             $parent_genre=DB::select("select distinct a.id parentGenreId,a.parent_name      parentGenre from parent_genres a,child_genres b,blogs c 
                     where a.id=b.parent_genre_id
                     and c.blog_status=1 
@@ -231,7 +179,7 @@ class Blog extends Authenticatable
           //using New genre tables  
         if(isset($user_id) && intval($user_id) > 0)
          {
-            //dd($user_id);
+            
             $child_genre=DB::select("select b.blog_genre childgenreid,g.child_genre_name childgenre from blogs b,child_genres g ,user_genre_preferences up ,users u
             where b.blog_genre=g.id 
             and b.blog_genre in (select id from child_genres where parent_genre_id in($parentGenreId))
@@ -259,9 +207,7 @@ class Blog extends Authenticatable
             
                 
             }
-            /*echo "<pre>";
-            print_r($result);
-            dd();*/
+            
             return $result;
 
         }else{
@@ -325,33 +271,6 @@ class Blog extends Authenticatable
                     order by c.name,b.name");
 
         return $featured_blog_detail;
-
     }
 
-
-   /* public static function getFeaturedBlogsDetails()
-    {
-        $featured_blog_detail=DB::select("SELECT `b`.`parent_genre_id`,`a`.`name` as `parentGenre`,`b`.`name` as `childGenre`,`c`.`blog_title` as `title`,`c`.`blog_image` as `blogImg`,`c`.`blog_description` as `description`,`c`.`created_at` as `createdAt`,`c`.`blog_genre` as `blogId`,`u`.`name` as `authorInfo` 
-            from `genres` as `a`,`genres` as `b`,`blogs` as `c`,`users` as `u`,
-        (SELECT D.Name AS Genre_name, E.blog_title AS b_title, e.id blog_id, E.created_at AS created, Count(E2.created_at) as count
-        FROM blogs E 
-        INNER JOIN genres D 
-        ON E.blog_genre = D.Id 
-        LEFT JOIN blogs E2 ON 
-            e2.blog_genre = E.blog_genre
-            AND E2.created_at > E.created_at
-        GROUP BY  D.Name , 
-              E.blog_title , 
-              E.created_at) l
-            where `a`.`id`=`b`.`parent_genre_id` 
-            and `a`.`parent_genre_id`=0 
-            and `c`.`blog_genre`=`b`.`id` 
-            and `u`.`id`=`c`.`created_by` 
-            
-        and l.count < 2
-        and l.blog_id = c.id
-         ORDER BY a.name");
-        
-        return $featured_blog_detail;
-    }*/
 }
