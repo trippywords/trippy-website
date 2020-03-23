@@ -125,21 +125,8 @@ class HomeController extends Controller {
 
 			 }
 
-			 
-
-			 
-
-				//             if($request!=null && $request->segment(1)=='account-details')
-
-				//             {
-
 				return redirect('account-details');
 
-				//             }else{
-
-				//                return redirect('/'); 
-
-				//             }
 
 		}else{
 
@@ -157,21 +144,14 @@ class HomeController extends Controller {
 
 				$checkIsexist=User::where('email','=',$fbuser->email)->count();
 
-				
-
 				if($checkIsexist==1)
 
 				{
-
-					 
-
 					$user = User::where('email', $fbuser->email)->where('is_verified',1)->first();                    
 
 					if($user==null) {     
 
 						$request->session()->flash('facebooksigninerr', 'Invalid Login Credentials Or Your Account is Disabled');
-
-						//return Redirect::back()->with('facebooksigninerr','Your login disabled contact admin');   
 
 						return redirect('/');
 
@@ -182,8 +162,6 @@ class HomeController extends Controller {
 						return redirect('/dashboard');
 
 					}
-
-					 
 
 				}else{
 
@@ -353,35 +331,13 @@ class HomeController extends Controller {
 
 						}
 
-						/*
-
-					 $data['email']=$email;                                      
-
-					 Mail::send( 'emails.facebooksignup', ['user_name'=>$user_name,'token_key'=>$token_key], function( $message ) use ($data)
-
-					{
-
-						$message->to($data['email'])->from(Smtp::select('from_email')->first()->from_email,Smtp::select('from_email')->first()->from_name)->subject('Trippywords facebook verify account email');
-
-					});*/
-
-					//return view('emails.facebooksignup',['user_name'=>$user_name,'token_key'=>$token_key]);
-
-					//exit;
-
-						//return redirect('/home');
-
 						$request->session()->flash('facebooksignupmsg', 'Facebook Signup Successfully please verify your account by your email');
 
-						//return Redirect::back()->with('facebooksignupmsg','Facebook Signup Successfully please verify your account by your email');
-
+						
 						return redirect('/');
 
 					
-
 				}
-
-				
 
 			 }
 
@@ -389,7 +345,6 @@ class HomeController extends Controller {
 
 			 {
 
-				 
 
 			 }
 
@@ -398,84 +353,6 @@ class HomeController extends Controller {
 			 if($request->oauth_verifier!='')
 
 			 {
-
-					//                 User::where('email','=','')->delete();
-
-					//                 $twuser = \Socialite::driver('twitter')->user();
-
-					////                 echo "<br>";
-
-					////                 print_r($twuser);
-
-					////                 exit;
-
-					//                 
-
-					//                 $user=new User;
-
-					//                $user->name=$twuser->name;
-
-					//                $user->email=$twuser->email;
-
-					//                $user->twitter_id=$twuser->id;
-
-					//                $user->password=Hash::make($twuser->id);
-
-					//                $user->remember_token=$user->twitter_id;
-
-					//                $user->role_id=0;
-
-					//                $user->is_delete='0';
-
-					//                $user->is_verified=0;
-
-					//                $user->save();
-
-					//                //$id=DB::getPdo()->lastInsertId();
-
-					////                $ud=User::all();
-
-					////                dd($ud);
-
-					//                
-
-					//                 //User Email
-
-					//                    $user_name = $twuser->name;
-
-					//                    $email = $user->email;
-
-					//                    $token_key =$user->facebook_id;
-
-					//                    $password=$twuser->id;
-
-					//                    $link = "<a href='" . url("accountactivate/$token_key") . "' target='_blank'>click here</a>";
-
-					//                    $body_u = "Hi $user_name,\n\n click here to verify your account $link <br/>Username: $twuser->email <br/>Password: $password";
-
-					//
-
-					//                    $to_u = $user_name . "<" . $email . ">";
-
-					//                    $subject_u = 'Trippyword Verify account Email';
-
-					//                    $message_u = $body_u;
-
-					//                    $headers_u = "MIME-Version: 1.0\r\n";
-
-					//                    $headers_u .= "Content-type: text/html; charset: utf8\r\n";
-
-					//                    $headers_u .= "From:testing@cosmonautgroup.com\r\n";
-
-					//                    //end of user email code
-
-					//                    if (@mail($to_u, $subject_u, $message_u, $headers_u)) {
-
-					//                        
-
-					//                    }
-
-				 
 
 				 return redirect('/home');
 
@@ -492,13 +369,11 @@ class HomeController extends Controller {
 	}
 
 
-
 	public function about() {
 
 		return view('about-us');
 
 	}
-
 
 
 	public function contact() {
@@ -508,10 +383,6 @@ class HomeController extends Controller {
 	} 
 
 	public function contactussend(Request $request){
-
-	
-
-       
 
             $contactus=new Contactus;
 
@@ -554,10 +425,7 @@ class HomeController extends Controller {
 
 		if ($validator->passes()) {
 
-			//Admin Email
-
-			//$body="Hi Admin,<br/><br/> You have received new inquiry.<br/><br/>";
-
+			
 			$body="<table border='1'> ";
 
 			$body.=" <tr> ";
@@ -713,44 +581,7 @@ class HomeController extends Controller {
 						'X-Mailer: PHP/' . phpversion();
 
 					
-
-			/*if(mail($to, $subject, $message, $headers))
-
-			{
-
-			}else{
-
-				return redirect::back()->withErrors($validator)->withInput();    
-
-			}
-
-			*/
-
-			/*
-
-			 $data['email']=$smtp->from_email;                                      
-
-			 Mail::send( 'emails.contact_us_admin', ['fromname'=>$smtp->from_name,'fullname'=>$request->fullname,'email'=>$request->email,'message'=>$request->message], function( $message ) use ($data)
-
-			{
-
-				$message->to($data['email'])->from($request->email,$request->fullname)->subject('Trippyword New Inquiry');
-
-			});*/
-
-			//return view('emails.contact_us_admin',['fromname'=>$smtp->from_name,'fullname'=>$request->fullname,'email'=>$request->email,'message'=>$request->message]);
-
-			//exit;
-
-			//
-
-			//end of admin email code
-
-			
-
-			//User Email
-
-			//$body_u="Hi $request->fullname,\n\nYour inquiry sent to admin.will reply back to you soon\n";            
+     
 
 			$body_u='<!DOCTYPE html><html><head><title>TrippyWords</title></head>
 
@@ -870,41 +701,8 @@ class HomeController extends Controller {
 
 			//end of user email code
 
-			/*if(mail($to_u, $subject_u, $message_u, $headers_u))
-
-			{            
-
-				
-
-			}else{
-
-				return redirect::back()->withErrors($validator)->withInput();
-
-			}*/
-
-			/*
-
-			 $data['email']=$request->email;                                      
-
-			 Mail::send( 'emails.contact_us_requested', ['fullname'=>$request->fullname], function( $message ) use ($data)
-
-			{
-
-				$message->to($data['email'])->from($smtp->from_email,$smtp->from_name)->subject('Trippyword Inquiry');
-
-			});*/
-
-			//return view('emails.contact_us_requested',['fullname'=>$request->fullname]);
-
-			//exit;
-
-			//
-
 			
-
 			return redirect('thankyou');
-
-			
 
 		}else{
 
