@@ -244,11 +244,18 @@ class BlogController extends Controller
     public function update(Request $request, $id)
 
     {
+       $image_name = $request->hidden_image;
 
+
+        $image = $request->file('blog_image');
+        //dd($image);
+        if($image != '')
+        {
+        
         $this->validate($request, 
 
                  [
-                    'blog_title'=> 'required',                
+                'blog_title'=> 'required',                
 
                 'blog_description'=> 'required',
 
@@ -260,12 +267,53 @@ class BlogController extends Controller
 
                 'blog_keywords'=> 'required' ,
 
-                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',          
+                'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif', 
+                         
 
         ]);
 
+        $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('blog_img/'), $image_name);
 
-        $input = $request->all();     
+            //dd($image_name);
+    
+    }
+
+    else
+        {
+            $request->validate([
+                'blog_title'=> 'required',                
+
+                'blog_description'=> 'required',
+
+                'parent_genre_id'=>'required',
+
+                'blog_genre'=>'required',
+
+                'blog_meta_description'=> 'required',
+
+                'blog_keywords'=> 'required' ,
+
+               
+            ]);
+        }
+
+        $input['created_by']=Auth::user()->id;    
+        $input['blog_title'] = $request->blog_title;
+        $input['blog_slug']= str_slug($request->blog_title, '-');    
+        $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
+        $input['is_trending'] = (isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
+        $input['parent_genre_id']=$request->parent_genre_id;
+        $input['blog_genre']=$request->blog_genre;
+        
+        $input['is_recommended'] =FALSE;
+        $input['blog_image'] = $image_name;
+        $blog = Blog::where("id","=",$id)->first();
+
+        $blog->update($input);
+
+
+        /*$input = $request->all();     
 
             if ($file = $request->hasFile('blog_image')) {
 
@@ -300,7 +348,7 @@ class BlogController extends Controller
         //dd($input);
         $blog = Blog::where("id","=",$id)->first();
 
-        $blog->update($input);
+        $blog->update($input);*/
 
         //$user->assignRole($request->input('roles'));
 

@@ -121,15 +121,20 @@
 
             <strong>Blog Picture:</strong>
 
-            {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
-            <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
+            <input type="file" name="blog_image" class="form-control" />
+              <img src="{{ asset('/public/blog_img/'.$blog->blog_image)}}" class="img-thumbnail" width="100" />
+              <input type="hidden" name="hidden_image" value="{{ $blog->blog_image }}" />
+       </div>
+
+            <!-- {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
+            <?php //if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
                 <img src="{{ asset("/public/blog_img/".$blog->blog_image) }}"  height='100' width='100'>
-            <?php } else { ?>
+            <?php // } else { ?>
                 <img src="{{ asset('/') }}public/blog_img/no_img.jpg" alt="Blog" height='100' width='100'>
-            <?php } ?>
+            <?php //} ?> -->
         </div>
 
-    </div>   
+      
     
     <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -224,63 +229,6 @@
     <script >
 
     
-        $(document).keyup(function(){
-            $("#blog").validate({
-              // Specify vaidation rules
-
-              rules: {      
-                "blog_title": {
-                     required : true,
-                     minlength :15,
-                },
-
-                "parent_genre_id" : {
-                    required : true
-                },
-
-                "blog_genre" : {
-                    required : true
-                },
-
-                "blog_image" : {
-                    required : true,
-                    
-                },
-                "blog_description":{
-                    required:true,
-                },
-
-                "blog_meta_description":{
-                    required:true,
-                },
-
-                "blog_keywords" :{
-                    required : true,
-                }
-
-            },
-            messages: {    
-                "blog_title" :{
-                    required: "Input required",
-                    minlength: "Please, at least {0} characters are necessary",
-                    },
-                "parent_genre_id" :{
-                    required: "Please select parent genre",
-                    },
-                "blog_genre" :{
-                    required: "Please select child genre",
-                },
-                "blog_image" : {
-                    required : "Please upload file",
-                },
-                "blog_keywords":{
-                    required : "This field is required",
-                }
-                
-                }
-            });
-        });
         
-    
  </script>
  
