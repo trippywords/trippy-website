@@ -122,8 +122,14 @@
             <strong>Blog Picture:</strong>
 
             <input type="file" name="blog_image" class="form-control" />
+            <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
+
               <img src="{{ asset('/public/blog_img/'.$blog->blog_image)}}" class="img-thumbnail" width="100" />
               <input type="hidden" name="hidden_image" value="{{ $blog->blog_image }}" />
+             <?php  } else { ?>
+                 <img src="{{ asset('/') }}public/blog_img/no_img.jpg" alt="Blog" height='100' width='100'> 
+            <?php } ?> 
+
        </div>
 
             <!-- {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
