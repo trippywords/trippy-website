@@ -173,19 +173,40 @@ class ChildGenreController extends Controller
     public function update(Request $request,$id)
 
     {
-         request()->validate([
+
+       $image_name = $request->hidden_image;
+
+        $image = $request->file('genImage');
+        if($image != '')
+        {
+             $request->validate([
 
             'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
 
             'child_genre_detail' => 'required',
             'parent_genre_id' => 'required',
             'selPublished'=>'required',
-
+            'genImage'=> 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $childgenre = ChildGenres::find($id);
+         $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('genre_img/'), $image_name);
 
-        $profile_img = "";
+      }
+      else{
+         $request->validate([
+
+            'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
+
+            'child_genre_detail' => 'required',
+            'parent_genre_id' => 'required',
+            'selPublished'=>'required',
+          ]);
+
+      }
+        //$childgenre = ChildGenres::find($id);
+
+       /* $profile_img = "";
 
         if ($request->hasFile('genImage')){
 
@@ -203,8 +224,9 @@ class ChildGenreController extends Controller
 
             $childgenre->child_genre_image = $profile_img;
 
-        }
+        }*/
 
+        $childgenre = ChildGenres::find($id);
         $childgenre->child_genre_name = $request->get('child_genre_name');
 
         $childgenre->child_genre_detail = $request->get('child_genre_detail');
@@ -212,6 +234,10 @@ class ChildGenreController extends Controller
         $childgenre->parent_genre_id = $request->get('parent_genre_id');
 
         $childgenre->is_published = $request->get('selPublished');
+
+        $childgenre->child_genre_image = $image_name;
+
+        //$childgenre->update($input);
 
         //$childgenre->child_genre_image = $profile_img;
 

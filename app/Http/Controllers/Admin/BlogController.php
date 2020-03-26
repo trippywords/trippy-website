@@ -71,9 +71,7 @@ class BlogController extends Controller
     public function create()
 
     {
-        $data['genres']=ParentGenres::getComposeGenre();
-        //$data['genres']=DB::table('parent_genres')->select('id','parent_name')->where('is_deleted','=',0)->orderBy('parent_name')->get()->toArray();
-        
+        $data['genres']=ParentGenres::getComposeGenre();        
         return view('admin.blog.create',$data);
 
     }
@@ -85,10 +83,6 @@ class BlogController extends Controller
         return json_encode($child);
 
     }
-
-
-
-
 
     /**
 
@@ -105,13 +99,11 @@ class BlogController extends Controller
     public function store(Request $request)
 
     {   
-    //dd($request->all()) ;    
-
+    
         $this->validate($request, 
 
                  ['blog_title'=> 'required',
-
-                //'blog_heading'=> 'required', 
+ 
                 'blog_image'=> 'required',                
 
                 'blog_description'=> 'required',
@@ -196,10 +188,6 @@ class BlogController extends Controller
         return view('admin.blog.show',compact('blogs'));//->with('blog');
     }
 
-
-
-
-
     /**
 
      * Show the form for editing the specified resource.
@@ -275,8 +263,6 @@ class BlogController extends Controller
         $image_name = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('blog_img/'), $image_name);
 
-            //dd($image_name);
-    
     }
 
     else
@@ -292,9 +278,7 @@ class BlogController extends Controller
 
                 'blog_meta_description'=> 'required',
 
-                'blog_keywords'=> 'required' ,
-
-               
+                'blog_keywords'=> 'required' ,               
             ]);
         }
 
@@ -312,54 +296,11 @@ class BlogController extends Controller
 
         $blog->update($input);
 
-
-        /*$input = $request->all();     
-
-            if ($file = $request->hasFile('blog_image')) {
-
-                $file            = $request->file('blog_image');
-
-                $customimagename  = time() . '.' . $file->getClientOriginalExtension();
-
-                $destinationPath = public_path('blog_img/');
-
-                $file->move($destinationPath, $customimagename);   
-
-                $input['blog_image'] = $customimagename;
-
-                
-
-            }else{
-
-                $input = array_except($input,array('blog_image'));
-
-            }
-
-        $input['created_by']=Auth::user()->id;    
-        $input['blog_heading'] = $request->blog_title;
-        $input['blog_slug']= str_slug($request->blog_title, '-');    
-        $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
-        $input['is_trending'] = (isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
-        $input['parent_genre_id']=$request->parent_genre_id;
-        $input['blog_genre']=$request->blog_genre;
-        
-        $input['is_recommended'] =FALSE;
-
-        //dd($input);
-        $blog = Blog::where("id","=",$id)->first();
-
-        $blog->update($input);*/
-
-        //$user->assignRole($request->input('roles'));
-
         return redirect()->route('admin.blog')
 
                         ->with('success','Blog updated successfully');
 
     }
-
-
-
 
 
     /**

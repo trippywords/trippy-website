@@ -75,13 +75,18 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Image:</strong>
-                    <input type="file" name="genImage">
-                    <?php if($ChildGenre->child_genre_image != ""): ?>
-                        <img src="<?php echo URL::to('/'); ?>/public/genre_img/<?php echo $ChildGenre->child_genre_image ?>" style="height: 100px;width: 100px;"/>
-                    <?php endif; ?>
-                </div>
+            <div class="form-group">
+            <strong>Image:</strong>
+            <input type="file" name="genImage" class="form-control">
+
+            <?php if($ChildGenre->child_genre_image != ""){?>
+
+            <img src="{{ asset('/public/genre_img/'.$ChildGenre->child_genre_image)}}" class="img-thumbnail" width="100" />
+          <input type="hidden" name="hidden_image" value="{{ $ChildGenre->child_genre_image }}" />
+          <?php  } else { ?>
+             <img src="{{ asset('/') }}public/blog_img/no_img.jpg" alt="Blog" height='100' width='100'> 
+        <?php } ?>
+            </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
