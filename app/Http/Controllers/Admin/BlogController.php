@@ -234,10 +234,9 @@ class BlogController extends Controller
     {
        $image_name = $request->hidden_image;
 
-
-        $image = $request->file('blog_image');
-        //dd($image);
-        if($image != '')
+        $blog_image = $request->file('blog_image');
+        
+        if($blog_image != '')
         {
         
         $this->validate($request, 
@@ -257,11 +256,42 @@ class BlogController extends Controller
 
                 'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif', 
                          
-
         ]);
 
-        $image_name = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('blog_img/'), $image_name);
+        $input['created_by']=Auth::user()->id;    
+        $input['blog_title'] = $request->blog_title;
+        $input['blog_slug']= str_slug($request->blog_title, '-');    
+        $input['is_featured'] = (isset($request->is_featured) && $request->is_featured==1)?1:0;
+        $input['is_trending'] = (isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
+        $input['parent_genre_id']=$request->parent_genre_id;
+        $input['blog_genre']=$request->blog_genre;
+        $input['blog_status']=$request->get('blog_status');
+        $input['is_recommended'] =FALSE;
+        //$input['blog_image'] = $image_name;
+        $blog = Blog::where("id","=",$id)->first();
+
+         if($request->hasFile('blog_image'))
+        {
+          //add new photo
+          $blog_image=$request->file('blog_image');
+
+          $filename=time() . '.' . $blog_image->getClientOriginalExtension();
+          $location=public_path('blog_img/');
+         
+          $blog_image->move($location, $filename);
+         
+          $oldFileName=$request->get('hidden_image');
+         
+          //update db
+          $input['blog_image']=$filename;
+          
+          //delete the old photo
+          $fullpath=$location.$oldFileName;
+         
+          unlink($fullpath);
+        }
+
+        $blog->update($input);
 
     }
 
@@ -280,7 +310,6 @@ class BlogController extends Controller
 
                 'blog_keywords'=> 'required' ,               
             ]);
-        }
 
         $input['created_by']=Auth::user()->id;    
         $input['blog_title'] = $request->blog_title;
@@ -289,13 +318,12 @@ class BlogController extends Controller
         $input['is_trending'] = (isset($request->is_trending) && $request->is_trending==1)?TRUE:FALSE;
         $input['parent_genre_id']=$request->parent_genre_id;
         $input['blog_genre']=$request->blog_genre;
-        
+        $input['blog_status']=$request->get('blog_status');
         $input['is_recommended'] =FALSE;
-        $input['blog_image'] = $image_name;
+        $input['blog_image'] = $request->hidden_image;
         $blog = Blog::where("id","=",$id)->first();
-
         $blog->update($input);
-
+        }
         return redirect()->route('admin.blog')
 
                         ->with('success','Blog updated successfully');
@@ -390,7 +418,7 @@ class BlogController extends Controller
          { 
             if($blog->blog_status==1)
             {
-                return "Publish";
+                return "Published";
             } 
             elseif($blog->blog_status==0)
             {

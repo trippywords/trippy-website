@@ -10,6 +10,8 @@ use App\Blog;
 use DB;
 
 use URL;
+use Storage;
+use Image;
 
 
 
@@ -173,58 +175,18 @@ class ChildGenreController extends Controller
     public function update(Request $request,$id)
 
     {
-
-       $image_name = $request->hidden_image;
-
-        $image = $request->file('genImage');
-        if($image != '')
+       $hidden_image = $request->hidden_image;
+        $genImage = $request->file('genImage');
+        if($genImage != '')
         {
              $request->validate([
 
             'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
-
             'child_genre_detail' => 'required',
             'parent_genre_id' => 'required',
             'selPublished'=>'required',
             'genImage'=> 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
-
-         $image_name = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('genre_img/'), $image_name);
-
-      }
-      else{
-         $request->validate([
-
-            'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
-
-            'child_genre_detail' => 'required',
-            'parent_genre_id' => 'required',
-            'selPublished'=>'required',
-          ]);
-
-      }
-        //$childgenre = ChildGenres::find($id);
-
-       /* $profile_img = "";
-
-        if ($request->hasFile('genImage')){
-
-            $uploadFolder = public_path('genre_img/');
-
-            $file = $request->file('genImage');
-
-            $customimagename  = time().'.'.$file->getClientOriginalExtension();
-
-            $destinationPath = $uploadFolder;
-
-            $file->move($destinationPath, $customimagename);
-
-            $profile_img = $customimagename;
-
-            $childgenre->child_genre_image = $profile_img;
-
-        }*/
 
         $childgenre = ChildGenres::find($id);
         $childgenre->child_genre_name = $request->get('child_genre_name');
@@ -235,14 +197,53 @@ class ChildGenreController extends Controller
 
         $childgenre->is_published = $request->get('selPublished');
 
-        $childgenre->child_genre_image = $image_name;
+        if($request->hasFile('genImage'))
+        {
+          //add new photo
+          $genImage=$request->file('genImage');
 
-        //$childgenre->update($input);
-
-        //$childgenre->child_genre_image = $profile_img;
+          $filename=time() . '.' . $genImage->getClientOriginalExtension();
+          $location=public_path('genre_img/');
+         
+          $genImage->move($location, $filename);
+         
+          $oldFileName=$request->get('hidden_image');
+         
+          //update db
+          $childgenre->child_genre_image=$filename;
+          
+          //delete the old photo
+          $fullpath=$location.$oldFileName;
+         
+          unlink($fullpath);
+        }
 
         $childgenre->save();
-        
+      }
+      else{
+         $request->validate([
+
+            'child_genre_name' => 'required|unique:child_genres,child_genre_name,'.$id,
+            'child_genre_detail' => 'required',
+            'parent_genre_id' => 'required',
+            'selPublished'=>'required',
+          ]);
+
+          $childgenre = ChildGenres::find($id);
+        $childgenre->child_genre_name = $request->get('child_genre_name');
+
+        $childgenre->child_genre_detail = $request->get('child_genre_detail');
+
+        $childgenre->parent_genre_id = $request->get('parent_genre_id');
+
+        $childgenre->is_published = $request->get('selPublished');
+
+        $childgenre->child_genre_image = $request->get('hidden_image');
+
+        $childgenre->save();
+
+      }
+       
         if($request->get('selPublished')==0)
         {
           $countblogs=DB::select("select count(id) as count from blogs where blog_genre=$childgenre->id and is_deleted='0'");
@@ -272,6 +273,5 @@ class ChildGenreController extends Controller
         return redirect()->route('admin-child-genre')
 
                         ->with('success','Child Genre updated successfully');
-
     }
 }
