@@ -82,7 +82,7 @@
             <?php if($ChildGenre->child_genre_image != ""){?>
 
             <img src="{{ asset('/public/genre_img/'.$ChildGenre->child_genre_image)}}" class="img-thumbnail" width="100" />
-          <input type="text" name="hidden_image" value="{{ $ChildGenre->child_genre_image }}" />
+          <input type="hidden" name="hidden_image" value="{{ $ChildGenre->child_genre_image }}" />
           <?php  } else { ?>
              <img src="{{ asset('/') }}public/blog_img/no_img.jpg" alt="Blog" height='100' width='100'> 
         <?php } ?>
