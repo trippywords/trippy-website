@@ -42,12 +42,12 @@ function pr($data){
 
 function getBlogsCountByUser(){
 
-    $count = Blog::get()->where('created_by',Auth::user()->id)->where('blog_status',1)->where('is_delete',0)/*->where('blog_status',1)*/->toArray();
+    $count = Blog::get()->where('created_by',Auth::user()->id)->where('blog_status',1)->where('is_deleted',0)->toArray();
     return count($count);
 }
 
 function getDraftsBlogsCountByUser(){
-    $count = Blog::get()->where('created_by',Auth::user()->id)->where('blog_status',2)->where('is_delete',0)->toArray();
+    $count = Blog::get()->where('created_by',Auth::user()->id)->where('blog_status',2)->where('is_deleted',0)->toArray();
     return count($count);
 }
 
