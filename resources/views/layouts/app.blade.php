@@ -57,6 +57,10 @@
  -->
            <!--  <link rel="stylesheet" href="{{ asset('/public/assets/css2/base.css') }}"/> -->
 
+           <!--quill stylesheet -->
+           <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+           <!--quill stylesheet end-->
+
             <link rel="stylesheet" href="{{ asset('/public/assets/css/main.css') }}"/>
 
             <link rel="stylesheet" href="{{ asset('/public/assets/css/style.css') }}"/>
@@ -455,6 +459,15 @@
             <script src="<?php echo asset('/public'); ?>/js/sweetalert.min.js"></script>
             
         <!-- Java Script E -->
+        <!-- Quill library -->
+
+        <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+        <!-- Quill library end-->
+
+
+
+
+
         <!-- Froala edior Scripts start -->
               <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
               <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
