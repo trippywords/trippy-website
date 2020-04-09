@@ -101,11 +101,11 @@
         <div class="form-group">
             <label>Compose New</label>
             <div id="toolbar"></div>
-            <div id="editor">
+            <div id="editor" data-image-url="{{route('image.store')}}">
             
             </div>
         </div>
-        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none">{{ old('txtckDescription') }}</textarea>
+        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none"></textarea>
 
 
 
@@ -243,10 +243,13 @@
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
 
- <!-- Quill library -->
-
+        <!-- Quill library -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <!--Quill custom js-->
+        <script src="{{ asset('public/assets/js/quill-custom.js') }}"></script>
         <!-- Quill library end-->
+        
 
  <!-- <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>  -->
  
@@ -329,7 +332,7 @@
         //         }
         // });
 
-        $('form').on('submit','#frmCreateBlog', function (e) {
+        /*$('form').on('submit','#frmCreateBlog', function (e) {
           if ($('#txtckDescription').froalaEditor('core.isEmpty')) {
             e.preventDefault();
             var error = "Please enter descriprion";
@@ -341,7 +344,7 @@
             $('#descriptionErr').hide();
             return true;
           }
-        });
+        });*/
 
         $("#btn_submit").click(function(e){
             $("#frmCreateBlog").validate({
@@ -500,7 +503,7 @@
        window.location.href = "{{route('profile')}}";
     });
     
-$(function(){
+/*$(function(){
       $('#txtckDescription').froalaEditor({
 
         // Set the image upload parameter.
@@ -533,32 +536,9 @@ $(function(){
         // Set request type.
         videoUploadMethod: 'POST'
       });
-    });
+    });*/
 
   </script>
 
-  <script>
-    $(document).ready(function(){
-        var toolbarOptions=[
-        ['bold'],
-        ['blockquote','code-block']
-        ];
-  var quill = new Quill('#editor', {
-    modules:{
-        toolbar:toolbarOptions
-    },
-    theme: 'snow'
-  });
-
-  quill.on('text-change', function(delta, oldDelta, source) {
-  if (source == 'api') {
-    console.log("An API call triggered this change.");
-  } else if (source == 'user') {
-    $('#content-txtckDescription').text(quill.getText(0,quill.getLength()));
-    console.log("A user action triggered this change.");
-  }
-});
-  })
-
-</script>
+  
 @endsection

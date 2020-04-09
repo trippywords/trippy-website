@@ -124,6 +124,7 @@ class BlogController extends Controller
 
     public function edit($id, Request $request)
     { 
+      //dd($id);
     
       $genres=ParentGenres::getComposeGenre();
 
@@ -156,7 +157,7 @@ class BlogController extends Controller
         Blog::where('id', '=', $request->txtBlogId)->update(['blog_title' => $request->txtBlogName,
             'blog_heading' => $request->txtBlogName,
             'blog_status'=>$blog_status,
-            'blog_description' => $request->txtDescription,
+            'blog_description' => $request->get('content-txtckDescription'),
             'blog_meta_description' => $request->txtBlogMetaDescription,
             'blog_keywords' => $request->txtBlogKeywords,
             'parent_genre_id' => $request->parent_genre_id,

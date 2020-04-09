@@ -78,39 +78,8 @@
             </style>
 
             <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110564124-1"></script>
-            <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'UA-110564124-1');
-            </script>
-
-
-        <!-- Style Sheet Link E -->
-        <!-- Java Script Link S -->
-            <!-- <script type="text/javascript" src="{{ asset('/public/assets/libraries/jquery-3.2.1/js/jquery-3.2.1.min.js') }}"></script> -->
             <script src="{{ asset('/public/assets/js2/jquery.v2.1.3.js') }}"></script>
-            <script type="text/javascript">
-                /* Google Font API S */
-                    var url = "{{URL::to('/')}}";
-                    $(window).on("load", function() {
-                        WebFontConfig = {
-                            google: { families: ['Dosis:200,300,400,500,600,700,800'] }
-                        };
-                        (function() {
-                            var wf = document.createElement('script');
-                            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
-                            wf.type = 'text/javascript';
-                            wf.async = 'true';
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(wf, s);
-                        });
-                    });
-                /* Google Font API E */
-            </script>
-        <!-- Java Script Link E -->
+            
     </head>
     <body class="<?php echo (strpos($_SERVER['SCRIPT_FILENAME'],'first_time_page.php'))?' body-profile-page':''; ?>">
         <!-- Scroll To Top S -->
@@ -469,10 +438,10 @@
 
 
         <!-- Froala edior Scripts start -->
-              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+              <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script> -->
 
-              <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/froala_editor.min.js') }}"></script>
+              <!-- <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/froala_editor.min.js') }}"></script>
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/plugins/align.min.js') }}"></script>
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/plugins/char_counter.min.js') }}"></script>
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/plugins/code_beautifier.min.js') }}"></script>
@@ -504,11 +473,46 @@
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/third_party/spell_checker.min.js') }}"></script>
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/plugins/special_characters.min.js') }}"></script>
               <script type="text/javascript" src="{{URL::asset('public/assets/frola/js/plugins/word_paste.min.js') }}"></script>
-
+ -->
               
 
 
         <!-- Froala editor scripts end -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110564124-1"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-110564124-1');
+            </script>
+
+
+        <!-- Style Sheet Link E -->
+        <!-- Java Script Link S -->
+            <!--  <script type="text/javascript" src="{{ asset('/public/assets/libraries/jquery-3.2.1/js/jquery-3.2.1.min.js') }}"></script>  -->
+            
+            <script type="text/javascript">
+                /* Google Font API S */
+                    var url = "{{URL::to('/')}}";
+                    $(window).on("load", function() {
+                        WebFontConfig = {
+                            google: { families: ['Dosis:200,300,400,500,600,700,800'] }
+                        };
+                        (function() {
+                            var wf = document.createElement('script');
+                            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+                            wf.type = 'text/javascript';
+                            wf.async = 'true';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(wf, s);
+                        });
+                    });
+                /* Google Font API E */
+            </script>
+        <!-- Java Script Link E -->
+
         <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
         <script>
         $.ajaxSetup({
