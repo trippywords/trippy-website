@@ -250,6 +250,7 @@ return [
 
          */
 
+        Intervention\Image\ImageServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
 
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -299,6 +300,8 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
 
         Laravel\Socialite\SocialiteServiceProvider::class,
+
+
         /*
 
         Spatie\Newsletter\NewsletterServiceProvider::class,*/
@@ -361,7 +364,7 @@ return [
 
     'aliases' => [
 
-
+        'Image' => Intervention\Image\Facades\Image::class,
 
         'App' => Illuminate\Support\Facades\App::class,
 

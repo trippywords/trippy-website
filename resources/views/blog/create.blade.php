@@ -44,33 +44,28 @@
                             </div>
                             @endif
                         </div>
-                        <form name="frmCreateBlog" id="frmCreateBlog" method="POST" enctype="multipart/form-data" action="{{ route('blog.store') }}">
-                            @csrf
-                            <div class="profile_page_main_section margin-bottom-30">
-                                <div class="profile_main_title_section title_secondary_section">
-                                    <h2 class="title">
-                                        New Blog 
-                                    </h2>
+<form name="frmCreateBlog" id="frmCreateBlog" method="POST" enctype="multipart/form-data" action="{{ route('blog.store') }}">
+    @csrf
+    <div class="profile_page_main_section margin-bottom-30">
+        <div class="profile_main_title_section title_secondary_section">
+            <h2 class="title">
+                New Blog 
+            </h2>
 
-                                    <a href="{{ route('profile') }}" class="edit_icon" title="edit">
-                                        <i class="fa fa-close"></i>
-                                        Close
-                                    </a>
-                                </div>
-                                <div class="profile_main_section">
-                                    <div class="blog_form">
-                                        <div class="form-group">
-                                            <input type="text" value="{{ old('txtBlogName') }}" class="form-control space"  placeholder="Title goes here" name="txtBlogName" id="txtBlogName">
-                                            @if ($errors->has('txtBlogName'))
-                                                <div class="error">{{ $errors->first('txtBlogName') }}</div>
-                                            @endif
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <input type="text" value="{{ old('txtBlogHeading') }}" class="form-control space" placeholder="Heading goes here" name="txtBlogHeading" id="txtBlogHeading">
-                                            @if ($errors->has('txtBlogName'))
-                                                <div class="error">{{ $errors->first('txtBlogHeading') }}</div>
-                                            @endif
-                                        </div> -->
+            <a href="{{ route('profile') }}" class="edit_icon" title="edit">
+                <i class="fa fa-close"></i>
+                Close
+            </a>
+        </div>
+        <div class="profile_main_section">
+            <div class="blog_form">
+                <div class="form-group">
+                    <input type="text" value="{{ old('txtBlogName') }}" class="form-control space"  placeholder="Title goes here" name="txtBlogName" id="txtBlogName">
+                    @if ($errors->has('txtBlogName'))
+                        <div class="error">{{ $errors->first('txtBlogName') }}</div>
+                    @endif
+                </div>
+                                       
 
         <div class="form-group">
 
@@ -97,155 +92,165 @@
         @endif
         </div>
 
-                                       {{-- <div class="form-group">
-                                            <strong>Genre</strong>
-                                                <select name="smtp_security" class="form-control">
-                                                    <option value="">Select Genre</option>
-                                             @foreach ($genrearr as $genr)
-                                                    <option value="{{$genr->id}}"
-                                                     @if($genr->id == $genr->genre){{'selected'}} @endif >{{$genr->name}}</option>
-                                              @endforeach
-                                             
-                                                </select>
-                                                @if ($errors->has('smtp_security'))
-                                                    <div class="error">{{ $errors->first('smtp_security') }}</div>
-                                                @endif
-                                        </div>--}}
-                                        <div class="form-group">
-                                            <strong>Blog Picture:</strong>
-                                                {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
-                                        </div>
-                                        <!-- Froala Editor Start -->
-                                        <div class="form-group">
-                                            <label>Compose New</label>
-                                            <textarea id="txtckDescription" rows="20" name="txtckDescription" class="form-control">{{ old('txtckDescription') }}</textarea>
-                                        </div>
-                                        <b><span id="descriptionErr" class="error"></span></b>
-                                        @if ($errors->has('txtckDescription'))
-                                            <div class="error">{{ $errors->first('txtckDescription') }}</div>
-                                        @endif
-                                        <!-- Froala Editor End -->
-                                    </div>
-                                    <!-- @if ($errors->any())
-                                    <div style="color:red">
-                                        <ul>
-                                                @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                                @endforeach
-                                        </ul>
-                                    </div>
-                                     @endif -->
-                                </div>
-                            </div>
-                            <div class="profile_page_main_section margin-bottom-30">
-                                <div class="profile_main_title_section title_secondary_section">
-                                    <h2 class="title">
-                                        SEO
-                                    </h2>
-                                </div>
-                                <div class="profile_main_section  profile_page_main_section_secondary">
-                                    <div class="blog_form">
-
-                                        <div class="form-group form-group-info">
-                                            <input type="text" class="form-control space" placeholder="Meta Description" name="txtBlogMetaDescription" id="txtBlogMetaDescription">
-                                            <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="The purpose of a meta description for your page is simple: to get someone searching on Google to click your link. In other words, meta descriptions are there to generate clickthroughs from search engines"></i>
-                                        </div>
-                                        <span style="color:#57bb47"> Total character count: <span id="display_meta_count">0</span> characters. Characters left: <span id="word_meta_left">170</span></span>
-                                        <div class="form-group form-group-info">
-
-                                            <input type="text" class="form-control" placeholder="Tags" name="txtBlogKeywords" id="txtBlogKeywords" data-role="tagsinput">
-                                              <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Meta Keywords are a specific type of meta tag that appear in the HTML code of a Web page and help tell search engines what the topic of the page is. ... The most important thing to keep in mind when selecting or optimizing your meta keywords is to be sure that each keyword accurately reflects the content of your pages."></i> -->
-                                              <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Keywords can be entered as comma separated texts (... , ...)"></i>
-                                        </div>
-                                        <span id="error_keyword" style="color:red;display: none;">maximum limit keyword 100</span>
-                                        <div class="btn_section">
-                                            <button type="button" class="btn btn-default discard">Discard</button>
-                                            <button class="btn btn-primary" type="submit" id="draft_btn" name="draft_btn">Save as Draft</button>
-                                            <button class="btn btn-secondary" name="publish_btn" id="btn_submit" type="submit">Publish</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                             <div class="profile_page_main_section">
-                        <div class="profile_main_title_section">
-                            <h2 class="title">
-                                <i class="fa fa-pencil-square"></i>
-                                Recent Blogs 
-                            </h2>
-                            @if(!$publish_blogs->isEmpty())
-                                <a href="javascript:;" class="edit_icon show_edit_section" title="edit">
-                                        <i class="fa fa-edit"></i>
-                                        Edit
-                                </a> 
-                            @endif
-                        </div>
-                        <div class="profile_main_section no-padding" id="published_blogs">
-                            @if(count($publish_blogs) > 0)
-                            @foreach ($publish_blogs as $blog)
-                            <div class="media" data-val="<?php echo $blog->blogid; ?>">
-                                <div class="media-left">
-                                    <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
-                                        <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/public/blog_img/'.$blog->blog_image) }}" class="media-object"></a>
-                                    <?php } else { ?>
-                                        <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
-                                    <?php } ?>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
-                                    <p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200)) @endphp</p>
-                                    <?php
-                                    $genre_name= "";
-                                    if(!empty($blog->blog_genre)){
-                                        $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
-                                        $genre_name = $genre->name;
-                                    }
-                                    
-                                    ?>
-                                    <div class="media-sub-content"><strong>Genre: </strong>  {{$genre_name}}</div>
-                                </div>
-                                <div class="media-edit" style="display: none;">
-                                    <a href="{{ url('blog-edit/'.$blog->blogid) }}" class="edit" title="Edit">
-                                        <i class="fa fa-pencil-square"></i>
-                                    </a>
-                                    <a onclick="delete_blog({{ $blog->blogid }})" class="trash" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </div>
-                            </div>
-                                @endforeach
-                                @else
-                                <div class="profile_main_section no_any_content d-flex align-items-center justify-content-center">
-                                    <span>
-                                        <img src="{{ asset('/') }}public/blog_img/no-blog.png"  alt="{!!Auth::user()->name !!}" height="100px" widht="100px" >
-                                    </span>
-                                    <p class="content_text">Awww ! no blogs. Write now <span>Click on compose button to create a new blog</span></p>
-                                </div>
-                                @endif
-                        </div>
-                        <div class="load_more_blog">
-                            <div class="ajax-load text-center" style="display:none" id="ajax-load-blogs">
-                                <p> <img src="http://demo.itsolutionstuff.com/plugin/loader.gif"> Loading More post</p>
-                            </div>
-                            @if(isset($publish_total) && intval($publish_total) > 0)
-                                <div class="blog_button">
-                                    <input type="hidden" name="publishtotal" id="publishtotal" value="{{$publish_total}}">
-                                    <a href="javascript:;" class="btn btn-primary" id="loadmore" title="Load More" data-page="4">
-                                        LOAD MORE
-                                    </a>
-                                </div>
-                            @endif
-                        </div>    
-                    </div>
-                </div>
-                    </div>
-                </div>
+                           
+        <div class="form-group">
+            <strong>Blog Picture:</strong>
+                {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
+        </div>
+        <!-- Froala Editor Start -->
+        <div class="form-group">
+            <label>Compose New</label>
+            <div id="toolbar"></div>
+            <div id="editor" data-image-url="{{route('image.store')}}">
+            
             </div>
         </div>
+        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none"></textarea>
+
+
+
+                                <!-- <textarea id="txtckDescription" rows="20" name="txtckDescription" class="form-control">{{ old('txtckDescription') }}</textarea>
+                            </div>
+                            <b><span id="descriptionErr" class="error"></span></b>
+                            @if ($errors->has('txtckDescription'))
+                                <div class="error">{{ $errors->first('txtckDescription') }}</div>
+                            @endif -->
+                            <!-- Froala Editor End -->
+        </div>
+                        <!-- @if ($errors->any())
+                        <div style="color:red">
+                            <ul>
+                                    @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                    @endforeach
+                            </ul>
+                        </div>
+                         @endif -->
+                    </div>
+                </div>
+
+
+
+
+                <div class="profile_page_main_section margin-bottom-30">
+                    
+                        <div class="profile_main_title_section title_secondary_section">
+                            <h2 class="title">
+                                SEO
+                            </h2>
+                        </div>
+                        <div class="profile_main_section  profile_page_main_section_secondary">
+                            <div class="blog_form">
+
+                                <div class="form-group form-group-info">
+                                    <input type="text" class="form-control space" placeholder="Meta Description" name="txtBlogMetaDescription" id="txtBlogMetaDescription">
+                                    <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="The purpose of a meta description for your page is simple: to get someone searching on Google to click your link. In other words, meta descriptions are there to generate clickthroughs from search engines"></i>
+                                </div>
+                                <span style="color:#57bb47"> Total character count: <span id="display_meta_count">0</span> characters. Characters left: <span id="word_meta_left">170</span></span>
+                                <div class="form-group form-group-info">
+
+                                    <input type="text" class="form-control" placeholder="Tags" name="txtBlogKeywords" id="txtBlogKeywords" data-role="tagsinput">
+                                      <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Meta Keywords are a specific type of meta tag that appear in the HTML code of a Web page and help tell search engines what the topic of the page is. ... The most important thing to keep in mind when selecting or optimizing your meta keywords is to be sure that each keyword accurately reflects the content of your pages."></i> -->
+                                      <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Keywords can be entered as comma separated texts (... , ...)"></i>
+                                </div>
+                                <span id="error_keyword" style="color:red;display: none;">maximum limit keyword 100</span>
+                                <div class="btn_section">
+                                    <button type="button" class="btn btn-default discard">Discard</button>
+                                    <button class="btn btn-primary" type="submit" id="draft_btn" name="draft_btn">Save as Draft</button>
+                                    <button class="btn btn-secondary" name="publish_btn" id="btn_submit" type="submit">Publish</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                     <div class="profile_page_main_section">
+                <div class="profile_main_title_section">
+                    <h2 class="title">
+                        <i class="fa fa-pencil-square"></i>
+                        Recent Blogs 
+                    </h2>
+                    @if(!$publish_blogs->isEmpty())
+                        <a href="javascript:;" class="edit_icon show_edit_section" title="edit">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                        </a> 
+                    @endif
+                </div>
+                <div class="profile_main_section no-padding" id="published_blogs">
+                    @if(count($publish_blogs) > 0)
+                    @foreach ($publish_blogs as $blog)
+                    <div class="media" data-val="<?php echo $blog->blogid; ?>">
+                        <div class="media-left">
+                            <?php if (isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image)) { ?>
+                                <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/public/blog_img/'.$blog->blog_image) }}" class="media-object"></a>
+                            <?php } else { ?>
+                                <a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
+                            <?php } ?>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="{{ url('blogs/'.$blog->blogid) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
+                            <p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200)) @endphp</p>
+                            <?php
+                            $genre_name= "";
+                            if(!empty($blog->blog_genre)){
+                                $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
+                                $genre_name = $genre->name;
+                            }
+                            
+                            ?>
+                            <div class="media-sub-content"><strong>Genre: </strong>  {{$genre_name}}</div>
+                        </div>
+                        <div class="media-edit" style="display: none;">
+                            <a href="{{ url('blog-edit/'.$blog->blogid) }}" class="edit" title="Edit">
+                                <i class="fa fa-pencil-square"></i>
+                            </a>
+                            <a onclick="delete_blog({{ $blog->blogid }})" class="trash" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                        @endforeach
+                        @else
+                        <div class="profile_main_section no_any_content d-flex align-items-center justify-content-center">
+                            <span>
+                                <img src="{{ asset('/') }}public/blog_img/no-blog.png"  alt="{!!Auth::user()->name !!}" height="100px" widht="100px" >
+                            </span>
+                            <p class="content_text">Awww ! no blogs. Write now <span>Click on compose button to create a new blog</span></p>
+                        </div>
+                        @endif
+                </div>
+                <div class="load_more_blog">
+                    <div class="ajax-load text-center" style="display:none" id="ajax-load-blogs">
+                        <p> <img src="http://demo.itsolutionstuff.com/plugin/loader.gif"> Loading More post</p>
+                    </div>
+                    @if(isset($publish_total) && intval($publish_total) > 0)
+                        <div class="blog_button">
+                            <input type="hidden" name="publishtotal" id="publishtotal" value="{{$publish_total}}">
+                            <a href="javascript:;" class="btn btn-primary" id="loadmore" title="Load More" data-page="4">
+                                LOAD MORE
+                            </a>
+                        </div>
+                    @endif
+                </div>    
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+</div>
     </section>
   <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
+
+        <!-- Quill library -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <!--Quill custom js-->
+        <script src="{{ asset('public/assets/js/quill-custom.js') }}"></script>
+        <!-- Quill library end-->
+        
+
  <!-- <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script>  -->
  
 <script type="text/javascript">
@@ -327,7 +332,7 @@
         //         }
         // });
 
-        $('form').on('submit','#frmCreateBlog', function (e) {
+        /*$('form').on('submit','#frmCreateBlog', function (e) {
           if ($('#txtckDescription').froalaEditor('core.isEmpty')) {
             e.preventDefault();
             var error = "Please enter descriprion";
@@ -339,7 +344,7 @@
             $('#descriptionErr').hide();
             return true;
           }
-        });
+        });*/
 
         $("#btn_submit").click(function(e){
             $("#frmCreateBlog").validate({
@@ -498,7 +503,7 @@
        window.location.href = "{{route('profile')}}";
     });
     
-$(function(){
+/*$(function(){
       $('#txtckDescription').froalaEditor({
 
         // Set the image upload parameter.
@@ -531,7 +536,9 @@ $(function(){
         // Set request type.
         videoUploadMethod: 'POST'
       });
-    });
+    });*/
 
   </script>
+
+  
 @endsection

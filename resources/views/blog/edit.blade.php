@@ -105,15 +105,21 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Compose New</label>
-                                            <textarea rows="5" id="txtckDescription" name="txtDescription" class="form-control">{{ $blog->blog_description }}</textarea>
+                                            <div id="toolbar"></div>
+                                            <div id="editor" data-image-url="{{route('image.store')}}">{!! $blog->blog_description !!}</div>
                                         </div>
-                                        <b><span id="descriptionErr" class="error"></span></b>
-                                        @if ($errors->has('txtckDescription'))
-                                            <div class="error">{{ $errors->first('txtckDescription') }}</div>
-                                        @endif
+        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none">{{ $blog->blog_description }}</textarea>
+
+
+                                            <!-- <textarea rows="5" id="txtckDescription1" name="txtDescription1" class="form-control">{{ $blog->blog_description }}</textarea> -->
+                                        </div>
+                                        <!-- <b><span id="descriptionErr1" class="error"></span></b>
+                                        @if ($errors->has('txtckDescription1'))
+                                            <div class="error">{{ $errors->first('txtckDescription1') }}</div>
+                                        @endif -->
                                     </div>
                                 </div>
-                            </div>
+                            
                             <div class="profile_page_main_section margin-bottom-30">
                                 <div class="profile_main_title_section title_secondary_section">
                                     <h2 class="title">
@@ -152,6 +158,13 @@
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap.min.js') }}"></script>  
 <script src="{{ asset('public/assets/bootstrap/js/bootstrap-tagsinput.min.js') }}"></script> 
 <script src="{{ asset('public/assets/bootstrap/js/jquery.min.js') }}"></script> 
+
+        <!-- Quill library -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <!--Quill custom js-->
+        <script src="{{ asset('public/assets/js/quill-custom.js') }}"></script>
+        <!-- Quill library end-->
+        
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -318,7 +331,7 @@
         videoMaxSize: 500 * 1024 * 1024
       });
 
-    $('form').on('submit', function (e) {
+    /*$('form').on('submit', function (e) {
       if ($('#txtckDescription').froalaEditor('core.isEmpty')) {
         e.preventDefault();
         var error = "Please enter descriprion";
@@ -330,7 +343,7 @@
         $('#descriptionErr').hide();
         return true;
       }
-    });
+    });*/
 
     $("#btn_submit").click(function(){
             $("#frmEditBlog").validate({
@@ -342,9 +355,9 @@
                     smtp_security: {
                         required: true
                     },
-                    txtckDescription:{
+                   /* editor:{
                         required : true
-                    },
+                    },*/
                     txtBlogMetaDescription:{
                         maxlength:170
                     }
@@ -353,7 +366,7 @@
                     txtBlogName: "Please enter blog title",
                     
                     smtp_security: "Please select genre",
-                    txtckDescription : "Please enter descriprion"
+                    /*editor : "Please enter descriprion"*/
                 },
                 highlight: function(element, errorClass) {
                     $(element).removeClass(errorClass);

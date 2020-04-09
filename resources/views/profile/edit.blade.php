@@ -64,17 +64,10 @@
 
                                         <a target="_blank" href="{{ url('blogs/'.$blog->blogid)}}">
                                         <p class="media-content">
-                                            @php echo strip_tags(str_limit($blog->blog_description, 200)) 
-                                            @endphp
+                                        {!! substr($blog->blog_description,0,100) !!}...
                                         </p></a>
-                                        <?php
-                                           /* $genre_name= "";
-                                            if(!empty($blog->blog_genre)){
-                                                $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
-                                            }
-                                            $genre_name = $genre->name;*/
-                                        ?>
-                                        <div class="media-sub-content"><strong>Genre: </strong> {{ $blog->child_genre_name }}</div>
+                                        
+                                        <div class="media-sub-content"><strong>Genre:</strong> {{ $blog->child_genre_name }}</div>
                                     </div>
                                     <div class="media-edit" style="display: none;">
                                         <a href="{{ url('blog-edit/'.$blog->blogid)}}" class="edit" title="Edit">

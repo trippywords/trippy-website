@@ -461,7 +461,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('blog', 'BlogController',['names'=>['store'=>'blog.store']]);
 
-   
+    //quill editor image store
+   Route::post('/post-upload-image','postImageController@store')->name('image.store');
+
 
     Route::get('compose', 'BlogController@create')->name('compose');
 

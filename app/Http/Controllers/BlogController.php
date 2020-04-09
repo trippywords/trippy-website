@@ -52,11 +52,11 @@ class BlogController extends Controller
     //For storing blog into database
     public function store(Request $request)
     {
-      
+      //dd($request);
       request()->validate([
           'txtBlogName' => 'required',
           //'txtBlogHeading' => 'required',
-          'txtckDescription' => 'required',           
+          'content-txtckDescription' => 'required',           
           'blog_genre' => 'required',
           'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',
                
@@ -88,7 +88,7 @@ class BlogController extends Controller
             }
       
       $blog->created_by                = Auth::user()->id;
-      $blog->blog_description          = $request->get('txtckDescription');  
+      $blog->blog_description          = $request->get('content-txtckDescription');  
       $blog->blog_meta_description     = $request->get('txtBlogMetaDescription');
       $blog->blog_image=$blog_image;  
       $blog->blog_keywords             = $request->get('txtBlogKeywords');
@@ -104,7 +104,8 @@ class BlogController extends Controller
       $blog->blog_slug = $val;
       $blog->created_at = date('Y-m-d H:i:s');
       $blog->updated_at = date('Y-m-d H:i:s');
-     
+       
+      //dd($blog);
       $blog->save();
       
       if($request->has('draft_btn')){
@@ -123,6 +124,7 @@ class BlogController extends Controller
 
     public function edit($id, Request $request)
     { 
+      //dd($id);
     
       $genres=ParentGenres::getComposeGenre();
 
@@ -155,7 +157,7 @@ class BlogController extends Controller
         Blog::where('id', '=', $request->txtBlogId)->update(['blog_title' => $request->txtBlogName,
             'blog_heading' => $request->txtBlogName,
             'blog_status'=>$blog_status,
-            'blog_description' => $request->txtDescription,
+            'blog_description' => $request->get('content-txtckDescription'),
             'blog_meta_description' => $request->txtBlogMetaDescription,
             'blog_keywords' => $request->txtBlogKeywords,
             'parent_genre_id' => $request->parent_genre_id,
