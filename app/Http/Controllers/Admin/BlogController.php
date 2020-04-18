@@ -103,6 +103,8 @@ class BlogController extends Controller
         $this->validate($request, 
 
                  ['blog_title'=> 'required',
+
+                 'parent_genre_id'=>'required',
  
                 'blog_image'=> 'required',                
 
@@ -198,7 +200,7 @@ class BlogController extends Controller
 
      * @return \Illuminate\Http\Response
 
-     */
+         */
 
     public function edit($id)
 

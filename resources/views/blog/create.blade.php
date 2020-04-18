@@ -44,6 +44,29 @@
                             </div>
                             @endif
                         </div>
+
+
+
+@if (count($errors) > 0)
+
+  <div class="alert alert-danger">
+
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+
+    <ul>
+
+       @foreach ($errors->all() as $error)
+
+         <li>{{ $error }}</li>
+
+       @endforeach
+
+    </ul>
+
+  </div>
+
+@endif
+
 <form name="frmCreateBlog" id="frmCreateBlog" method="POST" enctype="multipart/form-data" action="{{ route('blog.store') }}">
     @csrf
     <div class="profile_page_main_section margin-bottom-30">
@@ -76,7 +99,11 @@
                 @foreach($genres as $genre)
                 <option value="{{$genre->id}}">{{$genre->parent_name}}</option>
                 @endforeach
+                 @if ($errors->has('parent_genre_id'))
+                        <div class="error">{{ $errors->first('parent_genre_id') }}</div>
+                    @endif
            </select>
+          
         </div>
 
         <div class="form-group">
@@ -96,6 +123,9 @@
         <div class="form-group">
             <strong>Blog Picture:</strong>
                 {!! Form::file('blog_image', array('placeholder' => 'blog image','class' => 'form-control')) !!}
+                 @if ($errors->has('blog_image'))
+                        <div class="error">{{ $errors->first('blog_image') }}</div>
+                    @endif
         </div>
         <!-- Froala Editor Start -->
         <div class="form-group">
@@ -105,7 +135,7 @@
             
             </div>
         </div>
-        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none"></textarea>
+        <textarea id="content-txtckDescription" rows="20" name="content-txtckDescription" class="form-control" style="display: none" ></textarea>
 
 
 
@@ -117,19 +147,11 @@
                             @endif -->
                             <!-- Froala Editor End -->
         </div>
-                        <!-- @if ($errors->any())
-                        <div style="color:red">
-                            <ul>
-                                    @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                    @endforeach
-                            </ul>
-                        </div>
-                         @endif -->
+                        @if ($errors->has('content-txtckDescription'))
+                        <div class="error">{{ $errors->first('content-txtckDescription') }}</div>
+                    @endif
                     </div>
                 </div>
-
-
 
 
                 <div class="profile_page_main_section margin-bottom-30">
@@ -150,7 +172,7 @@
                                 <div class="form-group form-group-info">
 
                                     <input type="text" class="form-control" placeholder="Tags" name="txtBlogKeywords" id="txtBlogKeywords" data-role="tagsinput">
-                                      <!-- <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Meta Keywords are a specific type of meta tag that appear in the HTML code of a Web page and help tell search engines what the topic of the page is. ... The most important thing to keep in mind when selecting or optimizing your meta keywords is to be sure that each keyword accurately reflects the content of your pages."></i> -->
+                                       <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Meta Keywords are a specific type of meta tag that appear in the HTML code of a Web page and help tell search engines what the topic of the page is. ... The most important thing to keep in mind when selecting or optimizing your meta keywords is to be sure that each keyword accurately reflects the content of your pages."></i> 
                                       <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Keywords can be entered as comma separated texts (... , ...)"></i>
                                 </div>
                                 <span id="error_keyword" style="color:red;display: none;">maximum limit keyword 100</span>
@@ -346,8 +368,8 @@
           }
         });*/
 
-        $("#btn_submit").click(function(e){
-            $("#frmCreateBlog").validate({
+        //$("#btn_submit").click(function(e){
+            /*$("#frmCreateBlog").validate({
                 rules: {
                     txtBlogName: {
                         required: true
@@ -372,7 +394,7 @@
                 highlight: function(element, errorClass) {
                     $(element).removeClass(errorClass);
                 }
-            });
+            });*/
             // if ($('#txtckDescription').froalaEditor('core.isEmpty')) {
             //     e.preventDefault();
             //     var error = "Please enter descriprion";
@@ -380,8 +402,8 @@
             //     $('#descriptionErr').show();
             //     return false;
             // }
-        });
-        $("#draft_btn").click(function(e){
+        //});
+       /* $("#draft_btn").click(function(e){
             $("#frmCreateBlog").validate({
                 rules: {
                     txtBlogName: {
@@ -416,7 +438,7 @@
             //     return false;
             // }
         });
-
+*/
         $('[data-toggle="tooltip"]').tooltip();    
         $("#edit_description").click(function(){
             var words = $("#txt_Description").text().match(/\S+/g).length;
