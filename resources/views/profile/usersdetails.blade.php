@@ -1,3 +1,4 @@
+<?php //dd('dbdbdbd');?>
 @extends('layouts.app')
 @section('title',ucfirst($userdetails->first_name)." ".ucfirst($userdetails->last_name))
 @section('meta')

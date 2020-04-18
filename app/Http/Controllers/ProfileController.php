@@ -1024,8 +1024,50 @@ class ProfileController extends Controller {
 
 	}
 
-	public function userProfile($username,Request $request){
-		$userdetails=User::where("name","=",$username)->where('is_verified',1)->where('is_delete','0')->first();
+	public function userProfile($userId,Request $request){
+		
+		//dd($username);
+		
+		$userdetails=DB::select("select id authorId,name authorName,profile_image authorImage,description authorSummary from users where is_verified='1' and is_delete='0' and id=$userId");
+		
+		foreach ($userdetails as $value) {
+
+			$blogCount=DB::select("select count(id) totalBlogs from blogs where created_by=$userId and blog_status=1 and is_deleted='0'");
+			foreach ($blogCount as $key) {
+				$value->totalBlogs=$key->totalBlogs;
+				$totalFollowrs=DB::select("select count('follower_id') as Followers from user_following
+					where user_id=$userId");
+				foreach ($totalFollowrs as $foll) {
+					$value->totalFollowrs=$foll->Followers;
+					$totalConnections=DB::select("select count('connect_user_id') as connections from user_connection
+					where user_id=$userId");
+					foreach ($totalConnections as $conn) {
+						$value->totalConnections=$conn->connections;
+					}
+					
+				}
+				
+			}
+			$genreResult=DB::select("select distinct p.id parentGenreId,p.parent_name parentGenrName from parent_genres p,user_genre_preferences up where p.id=up.parent_preference_id and p.is_published=1 and p.is_deleted=0
+				and up.user_id=$userId and up.is_deleted=0");
+
+			$blogResult=DB::select("select b.id blogId,b.blog_title title,b.blog_image blogImg,b.blog_description description,b.created_at createdAt,c.id childGenreId,c.child_genre_name childGenre
+					from blogs b,child_genres c 
+					where b.blog_status=1 and b.created_by=$userId and c.id=b.blog_genre and  b.is_deleted='0' and c.is_published=1 and c.is_deleted=0");
+
+			$value->authorParentGenres=$genreResult;
+			$value->authorBlogs=$blogResult;
+			
+
+		}
+		$finalResult[]=$value;
+		
+		$authorDetail = json_encode(['authorDetail' => $finalResult],JSON_PRETTY_PRINT);
+		echo "<pre>";
+		print_r($authorDetail);
+
+		/*
+		//$userdetails=User::select('id','name','description','profile_image','')->where("id","=",$username)->where('is_verified',1)->where('is_delete','0')->first();
 		if (empty($userdetails)) {
 			return Redirect::back();
 		}
@@ -1058,8 +1100,8 @@ class ProfileController extends Controller {
 
 			 $blogdetails=[];
 
-		 }
-		return view('profile.usersdetails',compact('userdetails','blogdetails'));
+		 }*/
+		//return view('profile.usersdetails',compact('userdetails','blogdetails'));
 
 	}
 

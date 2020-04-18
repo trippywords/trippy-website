@@ -16,7 +16,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'log'),//'smtp',//env('MAIL_DRIVER', 'smtp')sendmail
+    //'driver' => env('MAIL_DRIVER', 'log'),//'smtp',//env('MAIL_DRIVER', 'smtp')sendmail
+    'driver'=>'sendmail',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +30,8 @@ return [
     |
     */
 
-    'host' => 'smtp.gmail.com',//env('MAIL_HOST', 'smtp.mailgun.org')
+    //'host' => 'smtp.gmail.com',//env('MAIL_HOST', 'smtp.mailgun.org')
+    'host'=>'smtp.mailgun.org',
 
     /*
     |--------------------------------------------------------------------------
@@ -57,9 +59,12 @@ return [
     //env('MAIL_FROM_ADDRESS', 'hello@example.com')
     //env('MAIL_FROM_NAME', 'Example')
     'from' => [
-        'address' => 'c.kanholkar@gmail.com',
+        'address' => 'info@trippywords.com',
         'name' =>'admin' ,
     ],
+
+    //'address' => 'c.kanholkar@gmail.com',
+     //   'name' =>'admin' ,
     //'address' => 'info@trippywords.com',
       //  'name' =>'admin' ,
 
@@ -87,9 +92,9 @@ return [
     |
     */
 
-    'username' => 'c.kanholkar@gmail.com',//env('MAIL_USERNAME')info@trippywords.com
+    'username' => 'info@trippywords.com',//env('MAIL_USERNAME')info@trippywords.com
 
-    'password' => '01121989chita',//env('MAIL_PASSWORD'))9tO6EGs$xmC
+    'password' => 'Project123#',//env('MAIL_PASSWORD'))9tO6EGs$xmC
 
     /*
     |--------------------------------------------------------------------------

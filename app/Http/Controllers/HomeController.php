@@ -776,7 +776,7 @@ class HomeController extends Controller {
 		/*echo "<pre>";
 		print_r($featuredBlogsDetails);
 		*/
-		
+		//dd();
 		return view('home',compact('featuredBlogs','featuredBlogsDetails'));
 	}
 
