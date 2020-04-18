@@ -53,16 +53,19 @@ class BlogController extends Controller
     public function store(Request $request)
     {
       //dd($request);
-      request()->validate([
-          'txtBlogName' => 'required',
+       $this->validate($request, 
+        $rules = [
+          'txtBlogName' => 'required|min:15',
           //'txtBlogHeading' => 'required',
-          'content-txtckDescription' => 'required',           
+          'content-txtckDescription' => 'required',
+          'parent_genre_id'=>'required',           
           'blog_genre' => 'required',
-          'blog_image'=> 'required|image|mimes:jpeg,png,jpg,gif',
+          'blog_image'=> 'image|mimes:jpeg,jpg,png,gif',
                
-          'txtBlogKeywords' => 'required',
+          /*'txtBlogKeywords' => 'required',*/
           
       ]);
+
       $blog = new Blog();
       $blog->blog_title   = $request->get('txtBlogName');  
       //$blog->blog_heading = $request->get('txtBlogName');
