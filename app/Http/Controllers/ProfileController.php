@@ -1026,8 +1026,6 @@ class ProfileController extends Controller {
 
 	public function userProfile($userId,Request $request){
 		
-		//dd($username);
-		
 		$userdetails=DB::select("select id authorId,name authorName,profile_image authorImage,description authorSummary from users where is_verified='1' and is_delete='0' and id=$userId");
 		
 		foreach ($userdetails as $value) {
@@ -1061,10 +1059,12 @@ class ProfileController extends Controller {
 
 		}
 		$finalResult[]=$value;
-		
+
 		$authorDetail = json_encode(['authorDetail' => $finalResult],JSON_PRETTY_PRINT);
-		echo "<pre>";
-		print_r($authorDetail);
+		/*echo "<pre>";
+		print_r($authorDetail);*/
+
+		return view('profile.author_detail',compact('authorDetail'));
 
 		/*
 		//$userdetails=User::select('id','name','description','profile_image','')->where("id","=",$username)->where('is_verified',1)->where('is_delete','0')->first();
