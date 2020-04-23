@@ -153,7 +153,8 @@ Route::post('disconnect-tw', 'ProfileController@disconnectTW')->name('disconnect
 
 Route::get('login/twitter','ProfileController@twitterLogin')->name('twitterlogin');
 
-Route::get('profile/{username}','ProfileController@userProfile')->name('userprofile');
+Route::get('userprofile/{userId}','ProfileController@userProfile')->name('userprofile');
+
 //old blog detail page(opens with slug)
 Route::get('blog/{slug}', 'BlogController@blogDetailpage');
 
