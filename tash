@@ -1,0 +1,22 @@
+[1mdiff --git a/public/assets/css/main.css b/public/assets/css/main.css[m
+[1mindex cbce1fb9..82134938 100644[m
+[1m--- a/public/assets/css/main.css[m
+[1m+++ b/public/assets/css/main.css[m
+[36m@@ -4498,7 +4498,7 @@[m
+ [m
+ 	    display: inline-block;[m
+ [m
+[31m-	    padding: 10px;[m
+[32m+[m	[32m    padding: 9px;[m
+ [m
+ 	    text-align: center;[m
+ [m
+[1mdiff --git a/storage/framework/sessions/d8kH2q5zEW9gJxcbkKmUCo44LxkM5Lys4DKVEZrY b/storage/framework/sessions/d8kH2q5zEW9gJxcbkKmUCo44LxkM5Lys4DKVEZrY[m
+[1mindex ad3a5085..a11e52fd 100644[m
+[1m--- a/storage/framework/sessions/d8kH2q5zEW9gJxcbkKmUCo44LxkM5Lys4DKVEZrY[m
+[1m+++ b/storage/framework/sessions/d8kH2q5zEW9gJxcbkKmUCo44LxkM5Lys4DKVEZrY[m
+[36m@@ -1 +1 @@[m
+[31m-a:7:{s:21:"facebook_redirect_url";s:9:"profile/#";s:6:"_token";s:40:"pgDoFWaogvioIylPoq1CUeyWWkexPlEFW0JHal9i";s:3:"url";a:1:{s:8:"intended";s:43:"https://www.localhost/trippy-website/people";}s:9:"_previous";a:1:{s:3:"url";s:43:"https://www.localhost/trippy-website/people";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:50:"login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d";i:11;s:14:"is_first_login";i:0;}[m
+\ No newline at end of file[m
+[32m+[m[32ma:7:{s:21:"facebook_redirect_url";s:8:"social/#";s:6:"_token";s:40:"pgDoFWaogvioIylPoq1CUeyWWkexPlEFW0JHal9i";s:3:"url";a:1:{s:8:"intended";s:43:"https://www.localhost/trippy-website/people";}s:9:"_previous";a:1:{s:3:"url";s:48:"https://www.localhost/trippy-website/connections";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:50:"login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d";i:11;s:14:"is_first_login";i:0;}[m
+\ No newline at end of file[m
