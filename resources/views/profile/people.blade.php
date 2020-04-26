@@ -3,100 +3,91 @@
 @section('title',"Authors")
 
 @section('content')
-<section <?php if(count($ouserdetails)<=0) ?> <?php if(count($ouserdetails)<=6) ?> >
-
+<section <?php if(count($ouserdetails)<=0) ?> <?php if(count($ouserdetails)<=6) ?>>
     <div class="profile_page block_page preference-no-person margin-bottom-30">
-
         <div class="container">
-
             <form method="post" id="searching_people" class="profile_search" action="" style="width: 264px;
 margin-left: 877px;">
-
                 @csrf
-
                 <div class="input-group search">
-
-                    <input type="text" name="title" id="search_people" class="form-control spacebar searchpeople" value="" placeholder="Search people">
-
+                    <input type="text" name="title" id="search_people" class="form-control spacebar searchpeople"
+                        value="" placeholder="Search people">
                     <div class="input-group-append">
-
                         <button type="button" class="btn-search btn-primary" id="btn_search_people">
-
                             <i class="fa fa-search" aria-hidden="true"></i>
-
                         </button>
-
                     </div>
-
                 </div>
-
             </form>
 
             <div class="row" id="serach_result">
 
                 @if(count($ouserdetails)>0)
 
-                    @foreach($ouserdetails as $userdetails)
+                @foreach($ouserdetails as $userdetails)
 
-                    <div class="col-lg-4 col-md-6" id="s1Result">
+                <div class="col-lg-4 col-md-6" id="s1Result">
 
-                        <div class="profile_page_side_section">
+                    <div class="profile_page_side_section">
 
-                            <div class="user_profile block_user_profile margin-bottom-30">
+                        <div class="user_profile block_user_profile margin-bottom-30">
 
-                                <div class="user_image_section">                                    
+                            <div class="user_image_section">
 
-                                    <div class="profile_section media align-items-center">
+                                <div class="profile_section media align-items-center">
 
-                                        <div class="profile_pic media-left">
+                                    <div class="profile_pic media-left">
 
-                                            <?php
+                                        <?php
 
                                             if (isset($userdetails->profile_image) && $userdetails->profile_image != null && file_exists(public_path() . '/user_img/' . $userdetails->profile_image)) {
 
-                                                ?>                                                                                                                    
+                                                ?>
 
-                                                <img src="{{ asset("/public/user_img/".$userdetails->profile_image) }}" alt="Profile">
+                                        <img src="{{ asset("/public/user_img/".$userdetails->profile_image) }}"
+                                            alt="Profile">
 
-                                                <?php
+                                        <?php
 
                                             } else {
 
                                                 ?>
 
-                                                <img src="{{ asset('/') }}public/assets/image/profile.png" alt="Profile">
+                                        <img src="{{ asset('/') }}public/assets/image/profile.png" alt="Profile">
 
-                                                <?php
+                                        <?php
 
                                             }
 
                                             ?>
 
-                                        </div>
+                                    </div>
 
-                                        <div class="media-body user_info">
+                                    <div class="media-body user_info">
 
-                                            
 
-                                                <?php
+
+                                        <?php
 
                                                 if ($userdetails != null) {
 
-                                                    ?>   
+                                                    ?>
 
-                                            <a href="{{ url("profile/".$userdetails->name) }}" class="name">
+                                        <a href="{{ url("profile/".$userdetails->name) }}" class="name">
 
-                                                    {{ ucfirst($userdetails->first_name)." ".ucfirst($userdetails->last_name) }}
+                                            {{ ucfirst($userdetails->first_name)." ".ucfirst($userdetails->last_name) }}
 
-                                             </a>       
+                                        </a>
 
-                                                    <div class="designation">Writer</div>
+                                        <div class="designation">Writer</div>
 
-                                                    <div class="followers"><span class="number"><?php echo getFollowercount($userdetails->id); ?></span> Followers</div>
+                                        <div class="followers"><span
+                                                class="number"><?php echo getFollowercount($userdetails->id); ?></span>
+                                            Followers</div>
 
 
 
-                                                    <?php
+                                        <?php
 
                                                 } else {
 
@@ -106,41 +97,43 @@ margin-left: 877px;">
 
                                                 ?>
 
-                                            
 
 
 
-                                        </div>
-
-                                    </div>
-
-                                    <div class="social_icon">
-
-                                        <div class="text-right">
-
-                                            <?php if ($userdetails != null && $userdetails->social_icon_status == '1') { ?>
-
-                                                <?php if ($userdetails != null && $userdetails->facebook_id != null) { ?>
-
-                                                    <a target="_blank" href="<?php echo $userdetails->facebook_profile_url ?>"><i class="fa fa-facebook" style="font-size: 20px;color:white"></i></a>&nbsp;&nbsp;
-
-                                                <?php } ?>
-                                            <?php } ?>
-
-                                        </div>
 
                                     </div>
 
                                 </div>
 
-                                
+                                <div class="social_icon">
 
-                               <div class="user_profile_button">                               
+                                    <div class="text-right">
 
-                                    <!-- <a href="{{URL::to('connect',array('id'=>$userdetails->id))}}" title="Connect" class="button connect"> -->
-                                    <?php $connection = getConnection(Auth::user()->id,$userdetails->id); ?>
+                                        <?php if ($userdetails != null && $userdetails->social_icon_status == '1') { ?>
 
-                                    <?php if(checkConnectionStatus(Auth::user()->id,$userdetails->id)==0 && checkConnectionReqStatus(Auth::user()->id,$userdetails->id)==0){ 
+                                        <?php if ($userdetails != null && $userdetails->facebook_id != null) { ?>
+
+                                        <a target="_blank" href="<?php echo $userdetails->facebook_profile_url ?>"><i
+                                                class="fa fa-facebook"
+                                                style="font-size: 20px;color:white"></i></a>&nbsp;&nbsp;
+
+                                        <?php } ?>
+                                        <?php } ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="user_profile_button">
+
+                                <!-- <a href="{{URL::to('connect',array('id'=>$userdetails->id))}}" title="Connect" class="button connect"> -->
+                                <?php $connection = getConnection(Auth::user()->id,$userdetails->id); ?>
+
+                                <?php if(checkConnectionStatus(Auth::user()->id,$userdetails->id)==0 && checkConnectionReqStatus(Auth::user()->id,$userdetails->id)==0){ 
                                          $title = "Connected";
                                          $data_title = "Disconnect";
                                     }else{ if(checkConnectionStatus(Auth::user()->id,$userdetails->id)==1){
@@ -153,41 +146,51 @@ margin-left: 877px;">
                                         $title="Connect" ;
                                         $data_title="Connect" ;
                                     } } ?>
-                                    
-                                    <a  data-val="{{$userdetails->id}}" data-title="{{$data_title}}" id="userdetails_id" class="button connect button_connect" title="<?php echo $title; ?>"  <?php if (isset($connection->is_block) && $connection->is_block==1): ?> disabled="disabled" <?php endif ?> >
+
+                                <a data-val="{{$userdetails->id}}" data-title="{{$data_title}}" id="userdetails_id"
+                                    class="button connect button_connect" title="<?php echo $title; ?>"
+                                    <?php if (isset($connection->is_block) && $connection->is_block==1): ?>
+                                    disabled="disabled" <?php endif ?>>
 
                                     <?php if(checkConnectionStatus(Auth::user()->id,$userdetails->id)==0 && checkConnectionReqStatus(Auth::user()->id,$userdetails->id)==0){ echo "Connected"; }else{ if(checkConnectionStatus(Auth::user()->id,$userdetails->id)==1){ echo "Cancel Request"; }elseif (checkConnectionStatus($userdetails->id,Auth::user()->id)==1) { echo "Accept Request"; }else { echo "Connect";} }?>
-                                    </a>
+                                </a>
 
-                                    <!-- <a href="{{URL::to('follow',array('id'=>$userdetails->id))}}" title="Follow" class="button follow"> -->
-                                    <?php if(checkFollowerStatus(Auth::user()->id,$userdetails->id)==0){ ?> 
-                                        <a data-val="{{$userdetails->id}}" id="userdetails_id" class="button follow button_unfollow" title="Followed" <?php if (isset($connection->is_block) && $connection->is_block==1): ?> disabled="disabled" <?php endif ?>>
+                                <!-- <a href="{{URL::to('follow',array('id'=>$userdetails->id))}}" title="Follow" class="button follow"> -->
+                                <?php if(checkFollowerStatus(Auth::user()->id,$userdetails->id)==0){ ?>
+                                <a data-val="{{$userdetails->id}}" id="userdetails_id"
+                                    class="button follow button_unfollow" title="Followed"
+                                    <?php if (isset($connection->is_block) && $connection->is_block==1): ?>
+                                    disabled="disabled" <?php endif ?>>
                                     <?php }else{ ?>
-                                        <a data-val="{{$userdetails->id}}" id="userdetails_id" class="button follow button_follow" title="Follow" <?php if (isset($connection->is_block) && $connection->is_block==1): ?> disabled="disabled" <?php endif ?>>
-                                    <?php } ?>
+                                    <a data-val="{{$userdetails->id}}" id="userdetails_id"
+                                        class="button follow button_follow" title="Follow"
+                                        <?php if (isset($connection->is_block) && $connection->is_block==1): ?>
+                                        disabled="disabled" <?php endif ?>>
+                                        <?php } ?>
 
-                                    <?php $checkFollowerStatus = checkFollowerStatus(Auth::user()->id,$userdetails->id);
+                                        <?php $checkFollowerStatus = checkFollowerStatus(Auth::user()->id,$userdetails->id);
                                  if(isset($checkFollowerStatus) && intval($checkFollowerStatus)==0){ echo "Followed"; }else{ echo "Follow"; }?>
 
-                                    </a>                                 
-
-                                </div>
-
-                                   
+                                    </a>
 
                             </div>
 
+
+
                         </div>
 
-                    </div>                
+                    </div>
 
-                    @endforeach
+                </div>
+
+                @endforeach
 
                 @else
 
                 <div class="profile_page_main_section">
 
-                    <div class="profile_main_section no_any_content d-flex align-items-center justify-content-center" style="background-color:#fff !important;">
+                    <div class="profile_main_section no_any_content d-flex align-items-center justify-content-center"
+                        style="background-color:#fff !important;">
 
                         <p class="content_text">Please select preferences to view peoples</p>
 
@@ -209,8 +212,7 @@ margin-left: 877px;">
 
 
 <script type="text/javascript">
-
-$(document).ready(function () {
+    $(document).ready(function () {
 
     $('body').on('click','.button_follow',function(){
         button_follow($(this).attr('data-val'));
@@ -421,4 +423,4 @@ $(document).ready(function () {
 
 </script>
 
-@endsection        
+@endsection
