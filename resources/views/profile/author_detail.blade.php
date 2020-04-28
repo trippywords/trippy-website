@@ -40,7 +40,7 @@ dd($authorDetail); */
                   <img src="../public/assets/user-profile/header.jpg" alt="pic_bg" />
                 </div>
                 <div class="avatar">
-                  <img src="{{$author['authorImage']}}" alt="" />
+                  <img src="{{ asset("/public/blog_img/".$author['authorImage']) }}" alt="" />
                 </div>
                 <div class="info">
                   <div class="title">{{$author['authorName']}}</div>
@@ -71,31 +71,27 @@ dd($authorDetail); */
           <a href="#" class="">Business</a>
           <h2>Blogs</h2>
           <!-- Blog Post -->
+          @foreach($authorBlogs as $blogs)
           <div class="card mb-4">
-            <img class="card-img-top" src="../public/assets/user-profile/nature.jpg" alt="Card image cap" />
+            <img class="card-img-top" src="{{ asset("/public/blog_img/".$blogs['blogImg']) }}" alt="Card image cap" />
             <div class="card-body">
               <div class="title_sub">
                 <div class="row">
                   <div class="col">
-                    <h6 class="card-title">Nature</h6>
+                    <h6 class="card-title">{{$blogs['title']}}</h6>
                   </div>
                   <div class="col">
-                    <span>Child Genre Title</span>
+                    <span>{{$blogs['childGenre']}}</span>
                   </div>
                 </div>
               </div>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a
-                laboriosam. Dicta expedita corporis animi vero voluptate
-                voluptatibus possimus, veniam magni quis!
-              </p>
+              <p class="card-text">{{$blogs['description']}}</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               <div class="row">
                 <div class="col-md-6">
-                  Posted on April 18, 2020 by
+                  Posted on {{$blogs['createdAt']}}, by
                   <a href="#">Satya Prasad</a>
                 </div>
                 <div class="col-md-6 d-flex justify-content-center">
@@ -120,15 +116,11 @@ dd($authorDetail); */
               </div>
             </div>
           </div>
+          @endforeach
+
         </div>
       </div>
     </div>
   </div>
 </section>
 @endsection
-
-{{-- @foreach($authorBlogs as $blog)
-<div>
-  {{$blog['title']}}
-</div>
-@endforeach --}}
