@@ -259,37 +259,54 @@ endif;
 						<div class="tab">
 							<div class="tablinks active" onclick="openCity(event, 'who_are_we')" id="defaultOpen">Who Are We?</div>
 							<div class="tablinks" onclick="openCity(event, 'what_we_do')">What we do?</div>
-							<div class="tablinks" onclick="openCity(event, 'how_it_works')">How It Works?</div>
+							<div class="tablinks" onclick="openCity(event, 'how_it_works')">How Does It Works?</div>
 						</div>
 						<div id="who_are_we" class="tabcontent">
 							<p class="desc">
+								We are the mind who not only believe in providing the opportunity to each of the content creators but also have done work to make available a platform for a creator to showcase their creativity to the outer world. We understand and strongly believe that “Content is the King”, therefore we first identified and then created a Customized and Structured platform where a creator gets the promotion of their quality content without any fear. This idea is our KICK and has confidence in that this will become the KICK for thousands of people all around the globe.
+							</p>
+							<!-- <p class="desc">
 								We are Trippy Guys trying to get high on creativity.
 								We're passionate about marketing and are here to help the modern and creative content writers.
 								We strongly believe that 'Content is the King'.
 								We realised that there is a need for a customised and structured platform where people can promote their
 								quality content.
 								This idea gave us the kick and we are serious about it.
-							</p>
+							</p> -->
 						</div>
 						<div id="what_we_do" class="tabcontent">
 							<p class="desc">
+								We live in the present and are preparing ourselves for the future, where a shared economy is the Key. We are building a smooth and unchaste business platform for quality content creators where they can find a business opportunity. To do so, we take the groundwork in our hands to promote their work through different marketing channels to provide them exposure which they have never been to. The whole breakthrough idea of ours is to let content creator keep working on their creativity by saving their time.
+							</p>
+							<!-- <p class="desc">
 								We strongly believe in shared economy and are on the track of building a potential business channel for
 								quality content
 								writers through our platform. We help the content writers in finding good opportunities.
 								We also promote your work through different marketing channels and provide the required exposure to get
 								new projects and
 								develop business for you.
-							</p>
+							</p> -->
 						</div>
 						<div id="how_it_works" class="tabcontent" style="display: none;">
 							<p class="desc">
+								It works like you haven’t experienced anything like this before in just a few steps.  
+
+								Content Creator signs up on our platform and creates a profile.  
+
+								Voila, the creator is ready to write your first content. Isn’t that easy! 
+
+								To get going and get work, the creator needs to write a minimum of 1 blog (minimum 500 words) per week and your work is done.  
+
+								We will promote your work and circulate using our multichannel marketing efforts, where all the credits will directly accumulate towards content creators not to us because we are ONE TEAM after all.
+							</p>
+							<!-- <p class="desc">
 								A content writer signs up with Trippy Words and posts minimum 1 blog (minimum 600 words) of any genre
 								they like every month.
 								This content would be checked for originality and plagiarism and once approved will feature on the
 								respective genre.
 								These blogs will be circulated and promoted on all social media and the credits will belong to the
 								content creator.
-							</p>
+							</p> -->
 						</div>
 					</div>
 				</div>

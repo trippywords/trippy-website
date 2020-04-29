@@ -1051,7 +1051,7 @@ class ProfileController extends Controller {
 
 			$blogResult=DB::select("select b.id blogId,b.blog_title title,b.blog_image blogImg,b.blog_description description,b.created_at createdAt,c.id childGenreId,c.child_genre_name childGenre
 					from blogs b,child_genres c 
-					where b.blog_status=1 and b.created_by=$userId and c.id=b.blog_genre and  b.is_deleted='0' and c.is_published=1 and c.is_deleted=0");
+					where b.blog_status=1 and b.created_by=$userId and c.id=b.blog_genre and  b.is_deleted='0' and c.is_published=1 and c.is_deleted=0 order by b.id DESC");
 
 			$value->authorParentGenres=$genreResult;
 			$value->authorBlogs=$blogResult;
