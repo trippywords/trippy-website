@@ -3339,8 +3339,8 @@ textarea {
 }
 
 .profile_page .profile_page_main_section .profile_main_section .media {
+  display: block;
   padding: 20px 25px;
-
   align-items: center;
 }
 
@@ -3393,7 +3393,10 @@ textarea {
   .profile_page_main_section
   .profile_main_section
   .media
-  .media-left,
+  .media-left {
+  width: 200vw;
+}
+
 .profile_page
   .profile_page_main_section
   .profile_main_section
@@ -3529,6 +3532,25 @@ textarea {
     a.edit {
     margin-bottom: 0px;
   }
+
+  .profile_page
+    .profile_page_main_section
+    .profile_main_section
+    .media
+    .media-left {
+    width: 200vw;
+    display: table-header-group;
+  }
+
+  .profile_page
+    .profile_page_main_section
+    .profile_main_section
+    .media
+    .media-left
+    img {
+    margin-bottom: 2vh;
+  }
+
   .profile_page
     .profile_page_main_section
     .profile_main_section
