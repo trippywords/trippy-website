@@ -85,8 +85,8 @@ dd($authorDetail); */
                   </div>
                 </div>
               </div>
-              <p class="card-text">{{$blogs['description']}}</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <p class="card-text">{!! str_limit($blogs['description'], $limit =200, $end = '...'); !!}</p>
+              <a href="{{ url('blogs/'.$blogs['blogId']) }}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               <div class="row">
