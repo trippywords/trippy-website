@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title','Search result for '.$blogTitle)
 @section('content')
@@ -25,25 +26,29 @@
 								Edit
 							</a> -->
 						</div>
+						<?php
+						//dd($blogs);
+						?>
 			   			<div class="profile_main_section no-padding" id="searced_blogs">
 							@if(count($blogs) > 0)
 							@foreach ($blogs as $blog)
+
 							<div class="media" data-val="<?php echo $blog['id']; ?>">
 								<div class="media-left">
 									@if(isset($blog->blog_image) && $blog->blog_image != null && file_exists(public_path() . '/blog_img/' . $blog->blog_image))
-									<a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/{{ $blog->blog_image }}" target="_blank" class="media-object"></a>
+									<a href="{{ url('blogs/'.$blog->id) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/{{ $blog->blog_image }}" target="_blank" class="media-object"></a>
 									@else
-									<a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
+									<a href="{{ url('blogs/'.$blog->id) }}" target="_blank"><img src="{{ asset('/') }}public/blog_img/no_img.jpg" class="media-object"></a>
 									@endif
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"><a href="{{ url('blog/'.$blog->blog_slug) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
+									<h4 class="media-heading"><a href="{{ url('blogs/'.$blog->id) }}" target="_blank">{{ $blog->blog_title }}</a></h4>
 									<p class="media-content">@php echo strip_tags(str_limit($blog->blog_description, 200)) @endphp</p>
 									<?php
 	                                    $genre_name= "";
 	                                    if(!empty($blog->blog_genre)){
-	                                        $genre = DB::table('genres')->where('id',$blog->blog_genre)->first();
-	                                        $genre_name = $genre->name;
+	                                        $genre = DB::table('child_genres')->where('id',$blog->blog_genre)->first();
+	                                        $genre_name = $genre->child_genre_name;
 	                                    }
 	                                    
                                     ?>
