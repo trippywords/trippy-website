@@ -464,16 +464,23 @@ $blog_details=DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b
     
 
     /*Search Blogs by Title*/
-    public function searchBlog(Request $request){
+   public function searchBlog(Request $request){
       $blogTitle = $request->title;
 
-      $blogs = Blog::join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_deleted','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
+      $blogs = Blog::select('blogs.id','blogs.blog_genre','blogs.blog_image','blogs.blog_title','blogs.blog_description')->join('users','blogs.created_by','=','users.id')->where('blogs.blog_status','=',1)->where('blogs.is_deleted','=','0')->where('users.is_verified','=',1)->where('users.is_delete','=','0')
         ->where(function($query) use ($blogTitle) {
           $query->where('blogs.blog_title', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_description', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_meta_description', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_keywords', 'LIKE', '%'.$blogTitle.'%');
       })->paginate(5);
+
+      /*$blogs = DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b.blog_title blogTitle,b.blog_image blogImage,b.blog_description blogDescription,b.blog_keywords blogTags,u.id authorId,u.name,u.description aurthorSummary 
+        from blogs b,users u,child_genres g
+        where b.id=$id
+        and b.blog_genre=g.id
+        and b.created_by=u.id 
+  ");*/
 
       // $blogs = Blog::where('blog_title','LIKE','%'.$blogTitle.'%')
       //         ->where('is_delete','=','0')
@@ -488,12 +495,16 @@ $blog_details=DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b
               ->orWhere('blogs.blog_meta_description', 'LIKE', '%'.$blogTitle.'%')
               ->orWhere('blogs.blog_keywords', 'LIKE', '%'.$blogTitle.'%');
       })->count();
+
+        //dd($blogs);
+
       if ($request->ajax()) {
         $view = view('search_more', compact('blogs'))->render();
         return response()->json(['html' => $view]);
       } 
       return view('search_result',compact('blogs','blogTitle','searchCount'));
     }
+
 
 
     /*start*/
