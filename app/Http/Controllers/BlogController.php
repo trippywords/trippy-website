@@ -475,13 +475,6 @@ $blog_details=DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b
               ->orWhere('blogs.blog_keywords', 'LIKE', '%'.$blogTitle.'%');
       })->paginate(5);
 
-      /*$blogs = DB::select("select b.id blogId,g.child_genre_name blogChildGenre,b.blog_title blogTitle,b.blog_image blogImage,b.blog_description blogDescription,b.blog_keywords blogTags,u.id authorId,u.name,u.description aurthorSummary 
-        from blogs b,users u,child_genres g
-        where b.id=$id
-        and b.blog_genre=g.id
-        and b.created_by=u.id 
-  ");*/
-
       // $blogs = Blog::where('blog_title','LIKE','%'.$blogTitle.'%')
       //         ->where('is_delete','=','0')
       //         ->where('blog_status','=','1')
